@@ -1,4 +1,4 @@
-DROP DATABASE IF EXISTS eduexchange
+DROP DATABASE IF EXISTS eduexchange;
 
 CREATE DATABASE eduexchange;
 
@@ -7,12 +7,12 @@ USE eduexchange;
 CREATE TABLE users (
     firstname VARCHAR(20) NOT NULL, 
     lastname VARCHAR(20) NOT NULL, 
-    email VARCHAR(40) NOT NULL, 
-    phone VARCHAR(14) NOT NULL, 
+    email VARCHAR(40) NOT NULL UNIQUE, 
+    phone VARCHAR(14) NOT NULL UNIQUE, 
     pass CHAR(64) NOT NULL, 
     avatar BLOB, 
     rating INTEGER,
-    userID INTEGER NOT NULL UNIQUE,
+    userID INTEGER NOT NULL UNIQUE AUTO_INCREMENT,
     PRIMARY KEY (userID)
 );
 
