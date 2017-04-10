@@ -7,6 +7,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const core_1 = require("@angular/core");
+const core_2 = require("@angular/core");
 let LoginComponent = class LoginComponent {
 };
 LoginComponent = __decorate([
@@ -14,6 +15,7 @@ LoginComponent = __decorate([
         selector: 'login',
         templateUrl: './app/login/login.component.html',
         styleUrls: ['./app/login/login.component.css'],
+        encapsulation: core_2.ViewEncapsulation.None
     })
 ], LoginComponent);
 exports.LoginComponent = LoginComponent;
