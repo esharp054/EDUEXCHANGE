@@ -5,6 +5,7 @@ import { RouterModule }   from '@angular/router';
 
 import { AppComponent }   from './app.component';
 import { LoginComponent }   from './login/login.component';
+import { MainComponent }   from './main-page/main-page.component';
 // import { AccountListComponent }   from './account-list/account-list.component';
 // import { AccountEditorComponent }   from './account-editor/account-editor.component';
 // import { UserRepository } from './user-repository';
@@ -13,11 +14,11 @@ import { LoginComponent }   from './login/login.component';
 var routes = [
   {
     path: '',
-    component: LoginComponent
+    component: MainComponent
   },
   // {
-  //   path: 'accounts',
-  //   component: AccountListComponent
+  //   path: '',
+  //   component: MainComponent
   // },
   // {
   //   path: 'accounts/:userId',
@@ -26,7 +27,7 @@ var routes = [
 ];
 
 @NgModule({
-  imports:      [ 
+  imports:      [
     BrowserModule,
     FormsModule,
     RouterModule.forRoot(routes)
@@ -34,6 +35,7 @@ var routes = [
   declarations: [
     AppComponent,
     LoginComponent,
+    MainComponent,
     // AccountListComponent,
     // AccountEditorComponent
   ],
