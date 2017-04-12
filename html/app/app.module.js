@@ -12,13 +12,14 @@ const forms_1 = require("@angular/forms");
 const router_1 = require("@angular/router");
 const app_component_1 = require("./app.component");
 const login_component_1 = require("./login/login.component");
+const main_page_component_1 = require("./main-page/main-page.component");
 // import { AccountListComponent }   from './account-list/account-list.component';
 // import { AccountEditorComponent }   from './account-editor/account-editor.component';
 // import { UserRepository } from './user-repository';
 var routes = [
     {
         path: '',
-        component: login_component_1.LoginComponent
+        component: main_page_component_1.MainComponent
     },
 ];
 let AppModule = class AppModule {
@@ -33,6 +34,7 @@ AppModule = __decorate([
         declarations: [
             app_component_1.AppComponent,
             login_component_1.LoginComponent,
+            main_page_component_1.MainComponent,
         ],
         bootstrap: [app_component_1.AppComponent],
     })

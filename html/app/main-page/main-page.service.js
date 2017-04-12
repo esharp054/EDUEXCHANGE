@@ -7,16 +7,10 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const core_1 = require("@angular/core");
-const core_2 = require("@angular/core");
-let MainComponent = class MainComponent {
+let MainService = class MainService {
 };
-MainComponent = __decorate([
-    core_1.Component({
-        selector: 'main-page',
-        templateUrl: './app/main-page/main-page.component.html',
-        styleUrls: ['./app/main-page/main-page.component.css'],
-        encapsulation: core_2.ViewEncapsulation.None
-    })
-], MainComponent);
-exports.MainComponent = MainComponent;
-//# sourceMappingURL=main-page.component.js.map
+MainService = __decorate([
+    core_1.Injectable()
+], MainService);
+exports.MainService = MainService;
+//# sourceMappingURL=main-page.service.js.map

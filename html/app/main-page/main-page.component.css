@@ -1,7 +1,16 @@
 body {
-	/* This image will be displayed fullscreen */
-	background:url('./img/login_bg.jpeg') no-repeat center center;
+    background:url('./img/login_bg.jpeg') no-repeat center center;
 	min-height:100%;
 	background-size:cover;
+}
 
+#logo {
+    max-width: 600px;
+    height: 100px;
+}
+
+.navbar {
+   background-color: transparent;
+   background: transparent;
+   border-color: transparent;
 }
