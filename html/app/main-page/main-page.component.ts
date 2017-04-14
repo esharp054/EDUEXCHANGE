@@ -6,9 +6,14 @@ import { ViewEncapsulation } from '@angular/core';
   selector: 'main-page',
   templateUrl: './app/main-page/main-page.component.html',
   styleUrls: [ './app/main-page/main-page.component.css' ],
+  providers: [MainService],
   encapsulation: ViewEncapsulation.None
 })
 
 export class MainComponent {
+    items: any;
 
+    constructor(mainServce: MainService){
+        this.items = mainServce.items;
+    }
 }

@@ -4,6 +4,31 @@ body {
 	background-size:cover;
 }
 
+h4.media-heading {
+    color: white;
+}
+
+h3.listing-heading {
+    color: white;
+}
+
+.main {
+    overflow-y: scroll;
+}
+
+.main-wrap {
+    background-color: rgba(250,250,250, 0.5);
+	width:98%;
+    height:auto;
+	margin:auto;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow:0 12px 15px 0 rgba(0,0,0,.24),0 17px 50px 0 rgba(0,0,0,.19);
+
+}
+
 #logo {
     width: 450px;
     height: 70px;
@@ -12,6 +37,11 @@ body {
 #user {
     width: 60px;
     height: 60px;
+}
+
+img.img-responsive {
+    height: 150px;
+    margin: 15px;
 }
 
 .navbar {
@@ -25,7 +55,7 @@ body {
 }
 
 #nav-collapse{
-    margin-top: 70px;
+    margin-top: 85px;
 }
 
 .navbar-default .navbar-nav>li>a{
