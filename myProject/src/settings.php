@@ -17,7 +17,7 @@ return [
         ],
 	"db" => [
 	    "host" => "localhost",
-	    "dbname" => "testdb",
+	    "dbname" => "eduexchange",
 	    "user" => "root",
 	    "pass" => "king2009"
 	,]

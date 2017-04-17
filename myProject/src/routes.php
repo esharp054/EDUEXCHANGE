@@ -1,5 +1,8 @@
 <?php
 // Routes
+$app->get('/test',function($request,$response){
+	echo "hi";
+});
 $app->post('/signup',function($request,$response){
 
 		$input = $request->getParsedBody();
@@ -16,11 +19,11 @@ $app->post('/signup',function($request,$response){
 		$subject = "My subject";
 		$txt = "Hello world!";
 		$headers = "From:Eduexchange";
-		mail($to,$subject,$txt,$headers,"-feduexchange@smu.edu");    
-        
+		mail($to,$subject,$txt,$headers,"-feduexchange@smu.edu");
+
         return $this->response->withJson($rows);
 });
-        
+
 $app->get('/todos',function($request,$response,$args){
 	$sth = $this->db->prepare("SELECT * FROM tasks ORDER BY task");
 	$sth -> execute();
@@ -66,4 +69,3 @@ $input["id"] = $args["id"];
 return $this->response->withJson($inpute);
 
 });
-
