@@ -2,6 +2,11 @@
 // Routes
 $app->post('/signup',function($request,$response){
 
+		session_start();
+		if(isset($_SESSION["login"]) && $_SESSION["login"] === true){
+			return $this->response->withStatus(201);
+		}
+		else{
 		$input = $request->getParsedBody();
         $stmt = $this->db->prepare("INSERT into users(username,password,email,phone) VALUES (:username, :password,:email,:phone)");
         $pass = $input["password"];
@@ -19,8 +24,29 @@ $app->post('/signup',function($request,$response){
 		mail($to,$subject,$txt,$headers,"-feduexchange@smu.edu");    
         
         return $this->response->withJson($rows);
+        }
 });
-        
+$app->post('/signin',function($request,$response){
+
+		$input = $request->getParsedBody();
+		$pass = md5($input["password"]);
+		$stmt = $this->db->prepare("SELECT * FROM users WHERE username = :username AND password = :password");
+		$stmt->bindValue(':username',$input["username"],PDO::PARAM_STR);
+		$stmt->bindValue(':password',$pass,PDO::PARAM_STR);
+		$stmt->execute();
+		$userInfo = $stmt->fetchAll();
+		if(!empty($userInfo)){
+			session_start();
+			$_SESSION["login"] = true;
+		}
+		else{
+			return $this->response->withStatus(400);
+		}
+		return $this->response->withJson($userInfo);
+		
+		
+	
+});        
 $app->get('/todos',function($request,$response,$args){
 	$sth = $this->db->prepare("SELECT * FROM tasks ORDER BY task");
 	$sth -> execute();
