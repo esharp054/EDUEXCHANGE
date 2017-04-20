@@ -28,7 +28,7 @@ $app->post('/signup',function($request,$response){
 });
 
 
-$app-get('/textbooks',function($request,$response){
+$app->get('/textbooks',function($request,$response){
 
     $stmt = $this->db->prepare("SELECT * FROM textbooks ORDER BY title");
     $stmt -> execute();
@@ -36,7 +36,7 @@ $app-get('/textbooks',function($request,$response){
     return $this->response->withJson($textbooks);
 });
 
-$app-get('/notes',function($request,$response){
+$app->get('/notes',function($request,$response){
 
     $stmt = $this->db->prepare("SELECT * FROM notes ORDER BY title");
     $stmt -> execute();
@@ -44,7 +44,7 @@ $app-get('/notes',function($request,$response){
     return $this->response->withJson($notes);
 });
 
-$app-get('/supplies',function($request,$response){
+$app->get('/supplies',function($request,$response){
 
     $stmt = $this->db->prepare("SELECT * FROM supplies ORDER BY title");
     $stmt -> execute();
@@ -52,17 +52,6 @@ $app-get('/supplies',function($request,$response){
     return $this->response->withJson($supplies);
 });
 
-
-
-
-
-
-
-
-
-
-
-//code below doesn't relate to our current project, just ignore it.
 $app->post('/signin',function($request,$response){
 
 		$input = $request->getParsedBody();
@@ -85,6 +74,9 @@ $app->post('/signin',function($request,$response){
 	
 });        
 
+
+
+//code below doesn't relate to our current project, just ignore it.
 $app->get('/todos',function($request,$response,$args){
 	$sth = $this->db->prepare("SELECT * FROM tasks ORDER BY task");
 	$sth -> execute();
