@@ -26,7 +26,6 @@ $app->post('/signup',function($request,$response){
         return $this->response->withJson($rows);
         }
 });
-<<<<<<< HEAD
 
 
 $app-get('/textbooks',function($request,$response){
@@ -64,7 +63,6 @@ $app-get('/supplies',function($request,$response){
 
 
 //code below doesn't relate to our current project, just ignore it.
-=======
 $app->post('/signin',function($request,$response){
 
 		$input = $request->getParsedBody();
@@ -86,7 +84,7 @@ $app->post('/signin',function($request,$response){
 		
 	
 });        
->>>>>>> origin/DBENDPOINTS
+
 $app->get('/todos',function($request,$response,$args){
 	$sth = $this->db->prepare("SELECT * FROM tasks ORDER BY task");
 	$sth -> execute();
