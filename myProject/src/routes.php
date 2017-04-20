@@ -16,11 +16,47 @@ $app->post('/signup',function($request,$response){
 		$subject = "My subject";
 		$txt = "Hello world!";
 		$headers = "From:Eduexchange";
-		mail($to,$subject,$txt,$headers,"-feduexchange@smu.edu");    
-        
+		mail($to,$subject,$txt,$headers,"-feduexchange@smu.edu");
+
         return $this->response->withJson($rows);
 });
-        
+
+
+$app-get('/textbooks',function($request,$response){
+
+    $stmt = $this->db->prepare("SELECT * FROM textbooks ORDER BY title");
+    $stmt -> execute();
+    $textbooks = $stmt->fetchAll();
+    return $this->response->withJson($textbooks);
+});
+
+$app-get('/notes',function($request,$response){
+
+    $stmt = $this->db->prepare("SELECT * FROM notes ORDER BY title");
+    $stmt -> execute();
+    $notes = $stmt->fetchAll();
+    return $this->response->withJson($notes);
+});
+
+$app-get('/supplies',function($request,$response){
+
+    $stmt = $this->db->prepare("SELECT * FROM supplies ORDER BY title");
+    $stmt -> execute();
+    $supplies = $stmt->fetchAll();
+    return $this->response->withJson($supplies);
+});
+
+
+
+
+
+
+
+
+
+
+
+//code below doesn't relate to our current project, just ignore it.
 $app->get('/todos',function($request,$response,$args){
 	$sth = $this->db->prepare("SELECT * FROM tasks ORDER BY task");
 	$sth -> execute();
@@ -66,4 +102,3 @@ $input["id"] = $args["id"];
 return $this->response->withJson($inpute);
 
 });
-
