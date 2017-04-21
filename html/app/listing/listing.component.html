@@ -1,0 +1,97 @@
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+    <div class="col-sm-4">
+            <form class="navbar-left" id="navLeft">
+                <div class="navbar-header">
+                    <img id="logo-image" alt="Brand" src="img/long_logo.png">
+                </div>
+            </form>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <div class="col-md-4">
+                <form class="navbar-form navbar-center">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search for...">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="button">Go!</button>
+                        </span>
+                    </div>
+                </form>
+            </div>
+            <div class="col-md-4">
+                <form class="navbar-right" id="navRight">
+                    <img id="user" src="img/default_user.png" class="img-responsive">
+                    <form id="user-collapse" class="collapse navbar-collapse">
+                        <ul class="nav navbar-nav navbar-right" id="ulRight">
+                            <li class="inactive"><a href="#" class="anchor" id="sellLink">Sell</a></li>
+                            <li class="inactive"><a href="#" class="anchor" id="userMenu">...</a></li>
+                        </ul>
+                    </form>
+                </form>
+            </div>
+        </div>
+    <!--<button type="button" class="navbar-toggle" data-toggle="offcanvas" data-target=".sidebar-nav">
+             <span class="icon-bar"></span>
+             <span class="icon-bar"></span>
+             <span class="icon-bar"></span>
+        </button>-->
+    </div>
+</nav>
+
+<div class="container-fluid">
+    <div class="row align-items-start row-offcanvas row-offcanvas-left">
+        <div class="col-lg-2 hidden-sm hidden-xs hidden-md" id="Wrap" sidebar-offcanvas role="navigation">
+            <h3> Filters </h3>
+            <!--<ul class="nav">
+                <li class="active"><a href="#">Home</a></li>
+                <li><a href="#">Link 1</a></li>
+                <li><a href="#">Link 2</a></li>
+                <li><a href="#">Link 3</a></li>
+            </ul>-->
+        </div>
+        <div class="col-xs-12 col-s-12 col-md-12 col-lg-10" id="searchResultsWrap">
+            <!--<div class="container" id="searchResultsWrap">-->
+            <!--<div class="media" *ngFor="let textbook of textbooks">
+                <span class="media-left" id="imageMedia">
+			    <img id="listingImage" src="{{textbook.cover || 'images/default_user.png'}}" alt="{{ textbook.title }}" />
+            </span>
+                <div class="media-body">
+                    <h4 class="media-heading">
+                        {{ textbook.title }} {{ textbook.price }}
+                    </h4>
+                </div>
+            </div>-->
+            <a href="#{{ textbook.id }}" class="media" *ngFor="let textbook of textbooks" data-toggle="collapse" id="mediaWrap">
+                <span class="media" id="imageMedia">
+			        <img id="listingImage" src="{{textbook.cover || 'images/default_user.png'}}" alt="{{ textbook.title }}" />
+                </span>
+                <div class="media-body" id="mediaHeader">
+                    <h4 class="media-heading">
+                        Title: {{ textbook.title }} <br>Price: ${{ textbook.price }}
+                    </h4>
+                </div>
+                <div id="{{ textbook.id }}" class="collapse">
+                    Description: {{ textbook.description }}
+                    <button type="button" class="btn" data-toggle="modal" data-target="#contactInformation"> Contact </button>
+                    <div class="modal fade" id="contactInformation" tabindex="-1" role="dialog" aria-labelledby="contactInformationLabel">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                                </div>
+                                <div class="modal-body">
+                                    ...
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+            </a>
+        </div>
+    </div>
+</div>
