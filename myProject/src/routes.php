@@ -68,11 +68,28 @@ $app->post('/signin',function($request,$response){
 		else{
 			return $this->response->withStatus(400);
 		}
-		return $this->response->withJson($userInfo);
-		
-		
-	
+		return $this->response->withJson($userInfo);	
 });        
+
+$app->delete('/notes/[{id}]',function($request,$response,$args){
+	$sth = $this->db->prepare("DELETE FROM tasks WHERE id=:id");
+	$sth->bindParam("id",$args["id"]);
+	$sth->execute();
+	$todos = $sth->fetchAll();
+	return $this->response->withJson($todos);
+});
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
