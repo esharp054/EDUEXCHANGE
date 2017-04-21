@@ -88,11 +88,6 @@ $app->delete('/notes/[{id}]',function($request,$response,$args){
 
 
 
-
-
-
-
-
 //code below doesn't relate to our current project, just ignore it.
 $app->get('/todos',function($request,$response,$args){
 	$sth = $this->db->prepare("SELECT * FROM tasks ORDER BY task");
