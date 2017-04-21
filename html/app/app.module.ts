@@ -5,11 +5,11 @@ import { RouterModule }   from '@angular/router';
 import { HttpModule } from '@angular/http';
 
 //Modal Stuff
-import { ModalModule } from 'angular2-modal';
-import { BootstrapModalModule } from 'angular2-modal/plugins/bootstrap';
-
-//Authentication Stuff
-import { AUTH_PROVIDERS } from 'angular2-jwt';
+// import { ModalModule } from 'angular2-modal';
+// import { BootstrapModalModule } from 'angular2-modal/plugins/bootstrap';
+//
+// //Authentication Stuff
+// import { AUTH_PROVIDERS } from 'angular2-jwt';
 //import { AuthGuard } from './common/auth.guard';
 
 import { AppComponent }   from './app.component';
@@ -23,9 +23,10 @@ import { TextbookService } from './api/textbook-service';
 
 var routes = [
   {
-    path: '',
+    path: 'main',
     component: MainComponent
   },
+  {
     path: 'login',
     component: LoginComponent
   },

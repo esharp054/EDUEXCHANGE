@@ -11,27 +11,27 @@ const platform_browser_1 = require("@angular/platform-browser");
 const forms_1 = require("@angular/forms");
 const router_1 = require("@angular/router");
 const http_1 = require("@angular/http");
+//Modal Stuff
+// import { ModalModule } from 'angular2-modal';
+// import { BootstrapModalModule } from 'angular2-modal/plugins/bootstrap';
+//
+// //Authentication Stuff
+// import { AUTH_PROVIDERS } from 'angular2-jwt';
 //import { AuthGuard } from './common/auth.guard';
 const app_component_1 = require("./app.component");
 const login_component_1 = require("./login/login.component");
-
 const main_page_component_1 = require("./main-page/main-page.component");
-// import { AccountListComponent }   from './account-list/account-list.component';
-// import { AccountEditorComponent }   from './account-editor/account-editor.component';
-// import { UserRepository } from './user-repository';
-var routes = [
-    {
-        path: '',
-        component: main_page_component_1.MainComponent
-
 const listing_component_1 = require("./listing/listing.component");
 const user_repository_1 = require("./api/user-repository");
 const textbook_service_1 = require("./api/textbook-service");
 var routes = [
     {
+        path: 'main',
+        component: main_page_component_1.MainComponent
+    },
+    {
         path: 'login',
         component: login_component_1.LoginComponent
-
     },
     {
         path: '',
@@ -55,11 +55,8 @@ AppModule = __decorate([
         declarations: [
             app_component_1.AppComponent,
             login_component_1.LoginComponent,
-
             main_page_component_1.MainComponent,
-
             listing_component_1.ListingComponent,
-
         ],
         providers: [user_repository_1.UserRepository, textbook_service_1.TextbookService],
         bootstrap: [app_component_1.AppComponent],
