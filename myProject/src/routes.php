@@ -158,6 +158,112 @@ $app->get('/notes',function($request,$response){
     return $this->response->withJson($notes);
 });
 
+$app->get('/notes/[{id}]',function($request,$response,$arg){
+	
+	$id = $arg["id"];
+	$stmt = $this->db->prepare("SELECT * FROM notes WHERE notes_id = :id");
+	$stmt->bindValue(':id',$id,PDO::PARAM_STR);
+	try{
+        	$stmt->execute();
+        }
+        catch(PDOException $e){
+        		return $this->response->withStatus(400);
+        }
+	$textbook = $stmt->fetchAll();
+	return $this->response->withJson($textbook);
+});
+
+
+$app->get('/notes/[{class}]', function($request,$response,$arg){
+	
+	$class = $arg["class"];
+	$stmt = $this->db->prepare("SELECT * FROM supplies WHERE class = :class");
+	$stmt->bindValue(':class', $class, PDO::PARAM_STR);
+	try{
+        	$stmt->execute();
+        }
+        catch(PDOException $e){
+        		return $this->response->withStatus(400);
+        }
+	$textbook = $stmt->fetchAll();
+	return $this->response->withJson($textbook);
+	
+});
+
+
+$app->post('/notes',function($request,$response){
+	$input = $request->getParsedBody();
+	$stmt = $this->db->prepare("INSERT into supplies(title, description,price,class,uploader_id) VALUES (:title,:description,:price,:class,:uploader_id)");
+	$stmt->bindValue(':title', $input["title"],PDO::PARAM_STR);
+	$stmt->bindValue(':description', $input["description"],PDO::PARAM_STR);	
+	$stmt->bindValue(':price', $input["price"],PDO::PARAM_STR);
+	$stmt->bindValue(':class', $input["class"],PDO::PARAM_STR);
+	$stmt->bindValue(':uploader_id', $input["uploader_id"],PDO::PARAM_STR);
+	try{
+        	$stmt->execute();
+        }
+        catch(PDOException $e){
+        		return $this->response->withStatus(400);
+        }
+	return $this->response->withStatus(200);
+		
+	});
+
+
+$app->post('/notes/[{id}]',function($request,$response,$arg){
+	$id = $arg["id"];
+	$input = $request->getParsedBody();
+	$stmt = $this->db->prepare("UPDATE supplies(title, description,price,class,uploader_id) VALUES (:title,:description,:price,:class,:uploader_id)");
+	$stmt->bindValue(':title', $input["title"],PDO::PARAM_STR);
+	$stmt->bindValue(':description', $input["description"],PDO::PARAM_STR);	
+	$stmt->bindValue(':price', $input["price"],PDO::PARAM_STR);
+	$stmt->bindValue(':class', $input["class"],PDO::PARAM_STR);
+	$stmt->bindValue(':uploader_id', $input["uploader_id"],PDO::PARAM_STR);
+	try{
+        	$stmt->execute();
+        }
+        catch(PDOException $e){
+        		return $this->response->withStatus(400);
+        }
+	return $this->response->withStatus(200);
+	
+});
+
+
+
+$app->delete('/notes/[{id}]',function($request,$response,$arg){
+	$id = $arg["id"];
+	$stmt = $this->db->prepare("DELETE FROM notes WHERE notes_id = :id");
+	$stmt->bindValue(':id',$id,PDO::PARAM_STR);
+	try{
+        	$stmt->execute();
+        }
+        catch(PDOException $e){
+        		return $this->response->withStatus(400);
+        }
+	return $this->response->withStatus(200);
+	
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 $app->get('/supplies',function($request,$response){
 
     $stmt = $this->db->prepare("SELECT * FROM supplies ORDER BY title");
@@ -254,34 +360,6 @@ $app->delete('/supplies/[{id}]',function($request,$response,$arg){
 	
 });
 
-$app->post('/signin',function($request,$response){
-
-		$input = $request->getParsedBody();
-		$pass = md5($input["password"]);
-		$stmt = $this->db->prepare("SELECT * FROM users WHERE username = :username AND password = :password");
-		$stmt->bindValue(':username',$input["username"],PDO::PARAM_STR);
-		$stmt->bindValue(':password',$pass,PDO::PARAM_STR);
-		$stmt->execute();
-		$userInfo = $stmt->fetchAll();
-		if(!empty($userInfo)){
-			session_start();
-			$_SESSION["login"] = true;
-		}
-		else{
-			return $this->response->withStatus(400);
-		}
-		return $this->response->withJson($userInfo);	
-});        
-
-$app->delete('/notes/[{id}]',function($request,$response,$args){
-	$sth = $this->db->prepare("DELETE FROM tasks WHERE id=:id");
-	$sth->bindParam("id",$args["id"]);
-	$sth->execute();
-	$todos = $sth->fetchAll();
-	return $this->response->withJson($todos);
-});
-
-
 
 
 
@@ -292,17 +370,6 @@ $app->delete('/notes/[{id}]',function($request,$response,$args){
 
 //code below doesn't relate to our current project, just ignore it.
 
-//--------------
-//--------------
-//--------------      
-
-$app->get('/todos',function($request,$response,$args){
-	$sth = $this->db->prepare("SELECT * FROM tasks ORDER BY task");
-	$sth -> execute();
-	$todos = $sth->fetchAll();
-	return $this->response->withJson($todos);
-});
-
 $app->get('/todos/search/[{query}]', function($request, $response, $args){
 $sth = $this->db->prepare("SELECT * FROM tasks WHERE UPPER(task) LIKE :query ORDER BY task");
 $query ="%".$args['query']."%";
@@ -312,32 +379,3 @@ $todos = $sth->fetchAll();
 return $this->response->withJson($todos);
 });
 
-$app->post('/todo', function($request, $response){
-$input = $request->getParsedBody();
-$sql = "INSERT INTO tasks (task) VALUES (:task)";
-$sth = $this->db->prepare($sql);
-$sth->bindParam("task",$input["task"]);
-$sth->execute();
-$input["id"] = $this->db->lastInsertId();
-return $this->response->withJson($inpute);
-});
-
-$app->delete('/todo/[{id}]',function($request,$response,$args){
-$sth = $this->db->prepare("DELETE FROM tasks WHERE id=:id");
-$sth->bindParam("id",$args["id"]);
-$sth->execute();
-$todos = $sth->fetchAll();
-return $this->response->withJson($todos);
-});
-
-$app->put('todo/[{id}]', function($request, $response,$args){
-$input = $request->getParsedBody();
-$sql = "UPDATE tasks SET task=:task WHERE id=:id";
-$sth = $this->db->prepare($sql);
-$sth->bindParam("id",$args["id"]);
-$sth->bindParam("task",$input["task"]);
-$sth->execute();
-$input["id"] = $args["id"];
-return $this->response->withJson($inpute);
-
-});
