@@ -137,15 +137,15 @@ $app->post('/signup',function($request,$response){
 //
 // });
 
-$app->get('/notes',function($request,$response){
-    $stmt = $this->db->prepare("SELECT * FROM notes ORDER BY title");
-    $stmt -> execute();
-    $notes = $stmt->fetchAll();
-    return $this->response->withJson($notes);
-});
+// $app->get('/notes',function($request,$response){
+//     $stmt = $this->db->prepare("SELECT * FROM notes ORDER BY title");
+//     $stmt -> execute();
+//     $notes = $stmt->fetchAll();
+//     return $this->response->withJson($notes);
+// });
 
-$app->get('/supplies',function($request,$response){
-	$stmt = $this->db->prepare("SELECT * FROM supplies ORDER BY title");
+$app->get('/notes',function($request,$response){
+	$stmt = $this->db->prepare("SELECT * FROM notes ORDER BY title");
 	try
 	{
 		$stmt->execute();
@@ -154,15 +154,15 @@ $app->get('/supplies',function($request,$response){
 	{
 			return $this->response->withStatus(400);
 	}
-	$textbooks = $stmt->fetchAll();
-	return $this->response->withJson($textbooks);
+	$notes = $stmt->fetchAll();
+	return $this->response->withJson($notes);
 
 });
 
-$app->get('/supplies/[{id}]',function($request,$response,$arg){
+$app->get('/notes/[{id}]',function($request,$response,$arg){
 
 	$id = $arg["id"];
-	$stmt = $this->db->prepare("SELECT * FROM supplies WHERE supplies_id = :id");
+	$stmt = $this->db->prepare("SELECT * FROM supplies WHERE notes_id = :id");
 	$stmt->bindValue(':id',$id,PDO::PARAM_STR);
 	try
 	{
@@ -172,14 +172,14 @@ $app->get('/supplies/[{id}]',function($request,$response,$arg){
 	{
     return $this->response->withStatus(400);
   }
-	$supply = $stmt->fetchAll();
-	return $this->response->withJson($supplies);
+	$notes = $stmt->fetchAll();
+	return $this->response->withJson($notes);
 });
 
-$app->get('/textbooks/[{class}]', function($request,$response,$arg)
+$app->get('/notes/[{class}]', function($request,$response,$arg)
 {
 	$class = $arg["class"];
-	$stmt = $this->db->prepare("SELECT * FROM supplies WHERE class = :class");
+	$stmt = $this->db->prepare("SELECT * FROM notes WHERE class = :class");
 	$stmt->bindValue(':class', $class, PDO::PARAM_STR);
 	try
 	{
@@ -189,7 +189,8 @@ $app->get('/textbooks/[{class}]', function($request,$response,$arg)
 	{
     return $this->response->withStatus(400);
   }
-	$textbook = $stmt->fetchAll();
-	return $this->response->withJson($textbook);
+
+	$notes = $stmt->fetchAll();
+	return $this->response->withJson($notes);
 
 });
