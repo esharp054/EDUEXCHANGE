@@ -377,7 +377,7 @@ $app->delete('/supplies/[{id}]',function($request,$response,$arg){
 
 $app->get('/search/[{query}]',function($request,$response,$arg){
 	$query = $arg["query"];
-	$stmt = $this->db->prepare(" SELECT * FROM (SELECT * FROM textbooks WHERE title LIKE :query OR description LIKE :query OR class LIKE :query UNION ALL SELECT * FROM supplies WHERE title like :query OR description LIKE :query or class like :query UNION ALL SELECT * FROM supplies WHERE title like :query OR description LIKE :query or class like :query) AS searched ORDER BY price");
+	$stmt = $this->db->prepare(" SELECT * FROM (SELECT id, description, price, class, stat, type FROM textbooks WHERE title LIKE :query OR description LIKE :query OR class LIKE :query UNION ALL SELECT id, description, price, class, stat, type FROM supplies WHERE title like :query OR description LIKE :query or class like :query UNION ALL SELECT id, description, price, class, stat, type FROM supplies WHERE title like :query OR description LIKE :query or class like :query) AS searched ORDER BY price");
 	$stmt->bindValue(':query',"%".$query."%",PDO:PARAM_STR);
 	try{
         	$stmt->execute();
