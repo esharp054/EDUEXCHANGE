@@ -446,6 +446,95 @@ $app->get('/suppliesByClassAsc',function($request,$response)
 	return $this->response->withJson($supplies);
 });
 
+//-----Alan part
+$app->get('/textbooksByPriceDesc',function($request,$response)
+
+{
+
+	$stmt = $this->db->prepare("SELECT * FROM textbooks ORDER BY price DESC");
+
+	$stmt -> execute();
+
+	$textbooks = $stmt->fetchAll();
+
+	return $this->response->withJson($textbooks);
+
+});
+
+
+
+$app->get('/textbooksByPriceAsc',function($request,$response)
+
+{
+
+	$stmt = $this->db->prepare("SELECT * FROM textbooks ORDER BY Price ASC");
+
+	$stmt -> execute();
+
+	$textbooks = $stmt->fetchAll();
+
+	return $this->response->withJson($textbooks);
+
+});
+$app->get('/notesByPriceAsc',function($request,$response)
+
+{
+
+	$stmt = $this->db->prepare("SELECT * FROM notes ORDER BY Price ASC");
+
+	$stmt -> execute();
+
+	$notes = $stmt->fetchAll();
+
+	return $this->response->withJson($notes);
+
+});
+
+
+
+$app->get('/notesByPriceDesc',function($request,$response)
+
+{
+
+	$stmt = $this->db->prepare("SELECT * FROM notes ORDER BY price DESC");
+
+	$stmt -> execute();
+
+	$notes = $stmt->fetchAll();
+
+	return $this->response->withJson($notes);
+
+});
+
+$app->get('/suppliesByPriceDesc',function($request,$response)
+
+{
+
+	$stmt = $this->db->prepare("SELECT * FROM supplies ORDER BY price DESC");
+
+	$stmt -> execute();
+
+	$supplies = $stmt->fetchAll();
+
+	return $this->response->withJson($supplies);
+
+});
+
+
+
+$app->get('/suppliesByPriceAsc',function($request,$response)
+
+{
+
+	$stmt = $this->db->prepare("SELECT * FROM supplies ORDER BY Price ASC");
+
+	$stmt -> execute();
+
+	$supplies = $stmt->fetchAll();
+
+	return $this->response->withJson($supplies);
+
+});
 
 
 //code below doesn't relate to our current project, just ignore it.
