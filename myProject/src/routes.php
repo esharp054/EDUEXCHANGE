@@ -1,5 +1,16 @@
 <?php
 // Routes
+$app->get('/logout',function($request,$response){
+	session_start();
+    if(isset($_SESSION['login']) && $_SESSION['login']==='true'){
+            session_unset();//free all session variable
+            session_destroy();//
+            return $this->response->withStatus(200);
+        }else{
+           return $this->response->withStatus(400);
+        }
+        
+        });
 $app->post('/signin',function($request,$response){
 
 		$input = $request->getParsedBody();
@@ -356,6 +367,7 @@ $app->delete('/supplies/[{id}]',function($request,$response,$arg){
         catch(PDOException $e){
         		return $this->response->withStatus(400);
         }
+    
 	return $this->response->withStatus(200);
 	
 });
@@ -363,7 +375,20 @@ $app->delete('/supplies/[{id}]',function($request,$response,$arg){
 
 
 
-
+$app->get('/search/[{query}]',function($request,$response,$arg){
+	$query = $arg["query"];
+	$stmt = $this->db->prepare(" SELECT * FROM (SELECT * FROM textbooks WHERE title LIKE :query OR description LIKE :query OR class LIKE :query UNION ALL SELECT * FROM supplies WHERE title like :query OR description LIKE :query or class like :query UNION ALL SELECT * FROM supplies WHERE title like :query OR description LIKE :query or class like :query) AS searched ORDER BY price");
+	$stmt->bindValue(':query',"%".$query."%",PDO:PARAM_STR);
+	try{
+        	$stmt->execute();
+        }
+        catch(PDOException $e){
+        		return $this->response->withStatus(400);
+        }
+    $searched = $stmt->fetchAll();
+	return $this->response->withJson($searched);
+	
+	});
 
 
 
