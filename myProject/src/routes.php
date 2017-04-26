@@ -38,13 +38,14 @@ $app->post('/signup',function($request,$response){
 		}
 		else{
 			$input = $request->getParsedBody();
-			$stmt = $this->db->prepare("INSERT into users(username,password,email,phone) VALUES (:username, :password,:email,:phone)");
+			$stmt = $this->db->prepare("INSERT into users(username,password,email,phone, stat) VALUES (:username, :password,:email,:phone, :stat)");
 			$pass = $input["password"];
 			$pass = md5($pass);
 			$stmt->bindValue(':username', $input["username"],PDO::PARAM_STR);
 			$stmt->bindValue(':password', $pass, PDO::PARAM_STR);
 			$stmt->bindValue(':email', $input["email"], PDO::PARAM_STR);
 			$stmt->bindValue(':phone', $input["phone"], PDO::PARAM_INT);
+			$stmt->bindValue(':stat', $input["stat"],PDO::PARAM_STR);
 			try{
 				$stmt->execute();
 			}
@@ -109,13 +110,14 @@ $app->get('/textbooks/[{class}]', function($request,$response,$arg){
 
 $app->post('/textbooks',function($request,$response){
 	$input = $request->getParsedBody();
-	$stmt = $this->db->prepare("INSERT into textbooks(title, description,price,class,uploader_id) VALUES (:title,:description,:price,:class,:uploader_id)");
+	$stmt = $this->db->prepare("INSERT into textbooks(title, description,price,class,uploader_id, stat) VALUES (:title,:description,:price,:class,:uploader_id, :stat)");
 	$stmt->bindValue(':title', $input["title"],PDO::PARAM_STR);
 	$stmt->bindValue(':description', $input["description"],PDO::PARAM_STR);	
 	$stmt->bindValue(':price', $input["price"],PDO::PARAM_STR);
 	$stmt->bindValue(':class', $input["class"],PDO::PARAM_STR);
 	$stmt->bindValue(':uploader_id', $input["uploader_id"],PDO::PARAM_STR);
-	try{
+	$stmt->bindValue(':stat', $input["stat"],PDO::PARAM_STR);
+		try{
         	$stmt->execute();
         }
         catch(PDOException $e){
@@ -129,7 +131,7 @@ $app->post('/textbooks',function($request,$response){
 $app->post('/textbooks/[{id}]',function($request,$response,$arg){
 	$id = $arg["id"];
 	$input = $request->getParsedBody();
-	$stmt = $this->db->prepare("UPDATE textbooks(title, description,price,class,uploader_id) VALUES (:title,:description,:price,:class,:uploader_id)");
+	$stmt = $this->db->prepare("UPDATE textbooks(title, description,price,class,uploader_id,stat) VALUES (:title,:description,:price,:class,:uploader_id, :stat)");
 	$stmt->bindValue(':title', $input["title"],PDO::PARAM_STR);
 	$stmt->bindValue(':description', $input["description"],PDO::PARAM_STR);	
 	$stmt->bindValue(':price', $input["price"],PDO::PARAM_STR);
@@ -204,13 +206,14 @@ $app->get('/notes/[{class}]', function($request,$response,$arg){
 
 $app->post('/notes',function($request,$response){
 	$input = $request->getParsedBody();
-	$stmt = $this->db->prepare("INSERT into supplies(title, description,price,class,uploader_id) VALUES (:title,:description,:price,:class,:uploader_id)");
+	$stmt = $this->db->prepare("INSERT into supplies(title, description,price,class,uploader_id,stat) VALUES (:title,:description,:price,:class,:uploader_id,:stat)");
 	$stmt->bindValue(':title', $input["title"],PDO::PARAM_STR);
 	$stmt->bindValue(':description', $input["description"],PDO::PARAM_STR);	
 	$stmt->bindValue(':price', $input["price"],PDO::PARAM_STR);
 	$stmt->bindValue(':class', $input["class"],PDO::PARAM_STR);
 	$stmt->bindValue(':uploader_id', $input["uploader_id"],PDO::PARAM_STR);
-	try{
+	$stmt->bindValue(':stat', $input["stat"],PDO::PARAM_STR);
+		try{
         	$stmt->execute();
         }
         catch(PDOException $e){
@@ -224,13 +227,14 @@ $app->post('/notes',function($request,$response){
 $app->post('/notes/[{id}]',function($request,$response,$arg){
 	$id = $arg["id"];
 	$input = $request->getParsedBody();
-	$stmt = $this->db->prepare("UPDATE supplies(title, description,price,class,uploader_id) VALUES (:title,:description,:price,:class,:uploader_id)");
+	$stmt = $this->db->prepare("UPDATE supplies(title, description,price,class,uploader_id,stat) VALUES (:title,:description,:price,:class,:uploader_id,:stat)");
 	$stmt->bindValue(':title', $input["title"],PDO::PARAM_STR);
 	$stmt->bindValue(':description', $input["description"],PDO::PARAM_STR);	
 	$stmt->bindValue(':price', $input["price"],PDO::PARAM_STR);
 	$stmt->bindValue(':class', $input["class"],PDO::PARAM_STR);
 	$stmt->bindValue(':uploader_id', $input["uploader_id"],PDO::PARAM_STR);
-	try{
+	$stmt->bindValue(':stat', $input["stat"],PDO::PARAM_STR);
+		try{
         	$stmt->execute();
         }
         catch(PDOException $e){
@@ -319,13 +323,14 @@ $app->get('/supplies/[{class}]', function($request,$response,$arg){
 
 $app->post('/supplies',function($request,$response){
 	$input = $request->getParsedBody();
-	$stmt = $this->db->prepare("INSERT into supplies(title, description,price,class,uploader_id) VALUES (:title,:description,:price,:class,:uploader_id)");
+	$stmt = $this->db->prepare("INSERT into supplies(title, description,price,class,uploader_id, stat) VALUES (:title,:description,:price,:class,:uploader_id,:stat)");
 	$stmt->bindValue(':title', $input["title"],PDO::PARAM_STR);
 	$stmt->bindValue(':description', $input["description"],PDO::PARAM_STR);	
 	$stmt->bindValue(':price', $input["price"],PDO::PARAM_STR);
 	$stmt->bindValue(':class', $input["class"],PDO::PARAM_STR);
 	$stmt->bindValue(':uploader_id', $input["uploader_id"],PDO::PARAM_STR);
-	try{
+	$stmt->bindValue(':stat', $input["stat"],PDO::PARAM_STR);
+		try{
         	$stmt->execute();
         }
         catch(PDOException $e){
@@ -339,13 +344,14 @@ $app->post('/supplies',function($request,$response){
 $app->post('/supplies/[{id}]',function($request,$response,$arg){
 	$id = $arg["id"];
 	$input = $request->getParsedBody();
-	$stmt = $this->db->prepare("UPDATE supplies(title, description,price,class,uploader_id) VALUES (:title,:description,:price,:class,:uploader_id)");
+	$stmt = $this->db->prepare("UPDATE supplies(title, description,price,class,uploader_id,stat) VALUES (:title,:description,:price,:class,:uploader_id,:stat)");
 	$stmt->bindValue(':title', $input["title"],PDO::PARAM_STR);
 	$stmt->bindValue(':description', $input["description"],PDO::PARAM_STR);	
 	$stmt->bindValue(':price', $input["price"],PDO::PARAM_STR);
 	$stmt->bindValue(':class', $input["class"],PDO::PARAM_STR);
 	$stmt->bindValue(':uploader_id', $input["uploader_id"],PDO::PARAM_STR);
-	try{
+	$stmt->bindValue(':stat', $input["stat"],PDO::PARAM_STR);
+		try{
         	$stmt->execute();
         }
         catch(PDOException $e){
@@ -390,6 +396,55 @@ $app->get('/search/[{query}]',function($request,$response,$arg){
 	
 	});
 
+//-------Chris Search By order
+
+$app->get('/textbooksByClassDesc',function($request,$response)
+{
+	$stmt = $this->db->prepare("SELECT * FROM textbooks ORDER BY class DESC");
+	$stmt -> execute();
+	$textbooks = $stmt->fetchAll();
+	return $this->response->withJson($textbooks);
+});
+
+$app->get('/textbooksByClassAsc',function($request,$response)
+{
+	$stmt = $this->db->prepare("SELECT * FROM textbooks ORDER BY class ASC");
+	$stmt -> execute();
+	$textbooks = $stmt->fetchAll();
+	return $this->response->withJson($textbooks);
+});
+
+$app->get('/notesByClassAsc',function($request,$response)
+{
+	$stmt = $this->db->prepare("SELECT * FROM notes ORDER BY class ASC");
+	$stmt -> execute();
+	$notes = $stmt->fetchAll();
+	return $this->response->withJson($notes);
+});
+
+$app->get('/notesByClassDesc',function($request,$response)
+{
+	$stmt = $this->db->prepare("SELECT * FROM notes ORDER BY class DESC");
+	$stmt -> execute();
+	$notes = $stmt->fetchAll();
+	return $this->response->withJson($notes);
+});
+
+$app->get('/suppliesByClassDesc',function($request,$response)
+{
+	$stmt = $this->db->prepare("SELECT * FROM supplies ORDER BY class DESC");
+	$stmt -> execute();
+	$supplies = $stmt->fetchAll();
+	return $this->response->withJson($supplies);
+});
+
+$app->get('/suppliesByClassAsc',function($request,$response)
+{
+	$stmt = $this->db->prepare("SELECT * FROM supplies ORDER BY class ASC");
+	$stmt -> execute();
+	$supplies = $stmt->fetchAll();
+	return $this->response->withJson($supplies);
+});
 
 
 
