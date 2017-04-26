@@ -360,7 +360,14 @@ $app->delete('/supplies/[{id}]',function($request,$response,$arg){
 	
 });
 
-
+$app->get('/search/title/[{query}]', function($request, $response, $args){
+$sth = $this->db->prepare("SELECT * FROM textbooks  NATURAL JOIN notes NATURAL JOIN supplies WHERE title LIKE :query ORDER BY title");
+$query ="%".$args['query']."%";
+$sth->bindValue("query", $query, PDO::PARAM_STR);
+$sth->execute();
+$results = $sth->fetchAll();
+return $this->response->withJson($results);
+});
 
 
 
