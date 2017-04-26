@@ -371,7 +371,48 @@ return $this->response->withJson($results);
 
 
 
-
+$app->get('/textbooksByTitleDesc',function($request,$response)
+{
+	$stmt = $this->db->prepare("SELECT * FROM textbooks ORDER BY title DESC");
+	$stmt -> execute();
+	$textbooks = $stmt->fetchAll();
+	return $this->response->withJson($textbooks);
+});
+$app->get('/textbooksByTitleAsc',function($request,$response)
+{
+	$stmt = $this->db->prepare("SELECT * FROM textbooks ORDER BY title ASC");
+	$stmt -> execute();
+	$textbooks = $stmt->fetchAll();
+	return $this->response->withJson($textbooks);
+});
+$app->get('/notesByTitleAsc',function($request,$response)
+{
+	$stmt = $this->db->prepare("SELECT * FROM notes ORDER BY title ASC");
+	$stmt -> execute();
+	$notes = $stmt->fetchAll();
+	return $this->response->withJson($notes);
+});
+$app->get('/notesByTitleDesc',function($request,$response)
+{
+	$stmt = $this->db->prepare("SELECT * FROM notes ORDER BY title DESC");
+	$stmt -> execute();
+	$notes = $stmt->fetchAll();
+	return $this->response->withJson($notes);
+});
+$app->get('/suppliesByTitleDesc',function($request,$response)
+{
+	$stmt = $this->db->prepare("SELECT * FROM supplies ORDER BY title DESC");
+	$stmt -> execute();
+	$supplies = $stmt->fetchAll();
+	return $this->response->withJson($supplies);
+});
+$app->get('/suppliesByTitleAsc',function($request,$response)
+{
+	$stmt = $this->db->prepare("SELECT * FROM supplies ORDER BY title ASC");
+	$stmt -> execute();
+	$supplies = $stmt->fetchAll();
+	return $this->response->withJson($supplies);
+});
 
 
 
