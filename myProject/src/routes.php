@@ -63,7 +63,19 @@ $app->post('/signup',function($request,$response){
 		}
 });
 
-
+$app->get('/user/[{id}]', function($request,$response,$arg){
+	$id = $arg["id"];
+	$stmt = $this->db->prepare("SELECT username, email, phone, avatar, rating, joined_date FROM users WHERE userID = :id");
+	$stmt->bindValue(':id',$id, PDO::PARAM_INT);
+	  try{
+        	$stmt->execute();
+        }
+        catch(PDOException $e){
+        		return $this->response->withStatus(400)->withHeader('Access-Control-Allow-Origin', '*');
+        }
+    $user = $stmt->fetchAll();
+    return $this->response->withJson($user)->withHeader('Access-Control-Allow-Origin', '*');
+});
 $app->get('/textbooks',function($request,$response){
 
     $stmt = $this->db->prepare("SELECT * FROM textbooks ORDER BY title");
@@ -71,7 +83,7 @@ $app->get('/textbooks',function($request,$response){
         	$stmt->execute();
         }
         catch(PDOException $e){
-        		return $this->response->withStatus(400);
+        		return $this->response->withStatus(400)->withHeader('Access-Control-Allow-Origin', '*');
         }
     $textbooks = $stmt->fetchAll();
     return $this->response->withJson($textbooks)->withHeader('Access-Control-Allow-Origin', '*');
@@ -95,14 +107,16 @@ $app->get('/textbooks/[{id}]',function($request,$response,$arg){
 
 
 $app->post('/textbooks',function($request,$response){
-	$input = $request->getParsedBody();
-	$stmt = $this->db->prepare("INSERT into textbooks(title, description,price,class,uploader_id, stat) VALUES (:title,:description,:price,:class,:uploader_id, :stat)");
+	$input = $request->getBody();
+	$input = json_decode($input,true);
+	$stmt = $this->db->prepare("INSERT into textbooks(title, description,price,class,uploader_id, stat, cover) VALUES (:title,:description,:price,:class,:uploader_id, :stat, :cover)");
 	$stmt->bindValue(':title', $input["title"],PDO::PARAM_STR);
 	$stmt->bindValue(':description', $input["description"],PDO::PARAM_STR);	
 	$stmt->bindValue(':price', $input["price"],PDO::PARAM_STR);
 	$stmt->bindValue(':class', $input["class"],PDO::PARAM_STR);
 	$stmt->bindValue(':uploader_id', $input["uploader_id"],PDO::PARAM_STR);
 	$stmt->bindValue(':stat', $input["stat"],PDO::PARAM_STR);
+	$stmt->bindValue(':cover', $input["cover"],PDO::PARAM_STR);
 		try{
         	$stmt->execute();
         }
@@ -116,13 +130,15 @@ $app->post('/textbooks',function($request,$response){
 
 $app->post('/textbooks/[{id}]',function($request,$response,$arg){
 	$id = $arg["id"];
-	$input = $request->getParsedBody();
-	$stmt = $this->db->prepare("UPDATE textbooks(title, description,price,class,uploader_id,stat) VALUES (:title,:description,:price,:class,:uploader_id, :stat)");
+	$input = $request->getBody();
+	$input = json_decode($input,true);
+	$stmt = $this->db->prepare("UPDATE textbooks(title, description,price,class,uploader_id,stat,cover) VALUES (:title,:description,:price,:class,:uploader_id, :stat,:cover)");
 	$stmt->bindValue(':title', $input["title"],PDO::PARAM_STR);
 	$stmt->bindValue(':description', $input["description"],PDO::PARAM_STR);	
 	$stmt->bindValue(':price', $input["price"],PDO::PARAM_STR);
 	$stmt->bindValue(':class', $input["class"],PDO::PARAM_STR);
 	$stmt->bindValue(':uploader_id', $input["uploader_id"],PDO::PARAM_STR);
+	$stmt->bindValue(':cover',$input["cover"],PDO::PARAM_STR);
 	try{
         	$stmt->execute();
         }
@@ -176,14 +192,16 @@ $app->get('/notes/[{id}]',function($request,$response,$arg){
 
 
 $app->post('/notes',function($request,$response){
-	$input = $request->getParsedBody();
-	$stmt = $this->db->prepare("INSERT into supplies(title, description,price,class,uploader_id,stat) VALUES (:title,:description,:price,:class,:uploader_id,:stat)");
+	$input = $request->getBody();
+	$input = json_decode($input,true);
+	$stmt = $this->db->prepare("INSERT into supplies(title, description,price,class,uploader_id,stat,cover) VALUES (:title,:description,:price,:class,:uploader_id,:stat,:cover)");
 	$stmt->bindValue(':title', $input["title"],PDO::PARAM_STR);
 	$stmt->bindValue(':description', $input["description"],PDO::PARAM_STR);	
 	$stmt->bindValue(':price', $input["price"],PDO::PARAM_STR);
 	$stmt->bindValue(':class', $input["class"],PDO::PARAM_STR);
 	$stmt->bindValue(':uploader_id', $input["uploader_id"],PDO::PARAM_STR);
 	$stmt->bindValue(':stat', $input["stat"],PDO::PARAM_STR);
+	$stmt->bindValue(':cover',$input["cover"],PDO::PARAM_STR);
 		try{
         	$stmt->execute();
         }
@@ -199,13 +217,14 @@ $app->post('/notes/[{id}]',function($request,$response,$arg){
 	$id = $arg["id"];
 	$input = $request->getBody();
 	$input = json_decode($input,true);
-	$stmt = $this->db->prepare("UPDATE supplies(title, description,price,class,uploader_id,stat) VALUES (:title,:description,:price,:class,:uploader_id,:stat)");
+	$stmt = $this->db->prepare("UPDATE supplies(title, description,price,class,uploader_id,stat,cover) VALUES (:title,:description,:price,:class,:uploader_id,:stat,:cover)");
 	$stmt->bindValue(':title', $input["title"],PDO::PARAM_STR);
 	$stmt->bindValue(':description', $input["description"],PDO::PARAM_STR);	
 	$stmt->bindValue(':price', $input["price"],PDO::PARAM_STR);
 	$stmt->bindValue(':class', $input["class"],PDO::PARAM_STR);
 	$stmt->bindValue(':uploader_id', $input["uploader_id"],PDO::PARAM_STR);
 	$stmt->bindValue(':stat', $input["stat"],PDO::PARAM_STR);
+	$stmt->bindValue(':cover',$input["cover"],PDO::PARAM_STR);
 		try{
         	$stmt->execute();
         }
@@ -278,14 +297,16 @@ $app->get('/supplies/[{id}]',function($request,$response,$arg){
 
 $app->post('/supplies',function($request,$response){
 	$input = $request->getBody();
+	$input = $request->getBody();
 	$input = json_decode($input,true);
-	$stmt = $this->db->prepare("INSERT into supplies(title, description,price,class,uploader_id, stat) VALUES (:title,:description,:price,:class,:uploader_id,:stat)");
+	$stmt = $this->db->prepare("INSERT into supplies(title, description,price,class,uploader_id, stat,cover) VALUES (:title,:description,:price,:class,:uploader_id,:stat,:cover)");
 	$stmt->bindValue(':title', $input["title"],PDO::PARAM_STR);
 	$stmt->bindValue(':description', $input["description"],PDO::PARAM_STR);	
 	$stmt->bindValue(':price', $input["price"],PDO::PARAM_STR);
 	$stmt->bindValue(':class', $input["class"],PDO::PARAM_STR);
 	$stmt->bindValue(':uploader_id', $input["uploader_id"],PDO::PARAM_STR);
 	$stmt->bindValue(':stat', $input["stat"],PDO::PARAM_STR);
+	$stmt->bindValue(':cover',$input["cover"],PDO::PARAM_STR);
 		try{
         	$stmt->execute();
         }
@@ -300,13 +321,15 @@ $app->post('/supplies',function($request,$response){
 $app->post('/supplies/[{id}]',function($request,$response,$arg){
 	$id = $arg["id"];
 	$input = $request->getBody();
-	$stmt = $this->db->prepare("UPDATE supplies(title, description,price,class,uploader_id,stat) VALUES (:title,:description,:price,:class,:uploader_id,:stat)");
+	$input = json_decode($input,true);
+	$stmt = $this->db->prepare("UPDATE supplies(title, description,price,class,uploader_id,stat,cover) VALUES (:title,:description,:price,:class,:uploader_id,:stat,:cover)");
 	$stmt->bindValue(':title', $input["title"],PDO::PARAM_STR);
 	$stmt->bindValue(':description', $input["description"],PDO::PARAM_STR);	
 	$stmt->bindValue(':price', $input["price"],PDO::PARAM_STR);
 	$stmt->bindValue(':class', $input["class"],PDO::PARAM_STR);
 	$stmt->bindValue(':uploader_id', $input["uploader_id"],PDO::PARAM_STR);
 	$stmt->bindValue(':stat', $input["stat"],PDO::PARAM_STR);
+	$stmt->bindValue(':cover',$input["cover"],PDO::PARAM_STR);
 		try{
         	$stmt->execute();
         }
@@ -352,17 +375,64 @@ $app->get('/search/[{query}]',function($request,$response,$arg){
 	
 	});
 
-//-------Chris Search By order
 
-$app->get('/textbooksByClassDesc',function($request,$response)
+$app->get('/textbooksByClass/[{query}]',function($request,$response)
 {
-	$stmt = $this->db->prepare("SELECT * FROM textbooks ORDER BY class DESC");
-	$stmt -> execute();
-	$textbooks = $stmt->fetchAll();
-	return $this->response->withJson($textbooks)->withHeader('Access-Control-Allow-Origin','*');
+	$query = $arg["query"];
+	$stmt = $this->db->prepare("SELECT * FROM textbooks WHERE title LIKE :query OR description LIKE :query OR class LIKE :query");
+	$stmt->bindValue(':query',"%".$query."%",PDO::PARAM_STR);
+	try{
+        	$stmt->execute();
+        }
+        catch(PDOException $e){
+        		return $this->response->withStatus(400)->withHeader('Access-Control-Allow-Origin','*');
+        }
+    $searched = $stmt->fetchAll();
+	return $this->response->withJson($searched)->withHeader('Access-Control-Allow-Origin','*');
+	
+});
+$app->get('/suppliessByClass/[{query}]',function($request,$response,$arg)
+{
+	$query = $arg["query"];
+	$stmt = $this->db->prepare("SELECT * FROM supplies WHERE title LIKE :query OR description LIKE :query OR class LIKE :query");
+	$stmt->bindValue(':query',"%".$query."%",PDO::PARAM_STR);
+	try{
+        	$stmt->execute();
+        }
+        catch(PDOException $e){
+        		return $this->response->withStatus(400)->withHeader('Access-Control-Allow-Origin','*');
+        }
+    $searched = $stmt->fetchAll();
+	return $this->response->withJson($searched)->withHeader('Access-Control-Allow-Origin','*');
+	
 });
 
-$app->get('/textbooksByClassAsc',function($request,$response)
+$app->get('/notesByClass/[{query}]',function($request,$response,$arg)
+{
+	$query = $arg["query"];
+	$stmt = $this->db->prepare("SELECT * FROM notes WHERE title LIKE :query OR description LIKE :query OR class LIKE :query");
+	$stmt->bindValue(':query',"%".$query."%",PDO::PARAM_STR);
+	try{
+        	$stmt->execute();
+        }
+        catch(PDOException $e){
+        		return $this->response->withStatus(400)->withHeader('Access-Control-Allow-Origin','*');
+        }
+    $searched = $stmt->fetchAll();
+	return $this->response->withJson($searched)->withHeader('Access-Control-Allow-Origin','*');
+	
+});
+
+
+
+
+
+
+
+
+
+///-------Chris part
+$app->get('/textbooksByClassAsc',function($request,$response,$arg)
 {
 	$stmt = $this->db->prepare("SELECT * FROM textbooks ORDER BY class ASC");
 	$stmt -> execute();
