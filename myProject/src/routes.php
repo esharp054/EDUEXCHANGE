@@ -358,11 +358,23 @@ $app->delete('/supplies/[{id}]',function($request,$response,$arg){
 });
 
 
-
+$app->get('/recent',function($request,$response){
+	
+	$stmt = $this->db->prepare("SELECT id, description, title, uploader_id, price, class, stat, type FROM textbooks ORDER BY upload_date LIMIT 1 UNION ALL SELECT SELECT id, description, title, uploader_id, price, class, stat, type FROM notes ORDER BY upload_date UNION ALL SELECT id, description, title, uploader_id, price, class, stat, type FROM supplies ORDER BY upload_date  ");
+	try{
+        	$stmt->execute();
+        }
+        catch(PDOException $e){
+        		return $this->response->withStatus(400)->withHeader('Access-Control-Allow-Origin','*');
+        }
+    $recent = $stmt->fetchAll();
+    return $this->response->withJson($recent)->withHeader('Access-Control-Allow-Origin','*');
+    
+    });
 
 $app->get('/search/[{query}]',function($request,$response,$arg){
 	$query = $arg["query"];
-	$stmt = $this->db->prepare(" SELECT * FROM (SELECT id, description, price, class, stat, type FROM textbooks WHERE title LIKE :query OR description LIKE :query OR class LIKE :query UNION ALL SELECT id, description, price, class, stat, type FROM supplies WHERE title like :query OR description LIKE :query or class like :query UNION ALL SELECT id, description, price, class, stat, type FROM supplies WHERE title like :query OR description LIKE :query or class like :query) AS searched ORDER BY price");
+	$stmt = $this->db->prepare(" SELECT * FROM (SELECT id, description, title, uploader_id, price, class, stat, type FROM textbooks WHERE title LIKE :query OR description LIKE :query OR class LIKE :query UNION ALL SELECT id, description, title, uploader_id, price, class, stat, type FROM supplies WHERE title like :query OR description LIKE :query or class like :query UNION ALL SELECT id, description, price, title, uploader_id, class, stat, type FROM supplies WHERE title like :query OR description LIKE :query or class like :query) AS searched ORDER BY price");
 	$stmt->bindValue(':query',"%".$query."%",PDO::PARAM_STR);
 	try{
         	$stmt->execute();
