@@ -2,7 +2,7 @@
 // Routes
 $app->get('/logout',function($request,$response){
 	session_start();
-    if(isset($_SESSION['login']) && $_SESSION['login']==='true'){
+    if(isset($_SESSION['login']) && $_SESSION['login']=== true){
             session_unset();//free all session variable
             session_destroy();//
             return $this->response->withStatus(200);
@@ -108,7 +108,7 @@ $app->get('/textbooks/[{id}]',function($request,$response,$arg){
 
 $app->post('/textbooks',function($request,$response){
 	session_start();
-    if(isset($_SESSION['login']) && $_SESSION['login']==='true'){
+    if(isset($_SESSION['login']) && $_SESSION['login']=== true){
     	$input = $request->getBody();
 		$input = json_decode($input,true);
 		$stmt = $this->db->prepare("INSERT into textbooks(title, description,price,class,uploader_id, stat, cover) VALUES (:title,:description,:price,:class,:uploader_id, :stat, :cover)");
@@ -135,11 +135,18 @@ $app->post('/textbooks',function($request,$response){
 
 $app->post('/textbooks/[{id}]',function($request,$response,$arg){
 	session_start();
-    if(isset($_SESSION['login']) && $_SESSION['login']==='true'){
+    if(isset($_SESSION['login']) && $_SESSION['login']===true){
     	$id = $arg["id"];
 		$input = $request->getBody();
 		$input = json_decode($input,true);
-		$stmt = $this->db->prepare("UPDATE textbooks(title, description,price,class,uploader_id,stat,cover) VALUES (:title,:description,:price,:class,:uploader_id, :stat,:cover) WHERE id= :id");
+		$stmt = $this->db->prepare("UPDATE textbooks SET 
+        title = COALESCE(:title, title),
+        description = COALESCE(:description, description),
+        price = COALESCE(:price, price),
+        class = COALESCE(:class,class),
+        uploader_id = COALESCE(:uploader_id,uploader_id),
+        cover = COALESCE(:cover,cover)
+		WHERE id=:id");
 		$stmt->bindValue(':title', $input["title"],PDO::PARAM_STR);
 		$stmt->bindValue(':description', $input["description"],PDO::PARAM_STR);	
 		$stmt->bindValue(':price', $input["price"],PDO::PARAM_STR);
@@ -165,7 +172,7 @@ $app->post('/textbooks/[{id}]',function($request,$response,$arg){
 $app->delete('/textbooks/[{id}]',function($request,$response,$arg){
 
 	session_start();
-    if(isset($_SESSION['login']) && $_SESSION['login']==='true'){
+    if(isset($_SESSION['login']) && $_SESSION['login']===true){
     	$id = $arg["id"];
 		$stmt = $this->db->prepare("DELETE FROM textbooks WHERE id = :id");
 		$stmt->bindValue(':id',$id,PDO::PARAM_STR);
@@ -211,7 +218,7 @@ $app->get('/notes/[{id}]',function($request,$response,$arg){
 $app->post('/notes',function($request,$response){
 
 	session_start();
-    if(isset($_SESSION['login']) && $_SESSION['login']==='true'){
+    if(isset($_SESSION['login']) && $_SESSION['login']===true){
     	$input = $request->getBody();
 		$input = json_decode($input,true);
 		$stmt = $this->db->prepare("INSERT into supplies(title, description,price,class,uploader_id,stat,cover) VALUES (:title,:description,:price,:class,:uploader_id,:stat,:cover)");
@@ -238,17 +245,23 @@ $app->post('/notes',function($request,$response){
 
 $app->post('/notes/[{id}]',function($request,$response,$arg){
 	session_start();
-    if(isset($_SESSION['login']) && $_SESSION['login']==='true'){
+    if(isset($_SESSION['login']) && $_SESSION['login']===true){
     	$id = $arg["id"];
 		$input = $request->getBody();
 		$input = json_decode($input,true);
-		$stmt = $this->db->prepare("UPDATE supplies(title, description,price,class,uploader_id,stat,cover) VALUES (:title,:description,:price,:class,:uploader_id,:stat,:cover) WHERE id=:id");
+			$stmt = $this->db->prepare("UPDATE notes SET 
+        title = COALESCE(:title, title),
+        description = COALESCE(:description, description),
+        price = COALESCE(:price, price),
+        class = COALESCE(:class,class),
+        uploader_id = COALESCE(:uploader_id,uploader_id),
+        cover = COALESCE(:cover,cover)
+		WHERE id=:id");
 		$stmt->bindValue(':title', $input["title"],PDO::PARAM_STR);
 		$stmt->bindValue(':description', $input["description"],PDO::PARAM_STR);	
 		$stmt->bindValue(':price', $input["price"],PDO::PARAM_STR);
 		$stmt->bindValue(':class', $input["class"],PDO::PARAM_STR);
 		$stmt->bindValue(':uploader_id', $input["uploader_id"],PDO::PARAM_STR);
-		$stmt->bindValue(':stat', $input["stat"],PDO::PARAM_STR);
 		$stmt->bindValue(':cover',$input["cover"],PDO::PARAM_STR);
 		$stmt->bindValue(':id',$id,PDO::PARAM_STR);
 		try{
@@ -268,7 +281,7 @@ $app->post('/notes/[{id}]',function($request,$response,$arg){
 
 $app->delete('/notes/[{id}]',function($request,$response,$arg){
 	session_start();
-    if(isset($_SESSION['login']) && $_SESSION['login']==='true'){
+    if(isset($_SESSION['login']) && $_SESSION['login']===true){
     	$id = $arg["id"];
 		$stmt = $this->db->prepare("DELETE FROM notes WHERE id = :id");
 		$stmt->bindValue(':id',$id,PDO::PARAM_STR);
@@ -329,7 +342,7 @@ $app->get('/supplies/[{id}]',function($request,$response,$arg){
 
 $app->post('/supplies',function($request,$response){
 	session_start();
-    if(isset($_SESSION['login']) && $_SESSION['login']==='true'){
+    if(isset($_SESSION['login']) && $_SESSION['login']===true){
     	$input = $request->getBody();
 		$input = $request->getBody();
 		$input = json_decode($input,true);
@@ -356,17 +369,23 @@ $app->post('/supplies',function($request,$response){
 
 $app->post('/supplies/[{id}]',function($request,$response,$arg){
 	session_start();
-    if(isset($_SESSION['login']) && $_SESSION['login']==='true'){
+    if(isset($_SESSION['login']) && $_SESSION['login']===true){
     	$id = $arg["id"];
 		$input = $request->getBody();
 		$input = json_decode($input,true);
-		$stmt = $this->db->prepare("UPDATE supplies(title, description,price,class,uploader_id,stat,cover) VALUES (:title,:description,:price,:class,:uploader_id,:stat,:cover) WHERE id=:id");
+		$stmt = $this->db->prepare("UPDATE supplies SET 
+        title = COALESCE(:title, title),
+        description = COALESCE(:description, description),
+        price = COALESCE(:price, price),
+        class = COALESCE(:class,class),
+        uploader_id = COALESCE(:uploader_id,uploader_id),
+        cover = COALESCE(:cover,cover)
+		WHERE id=:id");
 		$stmt->bindValue(':title', $input["title"],PDO::PARAM_STR);
 		$stmt->bindValue(':description', $input["description"],PDO::PARAM_STR);	
 		$stmt->bindValue(':price', $input["price"],PDO::PARAM_STR);
 		$stmt->bindValue(':class', $input["class"],PDO::PARAM_STR);
 		$stmt->bindValue(':uploader_id', $input["uploader_id"],PDO::PARAM_STR);
-		$stmt->bindValue(':stat', $input["stat"],PDO::PARAM_STR);
 		$stmt->bindValue(':cover',$input["cover"],PDO::PARAM_STR);
 		$stmt->bindValue(':id',$id,PDO::PARAM_STR);
 		try{
@@ -386,7 +405,7 @@ $app->post('/supplies/[{id}]',function($request,$response,$arg){
 
 $app->delete('/supplies/[{id}]',function($request,$response,$arg){
 	session_start();
-    if(isset($_SESSION['login']) && $_SESSION['login']==='true'){
+    if(isset($_SESSION['login']) && $_SESSION['login']===true){
     	$id = $arg["id"];
 		$stmt = $this->db->prepare("DELETE FROM supplies WHERE id = :id");
 		$stmt->bindValue(':id',$id,PDO::PARAM_STR);
