@@ -62,6 +62,45 @@ $app->post('/signup',function($request,$response){
 			return $this->response->withHeader('Access-Control-Allow-Origin', '*')->withStatus(200);      
 		}
 });
+$app->get('/saledtextbooks/[{id}]',function($request,$response,$arg){
+	$id = $arg["id"];
+	$stmt=$this->db->prepare("SELECT * FROM textbooks WHERE uploader_id = :id");
+	$stmt->bindValue(':id',$id,PDO::PARAM_STR);
+	 try{
+        	$stmt->execute();
+        }
+        catch(PDOException $e){
+        		return $this->response->withStatus(400)->withHeader('Access-Control-Allow-Origin', '*');
+        }
+    $listing = $stmt->fetchAll();
+    return $this->response->withJson($listing)->withHeader('Access-Control-Allow-Origin', '*');	
+});
+$app->get('/saledtexnotes/[{id}]',function($request,$response,$arg){
+	$id = $arg["id"];
+	$stmt=$this->db->prepare("SELECT * FROM notes WHERE uploader_id = :id");
+	$stmt->bindValue(':id',$id,PDO::PARAM_STR);
+	 try{
+        	$stmt->execute();
+        }
+        catch(PDOException $e){
+        		return $this->response->withStatus(400)->withHeader('Access-Control-Allow-Origin', '*');
+        }
+    $listing = $stmt->fetchAll();
+    return $this->response->withJson($listing)->withHeader('Access-Control-Allow-Origin', '*');	
+});
+$app->get('/saledsupplies/[{id}]',function($request,$response,$arg){
+	$id = $arg["id"];
+	$stmt=$this->db->prepare("SELECT * FROM supplies WHERE uploader_id = :id");
+	$stmt->bindValue(':id',$id,PDO::PARAM_STR);
+	 try{
+        	$stmt->execute();
+        }
+        catch(PDOException $e){
+        		return $this->response->withStatus(400)->withHeader('Access-Control-Allow-Origin', '*');
+        }
+    $listing = $stmt->fetchAll();
+    return $this->response->withJson($listing)->withHeader('Access-Control-Allow-Origin', '*');	
+});
 
 $app->get('/user/[{id}]', function($request,$response,$arg){
 	$id = $arg["id"];
