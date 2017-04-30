@@ -62,6 +62,21 @@ $app->post('/signup',function($request,$response){
 			return $this->response->withHeader('Access-Control-Allow-Origin', '*')->withStatus(200);      
 		}
 });
+
+$app->get('/listings/[{id}]',function($request,$response,$arg){
+	$id= $arg["id"];
+	$stmt= $this->db->prepare( "SELECT * FROM (SELECT id, description, title, uploader_id, price, class, stat, type, cover FROM textbooks WHERE uploader_id = :id UNION ALL SELECT id, description, title, uploader_id, price, class, stat, type ,cover FROM supplies WHERE uploader_id = :id UNION ALL SELECT id, description, title, uploader_id, price, class, stat, type, cover FROM notes WHERE uploader_id = :id) AS searched ORDER BY price");
+	$stmt->bindValue(':id',$id,PDO::PARAM_STR);
+	 try{
+        	$stmt->execute();
+        }
+        catch(PDOException $e){
+        		return $this->response->withStatus(400)->withHeader('Access-Control-Allow-Origin', '*');
+        }
+    $listing = $stmt->fetchAll();
+    return $this->response->withJson($listing)->withHeader('Access-Control-Allow-Origin', '*');
+    
+    });
 $app->get('/saledtextbooks/[{id}]',function($request,$response,$arg){
 	$id = $arg["id"];
 	$stmt=$this->db->prepare("SELECT * FROM textbooks WHERE uploader_id = :id");
