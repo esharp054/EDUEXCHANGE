@@ -1,0 +1,137 @@
+<nav class="navbar navbar-default navbar-fixed-top">
+  <div class="navbar-inner">
+    <div class="container-fluid" id="navbarContainer">
+      <div class="col-md-4">
+        <form class="navbar" id="navLeft">
+
+          <!--Logo-->
+          <div class="navbar-header hidden-sm hidden-xs">
+            <a href="javascript:void(0)" (click)="homePage()">
+              <img id="logo-image" alt="Brand" src="/assets/long_logo.png">
+            </a>
+          </div>
+        </form>
+      </div>
+
+      <!--Search Bar-->
+
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <div class="navbar-center col-md-4">
+          <form class="navbar-form">
+            <!--<search></search>-->
+            <div class="input-group">
+              <input id="searchBar" type="text" class="form-control input-lg" placeholder="Search Listings" />
+              <span class="input-group-btn">
+                <button class="btn btn-info btn-lg" type="button" (click)="search()">
+                  <i class="glyphicon glyphicon-search"></i>
+                </button>
+              </span>
+            </div>
+          </form>
+        </div>
+
+        <!--User Icon-->
+        <div class="col-md-4" *ngIf="user">
+          <form class="navbar-right hidden-sm hidden-xs" id="navRight">
+            <li id="userMenu" class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                <span>
+                  <img id="user" src="/assets/default_user.png" class="img-responsive">
+                </span>
+                <span>
+                  {{user.username || 'username' }}
+                </span>
+                <span id="chevron" class="glyphicon glyphicon-chevron-down"></span>
+              </a>
+              <ul id="userDropDown" class="dropdown-menu">
+
+                <li><a href="javascript:void(0)" (click)="newListing()"> Sell <span class="glyphicon glyphicon-usd pull-right"></span></a></li>
+                <li class="divider"></li>
+                <li><a href="javascript:void(0)" (click)="manageListing()"> Manage Listings <span class="glyphicon glyphicon-pencil pull-right"></span></a></li>
+                <li class="divider"></li>
+                <li><a href="javascript:void(0)">Account Settings <span class="glyphicon glyphicon-cog pull-right"></span></a></li>
+                <li class="divider"></li>
+                <li><a href="javascript:void(0)">Sign Out <span class="glyphicon glyphicon-log-out pull-right"></span></a></li>
+              </ul>
+            </li>
+          </form>
+        </div>
+
+        <!--Listings Modal-->
+        <modal [animation]="animationsEnabled" (onClose)="onClose($event)" #navModal>
+          <modal-header [show-close]="true">
+            <h4 class="modal-title">New Listing</h4>
+          </modal-header>
+          <modal-body>
+            <ul class="nav nav-tabs" role="tablist">
+              <li role="presentation" class="active"><a href="#textbook" aria-controls="textbook" role="tab" data-toggle="tab">Textbook</a></li>
+              <li role="presentation"><a href="#supplies" aria-controls="supplies" role="tab" data-toggle="tab">Supplies</a></li>
+              <li role="presentation"><a href="#notes" aria-controls="notes" role="tab" data-toggle="tab">Notes</a></li>
+            </ul>
+            <div id="textbook" class="tab-pane fade in active">
+              <div class="form-group">
+                <label for="listingTitle">
+                  Title:
+                </label>
+                <input id="listingTitle" type="text" class="form-control" placeholder="Title" required>
+                <!--</div>
+              <div class="form-group">-->
+                <label for="listingPrice">
+                Price:
+                </label>
+                <input id="listingPrice" type="text" class="form-control" placeholder="20" required>
+                <!--</div>
+              <div class="form-group">-->
+                <label for="listingClass">
+                  Class:
+                </label>
+                <input id="listingClass" type="text" class="form-control" placeholder="CSE 3330" required>
+                <!--<label for="listingIBSN">
+                  IBSN:
+                </label>
+                <input id="listingIBSN" type="text" class="form-control" placeholder=" 0061964360" required>-->
+                <label for="listingImagePath">
+                Image URL:
+                </label>
+                <input id="listingImagePath" type="text" class="form-control" placeholder="http://placehold.it/125x150" required>
+                <label for="listingDescription">
+                  Description:
+                </label>
+                <textarea id="listingDescription" type="text" class="form-control" rows="5" placeholder= "More Information Here..." required></textarea>
+              </div>
+            </div>
+            <div id="supplies" class="tab-pane fade">
+            </div>
+            <div id="notes" class="tab-pane fade">
+            </div>
+            <!--<div class="form-group">
+              <label for="listingTitle">
+                Title:
+              </label>
+                <input id="listingTitle" type="text" class="form-control" placeholder="Title" required>
+              </div>
+              <div class="form-group">
+                <label for="listingPrice">
+                Price:
+              </label>
+                <input id="listingPrice" type="text" class="form-control" placeholder="20" required>
+              </div>
+              <div class="form-group">
+                <label for="listingClass">
+                Class:
+              </label>
+                <input id="Class" type="text" class="form-control" placeholder="CSE 3330" required>
+              </div>-->
+          </modal-body>
+          <modal-footer>
+            <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="submitNewListing()">Submit</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal" (click)="modal.dismiss()">Cancel</button>
+          </modal-footer>
+        </modal>
+
+
+
+        </div>
+      </div>
+    </div>
+</nav>

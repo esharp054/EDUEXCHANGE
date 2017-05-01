@@ -1,0 +1,102 @@
+<div class="container">
+  <div class="row">
+    <listingNavbar></listingNavbar>
+  </div>
+
+  <!--Tabs for Listing-->
+
+  <div class="row">
+    <ul class="nav nav-tabs listing" role="tablist">
+      <li id="listingsTab" role="presentation" class="active"><a id="innerListing" href="#openListings" aria-controls="openListings" role="tab" data-toggle="tab">Open Listings</a></li>
+      <li id="listingsTab" role="presentation"><a id="innerListing" href="#closedListings" aria-controls="closedListings" role="tab" data-toggle="tab">Closed Listings</a></li>
+    </ul>
+  </div>
+
+  <div class="row">
+    <div class="col-xs-12 col-s-12 col-md-12 col-lg-12" id="listingsWrap">
+
+      <div class="listing-area">
+        <!--Open Listings-->
+        <div class="tab-pane fade in active" id="openListings">
+          <div class="media" *ngFor="let textbook of (textbooks | sortBy : 'upload_date')" id="mediaWrap">
+            <span class="media-left" id="imageMedia">
+            <img class="d-flex mr-3" id="listingImage" src="{{ textbook.cover || '/assets/default_textbook.jpg'}}" alt="{{ textbook.title }}" />
+          </span>
+            <div class="media-body" id="mediaHeader">
+              <h4 class="media-heading ">
+                Title: {{ textbook.title }} </h4>
+              Price: ${{ textbook.price }} <br> Upload Date: {{ textbook.upload_date }}
+            </div>
+            <div class="row">
+              <button id="closeButton" type="button" class="btn btn-default pull-right" (click)="editListing()">Close Listing<span id="closeIcon" class="glyphicon glyphicon-remove pull-right"></span></button>
+
+              <!-- Edit Listings Modal-->
+              <modal *ngIf="textbook" [animation]="animationsEnabled" (onClose)="onClose($event)" #listingModal>
+                <modal-header [show-close]="true">
+                  <h4 class="modal-title">Edit Listing</h4>
+                </modal-header>
+                <modal-body>
+                  <!--<ul class="nav nav-tabs" role="tablist">
+                    <li role="presentation" class="active"><a href="#textbook" aria-controls="textbook" role="tab" data-toggle="tab">Textbook</a></li>
+                    <li role="presentation"><a href="#supplies" aria-controls="supplies" role="tab" data-toggle="tab">Supplies</a></li>
+                    <li role="presentation"><a href="#notes" aria-controls="notes" role="tab" data-toggle="tab">Notes</a></li>
+                  </ul>-->
+                  <div id="textbook" class="tab-pane fade in active">
+                    <div class="form-group">
+                      <label for="listingTitle">
+                        Title:
+                      </label>
+                      <input id="listingTitle" type="text" class="form-control" [(ngModel)]="textbook.title" required>
+                      <label for="listingPrice">
+                        Price:
+                      </label>
+                      <input id="listingPrice" type="text" class="form-control" [(ngModel)]="textbook.price" required>
+                      <label for="listingClass">
+                        Class:
+                      </label>
+                      <input id="listingClass" type="text" class="form-control" [(ngModel)]="textbook.class" required>
+                      <label for="listingImagePath">
+                        Image URL:
+                      </label>
+                      <input id="listingImagePath" type="text" class="form-control" [(ngModel)]="textbook.cover" required>
+                      <label for="listingDescription">
+                        Description:
+                      </label>
+                      <textarea id="listingDescription" type="text" class="form-control" rows="5" [(ngModel)]="textbook.description" required></textarea>
+                    </div>
+                  </div>
+                  <div id="supplies" class="tab-pane fade">
+                  </div>
+                  <div id="notes" class="tab-pane fade">
+                  </div>
+                </modal-body>
+                <modal-footer>
+                  <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="submitNewListing()">Save Edits</button>
+                  <button type="button" class="btn btn-default" data-dismiss="modal" (click)="modal.dismiss()">Cancel</button>
+                </modal-footer>
+              </modal>
+              <button id="editButton" type="button" class="btn btn-primary pull-right" (click)="editListing()">Edit  <span id="editIcon" class="glyphicon glyphicon-pencil pull-right"></span></button>
+            </div>
+            <hr>
+          </div>
+        </div>
+
+        <!--Closed Listings-->
+        <div class="tab-pane fade" id="closedListings">
+          <!--<div class="media" *ngFor="let textbook of (textbooks | sortBy : 'upload_date')" id="mediaWrap">
+            <span class="media-left" id="imageMedia">
+            <img class="d-flex mr-3" id="listingImage" src="{{ textbook.cover || '/assets/default_textbook.jpg'}}" alt="{{ textbook.title }}" />
+          </span>
+            <div class="media-body" id="mediaHeader">
+              <h4 class="media-heading ">
+                Title: {{ textbook.title }} </h4>
+              Price: ${{ textbook.price }} <br> Upload Date: {{ textbook.upload_date }}
+            </div>
+            <hr>
+          </div>-->
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

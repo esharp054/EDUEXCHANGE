@@ -1,0 +1,85 @@
+<form name="loginForm" #accountForm="ngForm" class="container" (ngSubmit)="signIn()" novalidate>
+	<div class="login-wrap">
+		<img id="login-logo" src="/assets/long_logo.png">
+		<div class="login-html">
+			<input id="tab-1" type="radio" name="tab" class="sign-in" checked><label for="tab-1" class="tab">Sign In</label>
+			<input id="tab-2" type="radio" name="tab" class="sign-up"><label for="tab-2" class="tab">Sign Up</label>
+			<div class="login-form">
+				<div class="sign-in-htm">
+					<div class="form-group">
+						<label for="user_email" class="label">Email Address</label>
+						<input id="user_email" name="user_email" class="form-control" placeholder="example@smu.edu" [(ngModel)]="_userEntry.username"
+						 #user_email="ngModel" required />
+						<!--pattern="^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$"-->
+						<div *ngIf="user_email.errors && user_email.touched" class="alert alert-danger" role="alert">
+							<ul>
+								<li [hidden]="!user_email.errors.required">
+									Email is required
+								</li>
+								<li [hidden]="!user_email.errors.pattern">
+									Email is not valid
+								</li>
+							</ul>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="user_password" class="label">Password</label>
+						<input id="user_password" name="user_password" type="password" class="form-control" data-type="password" [(ngModel)]="_userEntry.password"
+						 #user_password="ngModel" required>
+					</div>
+					<div class="form-group">
+						<input id="check" type="checkbox" class="check" checked>
+						<label for="check"><span class="icon"></span> Keep me Signed in</label>
+					</div>
+					<div class="form-group">
+						<input type="submit" class="button" value="Sign In">
+						<!--//[disabled]="!_userEntry.email || !_userEntry.password"-->
+					</div>
+					<div class="hr"></div>
+					<div class="foot-lnk">
+						<a href="#forgot">Forgot Password?</a>
+					</div>
+				</div>
+
+				<!--<div class="sign-up-htm">
+					<div class="form-group">
+						<label for="new_username" class="label">Username</label>
+						<input id="new_username" name="new_username" class="form-control" [(ngModel)]="_userEntry.username" #new_user_password="ngModel"
+						 required>
+					</div>
+					<div class="form-group">
+						<label for="new_user_email" class="label">Email Address</label>
+						<input id="new_user_email" name="new_user_email" class="form-control" placeholder="example@smu.edu" [(ngModel)]="_userEntry.email"
+						 #new_user_email="ngModel" required pattern="^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$" />
+						<div *ngIf="new_user_email.errors && new_user_email.touched" class="alert alert-danger" role="alert">
+							<ul>
+								<li [hidden]="!new_user_email.errors.required">
+									Email is required
+								</li>
+								<li [hidden]="!new_user_email.errors.pattern">
+									Email is not valid
+								</li>
+							</ul>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="new_user_password" class="label">Password</label>
+						<input id="new_user_password" name="new_user_password" type="password" class="form-control" data-type="password" [(ngModel)]="_userEntry.password"
+						 #new_user_password="ngModel" required>
+					</div>
+					<div class="form-group">
+						<label for="new_phone" class="label">Phone</label>
+						<input id="new_phone" name="new_phone" class="form-control" [(ngModel)]="_userEntry.phone" #new_user_password="ngModel" required>
+					</div>
+					<div class="form-group">
+						<input type="submit" class="button" value="Sign Up" (click)="signUp()">
+					</div>
+					<div class="hr"></div>
+					<div class="foot-lnk">
+						<label for="tab-1">Already a Member?</label>
+					</div>
+				</div>-->
+			</div>
+		</div>
+	</div>
+</form>

@@ -1,0 +1,89 @@
+<div class="container">
+  <div class="row">
+    <listingNavbar></listingNavbar>
+  </div>
+
+  <div class="row">
+    <div class="row align-items-start row-offcanvas row-offcanvas-left">
+      <div class="col-lg-2 hidden-sm hidden-xs hidden-md" id="Wrap" sidebar-offcanvas role="navigation">
+        <h3> Order By: </h3>
+        <div class="btn-group" name="orderButtons" data-toggle="buttons">
+          <label class="check">
+              <input type="radio" name="orderButtons" id="option1" autocomplete="off" (change)="setPriceFilter()"> Price
+          </label>
+          <br>
+          <label class="check">
+              <input type="radio" name="orderButtons" id="option2" autocomplete="off" (change)="setDateFilter()"> Date Uploaded
+          </label>
+          <label class="check">
+              <input type="radio" name="orderButtons" id="option3" autocomplete="off" checked> None
+          </label>
+        </div>
+        <h3> Filter By: </h3>
+        <div class="btn-group" name="filterButtons" data-toggle="buttons">
+          <label class="check">
+              <input type="radio" name="filterButtons" id="option1" autocomplete="off"> Textbooks
+          </label>
+          <br>
+          <label class="check">
+              <input type="radio" name="filterButtons" id="option2" autocomplete="off"> Supplies
+          </label>
+          <br>
+          <label class="check">
+              <input type="radio" name="filterButtons" id="option3" autocomplete="off"> Notes
+          </label>
+          <br>
+          <label class="check">
+              <input type="radio" name="filterButtons" id="option4" autocomplete="off" checked> None
+          </label>
+        </div>
+      </div>
+      <div class="col-xs-12 col-s-12 col-md-12 col-lg-10" id="searchResultsWrap">
+        <a href="#{{ textbook.id }}" class="media" *ngFor="let textbook of (textbooks | sortBy : orderInput)" data-toggle="collapse"
+          id="mediaWrap" aria-expanded="true">
+          <span class="media-left" id="imageMedia">
+            <img class="d-flex mr-3" id="listingImage" src="{{ textbook.cover || '/assets/default_textbook.jpg'}}" alt="{{ textbook.title }}" />
+          </span>
+          <div class="media-body" id="mediaHeader">
+            <h4 class="media-heading ">
+              Title: {{ textbook.title }} </h4>
+            Price: ${{ textbook.price }} <br> Upload Date: {{ textbook.upload_date }}
+          </div>
+          <div id="{{ textbook.id }}" class="panel-collapse collapse" aria-expanded="false">
+            <div class="media-body" id="collapse">
+              Description: {{ textbook.description }}
+              <button (click)="getUploader(textbook)" id="contactButton" type="button" class="btn pull-right"> Contact </button>
+
+<!--Contact Modal-->
+              <modal [animation]="animationsEnabled" (onClose)="onClose($event)" #modal>
+                <modal-header [show-close]="true">
+                  <h4 class="modal-title">Contact</h4>
+                </modal-header>
+                <modal-body>
+                  <div class="media" *ngIf = "uploader">
+                    <span class="media-left" id="imageMedia">
+                      <img class="d-flex mr-3" id="listingImage" src="{{ uploader.imagePath || '/assets/default_user.jpg'}}" alt="{{ uploader.username }}" />
+                    </span>
+                    <div class="media-body" id="mediaHeader">
+                      <h4 class="media-heading ">
+                        Name: {{ uploader.name }} </h4>
+                        Username: {{ uploader.username }}
+                        <br>
+                        Email: {{ uploader.useremail }}
+                    </div>
+                  </div>
+                </modal-body>
+                <modal-footer>
+                  <button type="button" class="btn btn-default" data-dismiss="modal" (click)="modal.dismiss()">Close</button>
+                </modal-footer>
+              </modal>
+
+
+            </div>
+          </div>
+          <hr>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
