@@ -130,6 +130,36 @@ $app->get('/user/[{id}]', function($request,$response,$arg){
     $user = $stmt->fetchAll();
     return $this->response->withJson($user)->withHeader('Access-Control-Allow-Origin', '*');
 });
+
+$app->post('/user/[{id}]',function($request,$response,$arg){
+	session_start();
+    if(isset($_SESSION['login']) && $_SESSION['login']===true){
+    	$id = $arg["id"];
+    	$stmt = $this->db->prepare("UPDATE users SET 
+        email = COALESCE(:email, email),
+        phone = COALESCE(:phone, phone),
+        rating = COALESCE(:rating, rating),
+        avatar = COALESCE(:avatar,avatar),
+        username = COALESCE(:username,username)
+		WHERE userID=:id");
+		$stmt->bindValue(':email',$request["email"],PDO::PARAM_STR);
+		$stmt->bindValue(':phone',$request["phone"],PDO::PARAM_STR);
+		$stmt->bindValue(':rating',$request[":rating"],PDO::PARAM_STR);
+		$stmt->bindValue(':avatar',$request["avatar"],PDO::PARAM_STR);
+		$stmt->bindValue(':username',$request["username"],PDO::PARAM_STR);
+		$stmt->bindValue(':id',$id,PDO::PARAM_STR);
+		try{
+        	$stmt->execute();
+        	}
+        catch(PDOException $e){
+        		return $this->response->withStatus(400)->withHeader('Access-Control-Allow-Origin', '*');
+        	}  
+        	return $this->response->withStatus(200)->withHeader('Access-Control-Allow-Origin','*');  	
+        }else{
+    		return $this->response->withStatus(401)->withHeader('Access-Control-Allow-Origin','*');
+    	}
+	
+});
 $app->get('/textbooks',function($request,$response){
 
     $stmt = $this->db->prepare("SELECT * FROM textbooks ORDER BY title");
