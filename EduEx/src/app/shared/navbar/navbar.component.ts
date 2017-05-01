@@ -64,9 +64,29 @@ export class NavbarComponent {
 //Modal Stuff
   @ViewChild('navModal')
   modal: ModalComponent;
+  items: string[] = ['item1', 'item2', 'item3'];
+  selected: string;
+  output: string;
 
-  close() {
-    this.modal.close();
+  index: number = 0;
+  backdropOptions = [true, false, 'static'];
+  cssClass: string = '';
+
+  animation: boolean = true;
+  keyboard: boolean = true;
+  backdrop: string | boolean = true;
+  css: boolean = false;
+
+  closed() {
+    this.output = '(closed) ';
+  }
+
+  dismissed() {
+    this.output = '(dismissed)';
+  }
+
+  opened() {
+    this.output = '(opened)';
   }
 
   open() {
