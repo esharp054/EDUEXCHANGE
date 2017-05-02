@@ -12,10 +12,8 @@ h3.listing-heading {
     color: black;
 }
 
-.main {
-}
-
-.main-body{
+/*.main-body{*/
+#mainOuter{
     background-color: rgba(250, 250, 250, 0.29);
     border-style: solid;
     border-width: thin;

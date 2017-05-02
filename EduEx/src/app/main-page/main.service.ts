@@ -14,6 +14,7 @@ export class Item {
 }
 
 export class MainService {
+
   items: Item[] = [
     { itemName: 'Calculator', className: 'CSE3340', imagePath: '/assets/default_textbook.jpg', price: 30, description: 'Almost new calculator, mild scratches on case' },
     { itemName: 'Textbook', className: 'EE3840', imagePath: '/assets/default_textbook.jpg', price: 120, description: 'Almost new textbook, mild tears' },
