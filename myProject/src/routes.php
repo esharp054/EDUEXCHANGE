@@ -65,7 +65,7 @@ $app->post('/signup',function($request,$response){
 
 $app->get('/listings/[{id}]',function($request,$response,$arg){
 	$id= $arg["id"];
-	$stmt= $this->db->prepare( "SELECT * FROM (SELECT id, description, title, uploader_id, price, class, stat, type, cover FROM textbooks WHERE uploader_id = :id UNION ALL SELECT id, description, title, uploader_id, price, class, stat, type ,cover FROM supplies WHERE uploader_id = :id UNION ALL SELECT id, description, title, uploader_id, price, class, stat, type, cover FROM notes WHERE uploader_id = :id) AS searched ORDER BY price");
+	$stmt= $this->db->prepare( "SELECT * FROM (SELECT id, description, title, uploader_id, price, class, stat, type, cover, upload_date FROM textbooks WHERE uploader_id = :id UNION ALL SELECT id, description, title, uploader_id, price, class, stat, type ,cover, upload_date FROM supplies WHERE uploader_id = :id UNION ALL SELECT id, description, title, uploader_id, price, class, stat, type, cover, upload_date FROM notes WHERE uploader_id = :id) AS searched ORDER BY price");
 	$stmt->bindValue(':id',$id,PDO::PARAM_STR);
 	 try{
         	$stmt->execute();
@@ -510,7 +510,7 @@ $app->delete('/supplies/[{id}]',function($request,$response,$arg){
 
 $app->get('/recent',function($request,$response){
 	
-	$stmt = $this->db->prepare("SELECT id, description, title, uploader_id, price, class, stat, type FROM textbooks ORDER BY upload_date LIMIT 1 UNION ALL SELECT SELECT id, description, title, uploader_id, price, class, stat, type FROM notes ORDER BY upload_date UNION ALL SELECT id, description, title, uploader_id, price, class, stat, type FROM supplies ORDER BY upload_date  ");
+	$stmt = $this->db->prepare("SELECT * FROM ( SELECT * FROM (SELECT id, description, title, uploader_id, price, class, stat, type, cover, upload_date FROM textbooks ORDER BY upload_date LIMIT 10) AS selected1 UNION ALL SELECT * FROM (SELECT id, description, title, uploader_id, price, class, stat, type, cover, upload_date FROM notes ORDER BY upload_date LIMIT 10) AS selected2 UNION ALL SELECT * FROM (SELECT id, description, title, uploader_id, price, class, stat, type, cover, upload_date FROM supplies ORDER BY upload_date LIMIT 10) AS selected3) AS selected4 ORDER BY upload_date LIMIT 10");
 	try{
         	$stmt->execute();
         }
@@ -524,7 +524,7 @@ $app->get('/recent',function($request,$response){
 
 $app->get('/search/[{query}]',function($request,$response,$arg){
 	$query = $arg["query"];
-	$stmt = $this->db->prepare(" SELECT * FROM (SELECT id, description, title, uploader_id, price, class, stat, type, cover FROM textbooks WHERE title LIKE :query OR description LIKE :query OR class LIKE :query UNION ALL SELECT id, description, title, uploader_id, price, class, stat, type ,cover FROM supplies WHERE title like :query OR description LIKE :query or class like :query UNION ALL SELECT id, description, title, uploader_id, price, class, stat, type, cover FROM notes WHERE title like :query OR description LIKE :query or class like :query) AS searched ORDER BY price");
+	$stmt = $this->db->prepare(" SELECT * FROM (SELECT id, description, title, uploader_id, price, class, stat, type, cover,upload_date FROM textbooks WHERE title LIKE :query OR description LIKE :query OR class LIKE :query UNION ALL SELECT id, description, title, uploader_id, price, class, stat, type ,cover, upload_date FROM supplies WHERE title like :query OR description LIKE :query or class like :query UNION ALL SELECT id, description, title, uploader_id, price, class, stat, type, cover, upload_date FROM notes WHERE title like :query OR description LIKE :query or class like :query) AS searched ORDER BY price");
 	$stmt->bindValue(':query',"%".$query."%",PDO::PARAM_STR);
 	try{
         	$stmt->execute();
