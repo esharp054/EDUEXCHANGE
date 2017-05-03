@@ -510,7 +510,7 @@ $app->delete('/supplies/[{id}]',function($request,$response,$arg){
 
 $app->get('/recent',function($request,$response){
 	
-	$stmt = $this->db->prepare("SELECT * FROM ( SELECT * FROM (SELECT id, description, title, uploader_id, price, class, stat, type, cover, upload_date FROM textbooks ORDER BY upload_date LIMIT 10) AS selected1 UNION ALL SELECT * FROM (SELECT id, description, title, uploader_id, price, class, stat, type, cover, upload_date FROM notes ORDER BY upload_date LIMIT 10) AS selected2 UNION ALL SELECT * FROM (SELECT id, description, title, uploader_id, price, class, stat, type, cover, upload_date FROM supplies ORDER BY upload_date LIMIT 10) AS selected3) AS selected4 ORDER BY upload_date LIMIT 10");
+	$stmt = $this->db->prepare("SELECT * FROM ( SELECT * FROM (SELECT id, description, title, uploader_id, price, class, stat, type, cover, upload_date FROM textbooks ORDER BY upload_date LIMIT 10) AS selected1 UNION ALL SELECT * FROM (SELECT id, description, title, uploader_id, price, class, stat, type, cover, upload_date FROM notes ORDER BY upload_date LIMIT 10) AS selected2 UNION ALL SELECT * FROM (SELECT id, description, title, uploader_id, price, class, stat, type, cover, upload_date FROM supplies ORDER BY upload_date LIMIT 10) AS selected3) AS selected4 ORDER BY upload_date LIMIT 10 DESC");
 	try{
         	$stmt->execute();
         }
