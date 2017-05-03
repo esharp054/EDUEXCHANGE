@@ -6,6 +6,12 @@ body {
   
 }
 
+#searchWell{
+    margin-right: 20px;
+    margin-left: 20px;
+    background-color: rgba(250, 250, 250, 0.4);
+}
+
 #listingsWrap{
 	background: rgba(250,250,250, 0.4);
 	background-color: rgba(250,250,250, 0.4);
@@ -43,11 +49,11 @@ body {
 
 #listingImage{
 	/*float:left;*/
-	max-width: 125px;
+	width: 125px;
     /*margin-top: 10px;*/
 }
 
-.nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover {
+#listingClass .nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover {
     color: #555;
     cursor: default;
     background-color: rgba(250,250,250, 0.6);
@@ -55,7 +61,7 @@ body {
     border-bottom-color: transparent;
 }
 
-.nav-tabs>li>a {
+#listingClass .nav-tabs>li>a {
 	background-color: rgba(250,250,250, 0.4);
     margin-right: 2px;
     line-height: 1.42857143;

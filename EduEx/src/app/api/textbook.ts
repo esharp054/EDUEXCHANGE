@@ -11,4 +11,5 @@ export class Textbook {
     price: any;
     class: any;
     stat: any;
+    index: any;
 }

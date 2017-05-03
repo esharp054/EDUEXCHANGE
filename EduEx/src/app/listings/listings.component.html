@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" id="listingClass">
   <div class="row">
     <listingNavbar></listingNavbar>
   </div>
@@ -15,20 +15,21 @@
   <div class="row">
     <div class="col-xs-12 col-s-12 col-md-12 col-lg-12" id="listingsWrap">
 
-      <div class="listing-area">
+      <div class="tab-content">
         <!--Open Listings-->
         <div class="tab-pane fade in active" id="openListings">
-          <div class="media" *ngFor="let textbook of (textbooks | sortBy : 'upload_date')" id="mediaWrap">
+          <div class="media" *ngFor="let textbook of (openListings | sortBy : 'upload_date')" id="mediaWrap">
             <span class="media-left" id="imageMedia">
-            <img class="d-flex mr-3" id="listingImage" src="{{ textbook.cover || '/assets/default_textbook.jpg'}}" alt="{{ textbook.title }}" />
-          </span>
+              <img class="d-flex mr-3" id="listingImage" src="{{ textbook.cover || '/assets/default_textbook.jpg'}}" alt="{{ textbook.title }}" />
+            </span>
             <div class="media-body" id="mediaHeader">
               <h4 class="media-heading ">
                 Title: {{ textbook.title }} </h4>
-              Price: ${{ textbook.price }} <br> Upload Date: {{ textbook.upload_date }}
+              Price: ${{ textbook.price }} <br> Class: {{ textbook.class }} <br> Upload Date: {{ textbook.upload_date | date}}
+              <br> Description: <br>{{textbook.description}}
             </div>
             <div class="row">
-              <button id="closeButton" type="button" class="btn btn-default pull-right" (click)="editListing()">Close Listing<span id="closeIcon" class="glyphicon glyphicon-remove pull-right"></span></button>
+              <button id="closeButton" type="button" class="btn btn-default pull-right" (click)="closeListing(textbook)">Close Listing<span id="closeIcon" class="glyphicon glyphicon-remove pull-right"></span></button>
 
               <!-- Edit Listings Modal-->
               <modal *ngIf="textbook" [animation]="animationsEnabled" (onClose)="onClose($event)" #listingModal>
@@ -46,23 +47,23 @@
                       <label for="listingTitle">
                         Title:
                       </label>
-                      <input id="listingTitle" type="text" class="form-control" [(ngModel)]="textbook.title" required>
+                      <input id="listingTitle" type="text" class="form-control" [(ngModel)]="curListing.title" required>
                       <label for="listingPrice">
                         Price:
                       </label>
-                      <input id="listingPrice" type="text" class="form-control" [(ngModel)]="textbook.price" required>
+                      <input id="listingPrice" type="text" class="form-control" [(ngModel)]="curListing.price" required>
                       <label for="listingClass">
                         Class:
                       </label>
-                      <input id="listingClass" type="text" class="form-control" [(ngModel)]="textbook.class" required>
+                      <input id="listingClass" type="text" class="form-control" [(ngModel)]="curListing.class" required>
                       <label for="listingImagePath">
                         Image URL:
                       </label>
-                      <input id="listingImagePath" type="text" class="form-control" [(ngModel)]="textbook.cover" required>
+                      <input id="listingImagePath" type="text" class="form-control" [(ngModel)]="curListing.cover" required>
                       <label for="listingDescription">
                         Description:
                       </label>
-                      <textarea id="listingDescription" type="text" class="form-control" rows="5" [(ngModel)]="textbook.description" required></textarea>
+                      <textarea id="listingDescription" type="text" class="form-control" rows="5" [(ngModel)]="curListing.description" required></textarea>
                     </div>
                   </div>
                   <div id="supplies" class="tab-pane fade">
@@ -71,29 +72,36 @@
                   </div>
                 </modal-body>
                 <modal-footer>
-                  <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="submitNewListing()">Save Edits</button>
+                  <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="saveListing(curListing)">Save</button>
                   <button type="button" class="btn btn-default" data-dismiss="modal" (click)="modal.dismiss()">Cancel</button>
                 </modal-footer>
               </modal>
-              <button id="editButton" type="button" class="btn btn-primary pull-right" (click)="editListing()">Edit  <span id="editIcon" class="glyphicon glyphicon-pencil pull-right"></span></button>
+              <button id="editButton" type="button" class="btn btn-primary pull-right" (click)="editListing(textbook)">Edit  <span id="editIcon" class="glyphicon glyphicon-pencil pull-right"></span></button>
             </div>
             <hr>
+          </div>
+          <div class="row" *ngIf="openListings.length === 0">
+            <div class="well" id="searchWell">There are currently no listings</div>
           </div>
         </div>
 
         <!--Closed Listings-->
         <div class="tab-pane fade" id="closedListings">
-          <!--<div class="media" *ngFor="let textbook of (textbooks | sortBy : 'upload_date')" id="mediaWrap">
+          <div class="media" *ngFor="let textbook of (closedListings | sortBy : 'upload_date')" id="mediaWrap">
             <span class="media-left" id="imageMedia">
-            <img class="d-flex mr-3" id="listingImage" src="{{ textbook.cover || '/assets/default_textbook.jpg'}}" alt="{{ textbook.title }}" />
-          </span>
+              <img class="d-flex mr-3" id="listingImage" src="{{ textbook.cover || '/assets/default_textbook.jpg'}}" alt="{{ textbook.title }}" />
+            </span>
             <div class="media-body" id="mediaHeader">
               <h4 class="media-heading ">
                 Title: {{ textbook.title }} </h4>
-              Price: ${{ textbook.price }} <br> Upload Date: {{ textbook.upload_date }}
+              Price: ${{ textbook.price }} <br> Class: {{ textbook.class }} <br> Upload Date: {{ textbook.upload_date | date}}
+              <br> Description: <br>{{textbook.description}}
             </div>
             <hr>
-          </div>-->
+          </div>
+          <div class="row" *ngIf="closedListings.length === 0">
+            <div class="well" id="searchWell">There are currently no listings</div>
+          </div>
         </div>
       </div>
 

@@ -11,9 +11,9 @@ export class SortPricePipe implements PipeTransform {
       return null;
     }
     array.sort((a: any, b: any) => {
-      if (a[args] < b[args]) {
+      if (Number(a[args]) < Number(b[args])) {
         return -1;
-      } else if (a[args] > b[args]) {
+      } else if (Number(a[args]) > Number(b[args])) {
         return 1;
       } else {
         return 0;

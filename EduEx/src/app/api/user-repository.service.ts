@@ -8,13 +8,14 @@ import { User } from './user';
 export class UserRepository {
   // private _users: User[];
 
-  private _apiUrl = `https://private-ea4cc-eduexchange.apiary-mock.com/users`;
-  // private _apiUrls = `https://private-ea4cc-eduexchange.apiary-mock.com/user`;
+  // private _apiUrl = `https://private-ea4cc-eduexchange.apiary-mock.com/users`;
+  // private _apiUrl = `https://private-ea4cc-eduexchange.apiary-mock.com/users`;
+  private _apiUrl = `http://54.91.225.139/eduexchange/public/index.php/user`;
   private _apiUrls = `http://54.91.225.139/eduexchange/public/index.php/signin`;
 
   constructor(private http: Http) { }
 
-  private getData(response: Response){
+  private getData(response: Response) {
     let body = response.json();
     console.log('response', body);
     return body.data || body;
@@ -28,8 +29,16 @@ export class UserRepository {
       .catch(x => x.message);
   }
 
+  public logout() {
+    var url = `http://54.91.225.139/eduexchange/public/index.php/logout`;
+    return this.http
+      .get(url, { withCredentials: true })
+      .toPromise()
+      .then(this.getData)
+      .catch(x => x.message);
+  }
+
   public getById(id: number): Promise<User> {
-    console.log("Got here");
     return this.http
       .get(`${this._apiUrl}/${id}`)
       .toPromise()
@@ -45,37 +54,41 @@ export class UserRepository {
   //     .catch(x => x.message);
   // }
 
-  public getByEmail(user: any): Promise<User> {
+  public login(user: any): Promise<User> {
     return this.http
-      .post(this._apiUrls, user)
+      .post(this._apiUrls, user, { withCredentials: true })
       .toPromise()
       .then(this.getData)
       .catch(x => {
-        alert(x.message);
+        alert('Username or password is incorrect.');
       });
   }
 
-  public signUp(user: any): Promise<User> {
+  public signUp(user: any) {
+    var Urls = `http://54.91.225.139/eduexchange/public/index.php/signup`;
+    debugger;
     return this.http
-      .post(this._apiUrls, user)
+      .post(Urls, user)
       .toPromise()
       .then(this.getData)
       .catch(x => x.message);
   }
 
-  
+
 
   public add(user: User): Promise<User> {
     return this.http
       .post(this._apiUrl, user)
       .toPromise()
       .then(x => x.json().data as User)
-      .catch(x => x.message);
+      .catch(x => {
+        alert('Username or password is incorrect.');
+      });
   }
 
   public update(user: User): Promise<User> {
     return this.http
-      .put(`${this._apiUrl}/${user.id}`, User)
+      .put(`${this._apiUrl}/${user.userID}`, User)
       .toPromise()
       .then(() => User)
       .catch(x => x.message);
@@ -83,7 +96,7 @@ export class UserRepository {
 
   public delete(user: User): Promise<void> {
     return this.http
-      .delete(`${this._apiUrl}/${user.id}`)
+      .delete(`${this._apiUrl}/${user.userID}`)
       .toPromise()
       .catch(x => x.message);
   }

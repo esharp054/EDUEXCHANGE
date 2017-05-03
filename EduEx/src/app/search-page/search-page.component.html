@@ -9,80 +9,93 @@
         <h3> Order By: </h3>
         <div class="btn-group" name="orderButtons" data-toggle="buttons">
           <label class="check">
-              <input type="radio" name="orderButtons" id="option1" autocomplete="off" (change)="setPriceFilter()"> Price
+              <input type="radio" name="orderButtons" id="option1" autocomplete="off" (change)="setPriceOrder()"> Price
           </label>
           <br>
           <label class="check">
-              <input type="radio" name="orderButtons" id="option2" autocomplete="off" (change)="setDateFilter()"> Date Uploaded
+              <input type="radio" name="orderButtons" id="option2" autocomplete="off" (change)="setDateOrder()"> Date Uploaded
           </label>
           <label class="check">
-              <input type="radio" name="orderButtons" id="option3" autocomplete="off" checked> None
+              <input type="radio" name="orderButtons" id="option3" autocomplete="off" (change)="setNoOrder()" checked> None
           </label>
         </div>
         <h3> Filter By: </h3>
         <div class="btn-group" name="filterButtons" data-toggle="buttons">
           <label class="check">
-              <input type="radio" name="filterButtons" id="option1" autocomplete="off"> Textbooks
+              <input type="radio" name="filterButtons" id="option1" autocomplete="off" (change)="setTextbooksFilter()"> Textbooks
           </label>
           <br>
           <label class="check">
-              <input type="radio" name="filterButtons" id="option2" autocomplete="off"> Supplies
+              <input type="radio" name="filterButtons" id="option2" autocomplete="off" (change)="setSuppliesFilter()"> Supplies
           </label>
           <br>
           <label class="check">
-              <input type="radio" name="filterButtons" id="option3" autocomplete="off"> Notes
+              <input type="radio" name="filterButtons" id="option3" autocomplete="off" (change)="setNotesFilter()"> Notes
           </label>
           <br>
           <label class="check">
-              <input type="radio" name="filterButtons" id="option4" autocomplete="off" checked> None
+              <input type="radio" name="filterButtons" id="option4" autocomplete="off" (change)="setNoFilter()" checked> None
           </label>
         </div>
       </div>
       <div class="col-xs-12 col-s-12 col-md-12 col-lg-10" id="searchResultsWrap">
-        <a href="#{{ textbook.id }}" class="media" *ngFor="let textbook of (textbooks | sortBy : orderInput)" data-toggle="collapse"
-          id="mediaWrap" aria-expanded="true">
+        <div class="media" *ngFor="let textbook of (textbooks | filterType : ['type', filterInput] | sortBy : orderInput); let i = index"
+          id="mediaWrap">
           <span class="media-left" id="imageMedia">
             <img class="d-flex mr-3" id="listingImage" src="{{ textbook.cover || '/assets/default_textbook.jpg'}}" alt="{{ textbook.title }}" />
           </span>
           <div class="media-body" id="mediaHeader">
             <h4 class="media-heading ">
               Title: {{ textbook.title }} </h4>
-            Price: ${{ textbook.price }} <br> Upload Date: {{ textbook.upload_date }}
+            Price: ${{ textbook.price }} <br> Class: {{ textbook.class }} <br> Upload Date: {{ textbook.upload_date | date}}
+            <a href="#{{ 'textbook_' + i }}" data-toggle="collapse" id="userInfo" aria-expanded="false">
+              <p> View More Information
+                <span id="chevDown" class="glyphicon glyphicon-chevron-down"></span><span id="chevUp" class="glyphicon glyphicon-chevron-up"></span>
+              </p>
+            </a>
           </div>
-          <div id="{{ textbook.id }}" class="panel-collapse collapse" aria-expanded="false">
+          <div id="{{ 'textbook_' + i }}" class="panel-collapse collapse" aria-expanded="false">
             <div class="media-body" id="collapse">
               Description: {{ textbook.description }}
               <button (click)="getUploader(textbook)" id="contactButton" type="button" class="btn pull-right"> Contact </button>
 
-<!--Contact Modal-->
+              <!--Contact Modal-->
               <modal [animation]="animationsEnabled" (onClose)="onClose($event)" #modal>
                 <modal-header [show-close]="true">
                   <h4 class="modal-title">Contact</h4>
                 </modal-header>
                 <modal-body>
-                  <div class="media" *ngIf = "uploader">
+                  <div class="media" *ngIf="uploader">
                     <span class="media-left" id="imageMedia">
-                      <img class="d-flex mr-3" id="listingImage" src="{{ uploader.imagePath || '/assets/default_user.jpg'}}" alt="{{ uploader.username }}" />
+                      <img class="d-flex mr-3" id="listingImage" src="{{ uploader.cover || '/assets/default_user.png'}}" alt="{{ uploader.username }}" />
                     </span>
                     <div class="media-body" id="mediaHeader">
-                      <h4 class="media-heading ">
-                        Name: {{ uploader.name }} </h4>
-                        Username: {{ uploader.username }}
-                        <br>
-                        Email: {{ uploader.useremail }}
+                      <!--<h4 class="media-heading ">-->
+                        <!--Name: {{ uploader.name }} </h4>-->
+                      Username: {{ uploader.username }}
+                      <br> Email: {{ uploader.email }}
+                      <br> Phone: {{ uploader.phone }}
                     </div>
+                  </div>
+                  <div class="well" *ngIf="!uploader"> There is no user associated with this listing.
                   </div>
                 </modal-body>
                 <modal-footer>
                   <button type="button" class="btn btn-default" data-dismiss="modal" (click)="modal.dismiss()">Close</button>
                 </modal-footer>
               </modal>
-
-
             </div>
           </div>
-          <hr>
-        </a>
+          <div class="row" id="line">
+            <hr>
+            <div class="row" *ngIf="!textbooks?.length">
+              <div class="well" id="searchWell">There are currently no listings</div>
+            </div>
+          </div>
+          <div class="row" *ngIf="!textbooks?.length">
+            <div class="well" id="searchWell">There are currently no listings</div>
+          </div>
+        </div>
       </div>
     </div>
   </div>

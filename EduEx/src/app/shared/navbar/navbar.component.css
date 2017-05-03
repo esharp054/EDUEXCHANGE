@@ -50,11 +50,20 @@ span#chevron {
 #userDropDown {
 	width: 200px;
 	margin-right: -20px;
+	margin-top: -10px;
+}
+
+#textSubmit {
+	margin-right: 10px;
+}
+#textClose {
+	margin-right: 20px;
 }
 
 #userMenu {
 	display: inline-block;
 	list-style-type: none;
+	/*margin-top: 3px;*/
 }
 
 #searchBar{
@@ -62,6 +71,13 @@ span#chevron {
 	/*margin-right: 50%;*/
 }
 
+ul {
+	list-style-type: none;
+}
+
+.alert {
+	padding: 5px;
+}
 .input-group-btn:last-child>.btn, .input-group-btn:last-child>.btn-group {
     z-index: 2;
     margin-left: -1px;
@@ -71,8 +87,30 @@ span#chevron {
 		
 }
 
+div.modal-body .tab-content{
+  display: none;
+}
+
+div.modal-body .active
+{
+  display: block !important;
+}
+
+#supplies,
+#textbook {
+	top:0;
+	left:0;
+	/*right:0;*/
+	/*bottom:0;*/
+	position:relative;
+}
+
 .top-buffer {
     margin-top: 50px;
+}
+
+.navbar-right {
+	margin-top: -5px;
 }
 
 .btn-info {

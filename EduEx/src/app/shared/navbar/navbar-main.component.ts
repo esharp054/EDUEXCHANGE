@@ -12,20 +12,19 @@ import { ModalComponent } from 'ng2-bs3-modal/ng2-bs3-modal';
 
 @Component({
   moduleId: module.id,
-  selector: 'listingNavbar',
-  templateUrl: './navbar.component.html',
+  selector: 'main-navbar',
+  templateUrl: './navbar-main.component.html',
   styleUrls: ['./navbar.component.css'],
   encapsulation: ViewEncapsulation.None
 })
-
-export class NavbarComponent {
+export class NavbarMainComponent {
   user: any;
   textbook: any;
   _searchTerm: string;
 
   constructor(private router: Router,
-              private textbookService: TextbookService,
-              private userService: UserRepository) {
+    private textbookService: TextbookService,
+    private userService: UserRepository) {
     this.user = {};
     this.textbook = {};
     this.user.username = localStorage.getItem('currentUsername');
@@ -49,7 +48,7 @@ export class NavbarComponent {
     this.router.navigate(['listings']);
   }
 
-  submitNewTextbook(){
+  submitNewTextbook() {
     // Add post method for new listing
     // debugger;
     this.textbook.uploader_id = this.user.id;
@@ -91,7 +90,7 @@ export class NavbarComponent {
 
   search() {
     // Add get method and send search term or send search term with navigate
-    this.router.navigate(['search', this._searchTerm]);
+    this.router.navigate(['search']);
   }
 
   homePage() {
@@ -100,7 +99,7 @@ export class NavbarComponent {
   }
 
 
-//Modal Stuff
+  //Modal Stuff
   @ViewChild('navModal')
   modal: ModalComponent;
   items: string[] = ['item1', 'item2', 'item3'];

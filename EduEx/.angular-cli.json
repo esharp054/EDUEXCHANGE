@@ -23,9 +23,9 @@
 	"../node_modules/bootstrap/dist/css/bootstrap.min.css"
       ],
       "scripts": [
-	"../node_modules/jquery/dist/jquery.js",
-	"../node_modules/bootstrap/js/modal.js",
-  	"../node_modules/bootstrap/dist/js/bootstrap.js"
+	    "../node_modules/jquery/dist/jquery.js",
+	    "../node_modules/bootstrap/js/modal.js",
+  	  "../node_modules/bootstrap/dist/js/bootstrap.js"
       ],
       "environmentSource": "environments/environment.ts",
       "environments": {

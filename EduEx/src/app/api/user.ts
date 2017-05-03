@@ -1,10 +1,11 @@
 
 export class User {
-    id: number;
     email: string;
-    imagePath: string;
+    joined_date: any;
+    rating: any;
     password: string;
     username: string;
     phone: string;
-    name: string;
+    avatar: any;
+    userID: any;
 }

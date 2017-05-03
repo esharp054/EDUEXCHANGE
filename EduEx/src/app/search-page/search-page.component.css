@@ -37,8 +37,14 @@ body {
 
 #listingImage{
 	/*float:left;*/
-	max-width: 125px;
+	width: 125px;
     /*margin-top: 10px;*/
+}
+
+#searchWell{
+    margin-right: 20px;
+    margin-left: 20px;
+    background-color: rgba(250, 250, 250, 0.4);
 }
 
 /*#mediaWrap{
@@ -53,6 +59,7 @@ a:link{
 #contactButton {
   background-color: white;
   margin-right: 20px;
+  margin-top: 20px;
   /*margin-bottom: 10px;*/
 }
 
@@ -63,6 +70,20 @@ panel-collapse {
 
 #collapse {
   padding-top: 20px;
+}
+#line {
+  margin-bottom: -5px;
+}
+#userInfo {
+    float: right;
+    margin-top: 12%;
+}
+
+a[aria-expanded=true] #chevDown {
+   display: none;
+}
+a[aria-expanded=false] #chevUp {
+   display: none;
 }
 
 

@@ -25,7 +25,11 @@ var routes = [
   },
   {
     path: '',
-    component: MainPageComponent
+    component: LoginComponent
+  },
+  {
+    path: 'search/:searchTerm',
+    component: SearchPageComponent
   },
   {
     path: 'search',
@@ -36,8 +40,8 @@ var routes = [
     component: ListingsComponent
   },
   {
-    path: 'main/:user',
-    component: SearchPageComponent
+    path: 'main',
+    component: MainPageComponent
   },
 ];
 

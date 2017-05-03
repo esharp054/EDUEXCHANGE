@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-// import { ActivatedRoute, Router, Params } from '@angular/router';
+import { ActivatedRoute, Router, Params } from '@angular/router';
 import { ViewEncapsulation } from '@angular/core';
 
 import { Textbook } from '../api/textbook';
@@ -21,29 +21,68 @@ export class SearchPageComponent {
   textbooks: any[];
   singleTextbook: any;
   orderInput: string;
+  filterInput: string = '';
+  length: number;
   uploader: any;
+  _searchTerm: string;
 
   constructor(private textbookService: TextbookService,
-              private userService: UserRepository ) {
-    this.textbookService.listAll().then(x => this.textbooks = x);
+    private route: ActivatedRoute,
+    private userService: UserRepository) {
+    // this.textbooks = [];
+    // this._searchTerm = localStorage.getItem('searchTerm');
+    // this.textbookService.search(this._searchTerm).then(x => this.textbooks = x);
     //overlay.defaultViewContainer = vcRef;
   }
+  ngOnInit() {
+    var onLoad = (data) => {
+      this.textbooks = data;
+    };
 
-  public setPriceFilter() {
-    if (this.orderInput === 'price')
-      this.orderInput = 'id';
-    else
-      this.orderInput = 'price';
+    this.route.params.subscribe(params => {
+      // debugger;
+      if (params['searchTerm'] !== undefined) {
+        this.textbookService.search(params['searchTerm']).then(x => this.textbooks = x);
+      } else {
+        this.textbooks = [];
+      }
+    });
   }
-  public setDateFilter() {
-    if (this.orderInput === 'upload_date')
-      this.orderInput = 'id';
-    else
-      this.orderInput = 'upload_date';
+
+  public setPriceOrder() {
+    this.orderInput = 'price';
+  }
+  public setDateOrder() {
+    this.orderInput = 'upload_date';
+  }
+
+  public setNoOrder() {
+    this.orderInput = 'id';
+  }
+
+  public setNoFilter() {
+    this.filterInput = '';
+  }
+
+  public setTextbooksFilter() {
+    this.filterInput = 'textbook';
+  }
+
+  public setNotesFilter() {
+    this.filterInput = 'notes';
+  }
+
+  public setSuppliesFilter() {
+    this.filterInput = 'supplies';
+    debugger;
   }
 
   getUploader(item: Textbook) {
-    this.userService.getById(1).then(x => this.uploader = x);
+    this.uploader = {};
+    this.userService.getById(item.uploader_id).then(x => {
+      this.uploader = x[0]; 
+      debugger;
+    });
     this.modal.open();
   }
 
