@@ -26,16 +26,16 @@ $app->post('/signin',function($request,$response){
 			$_SESSION["login"] = true;
 		}
 		else{
-			return $this->response->withStatus(400)->withHeader('Access-Control-Allow-Origin', '*');
+			return $this->response->withStatus(400);
 		}
-		return $this->response->withJson($userInfo)->withHeader('Access-Control-Allow-Origin', '*');
+		return $this->response->withJson($userInfo);
 	
 });  
 
 $app->post('/signup',function($request,$response){
 		session_start();
 		if(isset($_SESSION["login"]) && $_SESSION["login"] === true){
-			return $this->response->withStatus(201)->withHeader('Access-Control-Allow-Origin', '*');
+			return $this->response->withStatus(201);
 		}
 		else{
 			$input = $request->getBody();
@@ -52,14 +52,14 @@ $app->post('/signup',function($request,$response){
 				$stmt->execute();
 			}
 			catch(PDOException $e){
-					return $this->response->withHeader('Access-Control-Allow-Origin', '*')->withStatus(401);
+					return $this->response->withStatus(400);
 			}
 			$to = $input["email"];
 			$subject = "My subject";
 			$txt = "Hello world!";
 			$headers = "From:Eduexchange";
 			mail($to,$subject,$txt,$headers,"-feduexchange@smu.edu");    
-			return $this->response->withHeader('Access-Control-Allow-Origin', '*')->withStatus(200);      
+			return $this->response->withStatus(200);      
 		}
 });
 
@@ -71,11 +71,10 @@ $app->get('/listings/[{id}]',function($request,$response,$arg){
         	$stmt->execute();
         }
         catch(PDOException $e){
-        		return $this->response->withStatus(400)->withHeader('Access-Control-Allow-Origin', '*');
+        		return $this->response->withStatus(400);
         }
     $listing = $stmt->fetchAll();
-    return $this->response->withJson($listing)->withHeader('Access-Control-Allow-Origin', '*');
-    
+    return $this->response->withJson($listing);    
     });
 $app->get('/saledtextbooks/[{id}]',function($request,$response,$arg){
 	$id = $arg["id"];
@@ -85,11 +84,10 @@ $app->get('/saledtextbooks/[{id}]',function($request,$response,$arg){
         	$stmt->execute();
         }
         catch(PDOException $e){
-        		return $this->response->withStatus(400)->withHeader('Access-Control-Allow-Origin', '*');
-        }
+        		return $this->response->withStatus(400);        }
     $listing = $stmt->fetchAll();
-    return $this->response->withJson($listing)->withHeader('Access-Control-Allow-Origin', '*');	
-});
+    return $this->response->withJson($listing);
+    });
 $app->get('/saledtexnotes/[{id}]',function($request,$response,$arg){
 	$id = $arg["id"];
 	$stmt=$this->db->prepare("SELECT * FROM notes WHERE uploader_id = :id");
@@ -98,10 +96,10 @@ $app->get('/saledtexnotes/[{id}]',function($request,$response,$arg){
         	$stmt->execute();
         }
         catch(PDOException $e){
-        		return $this->response->withStatus(400)->withHeader('Access-Control-Allow-Origin', '*');
+        		return $this->response->withStatus(400);
         }
     $listing = $stmt->fetchAll();
-    return $this->response->withJson($listing)->withHeader('Access-Control-Allow-Origin', '*');	
+    return $this->response->withJson($listing);
 });
 $app->get('/saledsupplies/[{id}]',function($request,$response,$arg){
 	$id = $arg["id"];
@@ -111,10 +109,10 @@ $app->get('/saledsupplies/[{id}]',function($request,$response,$arg){
         	$stmt->execute();
         }
         catch(PDOException $e){
-        		return $this->response->withStatus(400)->withHeader('Access-Control-Allow-Origin', '*');
+        		return $this->response->withStatus(400);
         }
     $listing = $stmt->fetchAll();
-    return $this->response->withJson($listing)->withHeader('Access-Control-Allow-Origin', '*');	
+    return $this->response->withJson($listing);
 });
 
 $app->get('/user/[{id}]', function($request,$response,$arg){
@@ -125,10 +123,10 @@ $app->get('/user/[{id}]', function($request,$response,$arg){
         	$stmt->execute();
         }
         catch(PDOException $e){
-        		return $this->response->withStatus(400)->withHeader('Access-Control-Allow-Origin', '*');
+        		return $this->response->withStatus(400);
         }
     $user = $stmt->fetchAll();
-    return $this->response->withJson($user)->withHeader('Access-Control-Allow-Origin', '*');
+    return $this->response->withJson($user);
 });
 
 $app->post('/user/[{id}]',function($request,$response,$arg){
@@ -152,11 +150,11 @@ $app->post('/user/[{id}]',function($request,$response,$arg){
         	$stmt->execute();
         	}
         catch(PDOException $e){
-        		return $this->response->withStatus(400)->withHeader('Access-Control-Allow-Origin', '*');
+        		return $this->response->withStatus(400);
         	}  
-        	return $this->response->withStatus(200)->withHeader('Access-Control-Allow-Origin','*');  	
+        	return $this->response->withStatus(200);	
         }else{
-    		return $this->response->withStatus(401)->withHeader('Access-Control-Allow-Origin','*');
+    		return $this->response->withStatus(401);
     	}
 	
 });
@@ -167,10 +165,10 @@ $app->get('/textbooks',function($request,$response){
         	$stmt->execute();
         }
         catch(PDOException $e){
-        		return $this->response->withStatus(400)->withHeader('Access-Control-Allow-Origin', '*');
+        		return $this->response->withStatus(400);
         }
     $textbooks = $stmt->fetchAll();
-    return $this->response->withJson($textbooks)->withHeader('Access-Control-Allow-Origin', '*');
+    return $this->response->withJson($textbooks);
 });
 
 $app->get('/textbooks/[{id}]',function($request,$response,$arg){
@@ -182,20 +180,20 @@ $app->get('/textbooks/[{id}]',function($request,$response,$arg){
         	$stmt->execute();
         }
         catch(PDOException $e){
-        		return $this->response->withStatus(400)->withHeader('Access-Control-Allow-Origin','*');
+        		return $this->response->withStatus(400);
         }
 	$textbook = $stmt->fetchAll();
-	return $this->response->withJson($textbook)->withHeader('Access-Control-Allow-Origin','*');
+	return $this->response->withJson($textbook);
 });
 
 
 
 $app->post('/textbooks',function($request,$response){
 	session_start();
-    if(isset($_SESSION['login']) && $_SESSION['login']=== true){
+    if(isset($_SESSION['login']) && $_SESSION['login'] === true){
     	$input = $request->getBody();
 		$input = json_decode($input,true);
-		$stmt = $this->db->prepare("INSERT into textbooks(title, description,price,class,uploader_id, stat, cover) VALUES (:title,:description,:price,:class,:uploader_id, :stat, :cover)");
+		$stmt = $this->db->prepare("INSERT INTO textbooks (title, description,price,class,uploader_id, stat, cover) VALUES ( :title, :description, :price, :class, :uploader_id, :stat, :cover)");
 		$stmt->bindValue(':title', $input["title"],PDO::PARAM_STR);
 		$stmt->bindValue(':description', $input["description"],PDO::PARAM_STR);	
 		$stmt->bindValue(':price', $input["price"],PDO::PARAM_STR);
@@ -207,11 +205,11 @@ $app->post('/textbooks',function($request,$response){
         		$stmt->execute();
         	}
         	catch(PDOException $e){
-        		return $this->response->withStatus(400)->withHeader('Access-Control-Allow-Origin','*');
+        		return $this->response->withStatus(400);
         	}
-		return $this->response->withStatus(200)->withHeader('Access-Control-Allow-Origin','*');
+		return $this->response->withStatus(200);
 		}else{
-			return $this->response->withStatus(401)->withHeader('Access-Control-Allow-Origin','*');
+			return $this->response->withStatus(401);
 		}
 		
 	});
@@ -242,11 +240,11 @@ $app->post('/textbooks/[{id}]',function($request,$response,$arg){
         		$stmt->execute();
         	}
         	catch(PDOException $e){
-        			return $this->response->withStatus(400)->withHeader('Access-Control-Allow-Origin','*');
+        			return $this->response->withStatus(400);
         	}
-		return $this->response->withStatus(200)->withHeader('Access-Control-Allow-Origin','*');
+		return $this->response->withStatus(200);
 		}else{
-			return $this->response->withStatus(401)->withHeader('Access-Control-Allow-Origin','*');
+			return $this->response->withStatus(401);
 		}
 	
 });
@@ -264,11 +262,11 @@ $app->delete('/textbooks/[{id}]',function($request,$response,$arg){
         		$stmt->execute();
         	}
         	catch(PDOException $e){
-        			return $this->response->withStatus(400)->withHeader('Access-Control-Allow-Origin','*');
+        			return $this->response->withStatus(400);
         	}
-		return $this->response->withStatus(200)->withHeader('Access-Control-Allow-Origin','*');
+		return $this->response->withStatus(200);
 		}else{
-			return $this->response->withStatus(401)->withHeader('Access-Control-Allow-Origin','*');
+			return $this->response->withStatus(401);
 		}
 	
 });
@@ -278,7 +276,7 @@ $app->get('/notes',function($request,$response){
     $stmt = $this->db->prepare("SELECT * FROM notes ORDER BY title");
     $stmt -> execute();
     $notes = $stmt->fetchAll();
-    return $this->response->withJson($notes)->withHeader('Access-Control-Allow-Origin','*');
+    return $this->response->withJson($notes);
 });
 
 $app->get('/notes/[{id}]',function($request,$response,$arg){
@@ -290,10 +288,10 @@ $app->get('/notes/[{id}]',function($request,$response,$arg){
         	$stmt->execute();
         }
         catch(PDOException $e){
-        		return $this->response->withStatus(400)->withHeader('Access-Control-Allow-Origin','*');
+        		return $this->response->withStatus(400);
         }
 	$textbook = $stmt->fetchAll();
-	return $this->response->withJson($textbook)->withHeader('Access-Control-Allow-Origin','*');
+	return $this->response->withJson($textbook);
 });
 
 
@@ -317,11 +315,11 @@ $app->post('/notes',function($request,$response){
         	$stmt->execute();
         }
         catch(PDOException $e){
-        		return $this->response->withStatus(400)->withHeader('Access-Control-Allow-Origin','*');
+        		return $this->response->withStatus(400);
         }
-		return $this->response->withStatus(200)->withHeader('Access-Control-Allow-Origin','*');
+		return $this->response->withStatus(200);
 		}else{
-			return $this->response->withStatus(401)->withHeader('Access-Control-Allow-Origin','*');
+			return $this->response->withStatus(401);
 		}
 		
 	});
@@ -352,11 +350,11 @@ $app->post('/notes/[{id}]',function($request,$response,$arg){
         	$stmt->execute();
         }
         catch(PDOException $e){
-        		return $this->response->withStatus(400)->withHeader('Access-Control-Allow-Origin','*');
+        		return $this->response->withStatus(400);
         }
-		return $this->response->withStatus(200)->withHeader('Access-Control-Allow-Origin','*');
+		return $this->response->withStatus(200);
 		}else{
-			return $this->response->withStatus(401)->withHeader('Access-Control-Allow-Origin','*');
+			return $this->response->withStatus(401);
 		}
 	
 });
@@ -373,11 +371,11 @@ $app->delete('/notes/[{id}]',function($request,$response,$arg){
         		$stmt->execute();
         }
         catch(PDOException $e){
-        		return $this->response->withStatus(400)->withHeader('Access-Control-Allow-Origin','*');
+        		return $this->response->withStatus(400);
         }
-		return $this->response->withStatus(200)->withHeader('Access-Control-Allow-Origin','*');
+		return $this->response->withStatus(200);
 		}else{
-			return $this->response->withStatus(401)->withHeader('Access-Control-Allow-Origin','*');
+			return $this->response->withStatus(401);
 		}
 	
 });
@@ -404,7 +402,7 @@ $app->get('/supplies',function($request,$response){
     $stmt = $this->db->prepare("SELECT * FROM supplies ORDER BY title");
     $stmt -> execute();
     $supplies = $stmt->fetchAll();
-    return $this->response->withJson($supplies)->withHeader('Access-Control-Allow-Origin','*');
+    return $this->response->withJson($supplies);
 });
 
 
@@ -417,10 +415,10 @@ $app->get('/supplies/[{id}]',function($request,$response,$arg){
         	$stmt->execute();
         }
         catch(PDOException $e){
-        		return $this->response->withStatus(400)->withHeader('Access-Control-Allow-Origin','*');
+        		return $this->response->withStatus(400);
         }
 	$textbook = $stmt->fetchAll();
-	return $this->response->withJson($textbook)->withHeader('Access-Control-Allow-Origin','*');
+	return $this->response->withJson($textbook);
 });
 
 
@@ -442,11 +440,11 @@ $app->post('/supplies',function($request,$response){
         	$stmt->execute();
         }
         catch(PDOException $e){
-        		return $this->response->withStatus(400)->withHeader('Access-Control-Allow-Origin','*');
+        		return $this->response->withStatus(400);
         }
-		return $this->response->withStatus(200)->withHeader('Access-Control-Allow-Origin','*');
+		return $this->response->withStatus(200);
 		}else{
-			return $this->response->withStatus(401)->withHeader('Access-Control-Allow-Origin','*');
+			return $this->response->withStatus(401);
 		}
 	});
 
@@ -476,11 +474,11 @@ $app->post('/supplies/[{id}]',function($request,$response,$arg){
         	$stmt->execute();
         }
         catch(PDOException $e){
-        		return $this->response->withStatus(400)->withHeader('Access-Control-Allow-Origin','*');
+        		return $this->response->withStatus(400);
         }
-		return $this->response->withStatus(200)->withHeader('Access-Control-Allow-Origin','*');
+		return $this->response->withStatus(200);
 		}else{
-			return $this->response->withStatus(401)->withHeader('Access-Control-Allow-Origin','*');
+			return $this->response->withStatus(401);
 		}
 	
 });
@@ -497,12 +495,12 @@ $app->delete('/supplies/[{id}]',function($request,$response,$arg){
         	$stmt->execute();
         }
         catch(PDOException $e){
-        		return $this->response->withStatus(400)->withHeader('Access-Control-Allow-Origin','*');
+        		return $this->response->withStatus(400);
         }
     
-		return $this->response->withStatus(200)->withHeader('Access-Control-Allow-Origin','*');
+		return $this->response->withStatus(200);
 		}else{
-			return $this->response->withStatus(401)->withHeader('Access-Control-Allow-Origin','*');
+			return $this->response->withStatus(401);
 		}
 	
 });
@@ -510,15 +508,15 @@ $app->delete('/supplies/[{id}]',function($request,$response,$arg){
 
 $app->get('/recent',function($request,$response){
 	
-	$stmt = $this->db->prepare("SELECT * FROM ( SELECT * FROM (SELECT id, description, title, uploader_id, price, class, stat, type, cover, upload_date FROM textbooks ORDER BY upload_date LIMIT 10) AS selected1 UNION ALL SELECT * FROM (SELECT id, description, title, uploader_id, price, class, stat, type, cover, upload_date FROM notes ORDER BY upload_date LIMIT 10) AS selected2 UNION ALL SELECT * FROM (SELECT id, description, title, uploader_id, price, class, stat, type, cover, upload_date FROM supplies ORDER BY upload_date LIMIT 10) AS selected3) AS selected4 ORDER BY upload_date LIMIT 10 DESC");
+	$stmt = $this->db->prepare("SELECT * FROM ( SELECT * FROM (SELECT id, description, title, uploader_id, price, class, stat, type, cover, upload_date FROM textbooks ORDER BY upload_date LIMIT 10) AS selected1 UNION ALL SELECT * FROM (SELECT id, description, title, uploader_id, price, class, stat, type, cover, upload_date FROM notes ORDER BY upload_date LIMIT 10) AS selected2 UNION ALL SELECT * FROM (SELECT id, description, title, uploader_id, price, class, stat, type, cover, upload_date FROM supplies ORDER BY upload_date LIMIT 10) AS selected3) AS selected4 ORDER BY upload_date DESC LIMIT 10 ");
 	try{
         	$stmt->execute();
         }
         catch(PDOException $e){
-        		return $this->response->withStatus(400)->withHeader('Access-Control-Allow-Origin','*');
+        		return $this->response->withStatus(400);
         }
     $recent = $stmt->fetchAll();
-    return $this->response->withJson($recent)->withHeader('Access-Control-Allow-Origin','*');
+    return $this->response->withJson($recent);
     
     });
 
@@ -530,10 +528,10 @@ $app->get('/search/[{query}]',function($request,$response,$arg){
         	$stmt->execute();
         }
         catch(PDOException $e){
-        		return $this->response->withStatus(400)->withHeader('Access-Control-Allow-Origin','*');
+        		return $this->response->withStatus(400);
         }
     $searched = $stmt->fetchAll();
-	return $this->response->withJson($searched)->withHeader('Access-Control-Allow-Origin','*');
+	return $this->response->withJson($searched);
 	
 	});
 
@@ -547,10 +545,10 @@ $app->get('/textbooksByClass/[{query}]',function($request,$response)
         	$stmt->execute();
         }
         catch(PDOException $e){
-        		return $this->response->withStatus(400)->withHeader('Access-Control-Allow-Origin','*');
+        		return $this->response->withStatus(400);
         }
     $searched = $stmt->fetchAll();
-	return $this->response->withJson($searched)->withHeader('Access-Control-Allow-Origin','*');
+	return $this->response->withJson($searched);
 	
 });
 $app->get('/suppliessByClass/[{query}]',function($request,$response,$arg)
@@ -562,10 +560,10 @@ $app->get('/suppliessByClass/[{query}]',function($request,$response,$arg)
         	$stmt->execute();
         }
         catch(PDOException $e){
-        		return $this->response->withStatus(400)->withHeader('Access-Control-Allow-Origin','*');
+        		return $this->response->withStatus(400);
         }
     $searched = $stmt->fetchAll();
-	return $this->response->withJson($searched)->withHeader('Access-Control-Allow-Origin','*');
+	return $this->response->withJson($searched);
 	
 });
 
@@ -578,10 +576,10 @@ $app->get('/notesByClass/[{query}]',function($request,$response,$arg)
         	$stmt->execute();
         }
         catch(PDOException $e){
-        		return $this->response->withStatus(400)->withHeader('Access-Control-Allow-Origin','*');
+        		return $this->response->withStatus(400);
         }
     $searched = $stmt->fetchAll();
-	return $this->response->withJson($searched)->withHeader('Access-Control-Allow-Origin','*');
+	return $this->response->withJson($searched);
 	
 });
 
@@ -599,7 +597,7 @@ $app->get('/textbooksByClassAsc',function($request,$response,$arg)
 	$stmt = $this->db->prepare("SELECT * FROM textbooks ORDER BY class ASC");
 	$stmt -> execute();
 	$textbooks = $stmt->fetchAll();
-	return $this->response->withJson($textbooks)->withHeader('Access-Control-Allow-Origin','*');
+	return $this->response->withJson($textbooks);
 });
 
 $app->get('/notesByClassAsc',function($request,$response)
@@ -607,7 +605,7 @@ $app->get('/notesByClassAsc',function($request,$response)
 	$stmt = $this->db->prepare("SELECT * FROM notes ORDER BY class ASC");
 	$stmt -> execute();
 	$notes = $stmt->fetchAll();
-	return $this->response->withJson($notes)->withHeader('Access-Control-Allow-Origin','*');
+	return $this->response->withJson($notes);
 });
 
 $app->get('/notesByClassDesc',function($request,$response)
@@ -615,7 +613,7 @@ $app->get('/notesByClassDesc',function($request,$response)
 	$stmt = $this->db->prepare("SELECT * FROM notes ORDER BY class DESC");
 	$stmt -> execute();
 	$notes = $stmt->fetchAll();
-	return $this->response->withJson($notes)->withHeader('Access-Control-Allow-Origin','*');
+	return $this->response->withJson($notes);
 });
 
 $app->get('/suppliesByClassDesc',function($request,$response)
@@ -623,7 +621,7 @@ $app->get('/suppliesByClassDesc',function($request,$response)
 	$stmt = $this->db->prepare("SELECT * FROM supplies ORDER BY class DESC");
 	$stmt -> execute();
 	$supplies = $stmt->fetchAll();
-	return $this->response->withJson($supplies)->withHeader('Access-Control-Allow-Origin','*');
+	return $this->response->withJson($supplies);
 });
 
 $app->get('/suppliesByClassAsc',function($request,$response)
@@ -631,7 +629,7 @@ $app->get('/suppliesByClassAsc',function($request,$response)
 	$stmt = $this->db->prepare("SELECT * FROM supplies ORDER BY class ASC");
 	$stmt -> execute();
 	$supplies = $stmt->fetchAll();
-	return $this->response->withJson($supplies)->withHeader('Access-Control-Allow-Origin','*');
+	return $this->response->withJson($supplies);
 });
 
 //-----Alan part
@@ -645,7 +643,7 @@ $app->get('/textbooksByPriceDesc',function($request,$response)
 
 	$textbooks = $stmt->fetchAll();
 
-	return $this->response->withJson($textbooks)->withHeader('Access-Control-Allow-Origin','*');
+	return $this->response->withJson($textbooks);
 
 });
 
@@ -661,7 +659,7 @@ $app->get('/textbooksByPriceAsc',function($request,$response)
 
 	$textbooks = $stmt->fetchAll();
 
-	return $this->response->withJson($textbooks)->withHeader('Access-Control-Allow-Origin','*');
+	return $this->response->withJson($textbooks);
 
 });
 $app->get('/notesByPriceAsc',function($request,$response)
@@ -674,7 +672,7 @@ $app->get('/notesByPriceAsc',function($request,$response)
 
 	$notes = $stmt->fetchAll();
 
-	return $this->response->withJson($notes)->withHeader('Access-Control-Allow-Origin','*');
+	return $this->response->withJson($notes);
 
 });
 
@@ -690,7 +688,7 @@ $app->get('/notesByPriceDesc',function($request,$response)
 
 	$notes = $stmt->fetchAll();
 
-	return $this->response->withJson($notes)->withHeader('Access-Control-Allow-Origin','*');
+	return $this->response->withJson($notes);
 
 });
 
@@ -704,7 +702,7 @@ $app->get('/suppliesByPriceDesc',function($request,$response)
 
 	$supplies = $stmt->fetchAll();
 
-	return $this->response->withJson($supplies)->withHeader('Access-Control-Allow-Origin','*');
+	return $this->response->withJson($supplies);
 
 });
 
@@ -720,7 +718,7 @@ $app->get('/suppliesByPriceAsc',function($request,$response)
 
 	$supplies = $stmt->fetchAll();
 
-	return $this->response->withJson($supplies)->withHeader('Access-Control-Allow-Origin','*');
+	return $this->response->withJson($supplies);
 
 });
 
