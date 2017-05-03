@@ -1,32 +1,26 @@
-INSERT INTO `eduexchange`.`notes` (`note_id`, `title`, `description`, `upload_date`, `viewDate`, `uploader_id`, `price`, `class`, `stat`) 
-VALUES (NULL, 'Some note', 'notes for DB', '2012-06-18 10:34:09', '2017-04-20 04:20:09', 1, 10, 'Databases', 1);
-
-INSERT INTO `eduexchange`.`notes` (`note_id`, `title`, `description`, `upload_date`, `viewDate`, `uploader_id`, `price`, `class`, `stat`) 
-VALUES (NULL, 'This', 'notes for DB', '2012-06-18 10:34:09', '2017-04-20 04:20:09', 1, 10, 'Databases', 1);
-
-INSERT INTO `eduexchange`.`notes` (`note_id`, `title`, `description`, `upload_date`, `viewDate`, `uploader_id`, `price`, `class`, `stat`) 
-VALUES (NULL, 'Is', 'notes for DB', '2012-06-18 10:34:09', '2017-04-20 04:20:09', 1, 10, 'Databases', 1);
-
-INSERT INTO `eduexchange`.`notes` (`note_id`, `title`, `description`, `upload_date`, `viewDate`, `uploader_id`, `price`, `class`, `stat`) 
-VALUES (NULL, 'A', 'notes for DB', '2012-06-18 10:34:09', '2017-04-20 04:20:09', 1, 10, 'Databases', 1);
-
-INSERT INTO `eduexchange`.`notes` (`note_id`, `title`, `description`, `upload_date`, `viewDate`, `uploader_id`, `price`, `class`, `stat`) 
-VALUES (NULL, 'Test', 'notes for DB', '2012-06-18 10:34:09', '2017-04-20 04:20:09', 1, 10, 'Databases', 1);
-
-INSERT INTO `eduexchange`.`notes` (`note_id`, `title`, `description`, `upload_date`, `viewDate`, `uploader_id`, `price`, `class`, `stat`) 
-VALUES (NULL, 'Dummy', 'notes for DB', '2012-06-18 10:34:09', '2017-04-20 04:20:09', 1, 10, 'Databases', 1);
-
-INSERT INTO `eduexchange`.`notes` (`note_id`, `title`, `description`, `upload_date`, `viewDate`, `uploader_id`, `price`, `class`, `stat`) 
-VALUES (NULL, 'Data', 'notes for DB', '2012-06-18 10:34:09', '2017-04-20 04:20:09', 1, 10, 'Databases', 1);
-
-INSERT INTO `eduexchange`.`notes` (`note_id`, `title`, `description`, `upload_date`, `viewDate`, `uploader_id`, `price`, `class`, `stat`) 
-VALUES (NULL, 'For', 'notes for DB', '2012-06-18 10:34:09', '2017-04-20 04:20:09', 1, 10, 'Databases', 1);
-
-INSERT INTO `eduexchange`.`notes` (`note_id`, `title`, `description`, `upload_date`, `viewDate`, `uploader_id`, `price`, `class`, `stat`) 
-VALUES (NULL, 'Our', 'notes for DB', '2012-06-18 10:34:09', '2017-04-20 04:20:09', 1, 10, 'Databases', 1);
-
-INSERT INTO `eduexchange`.`notes` (`note_id`, `title`, `description`, `upload_date`, `viewDate`, `uploader_id`, `price`, `class`, `stat`) 
-VALUES (NULL, 'Database', 'notes for DB', '2012-06-18 10:34:09', '2017-04-20 04:20:09', 1, 10, 'Databases', 1);
-
-INSERT INTO `eduexchange`.`notes` (`note_id`, `title`, `description`, `upload_date`, `viewDate`, `uploader_id`, `price`, `class`, `stat`) 
-VALUES (NULL, 'project', 'notes for DB', '2012-06-18 10:34:09', '2017-04-20 04:20:09', 1, 10, 'Databases', 1);
+INSERT INTO `eduexchange`.`notes` (`id`, `cover`, `title`, `description`, `upload_date`, `viewDate`, `uploader_id`, `price`, `class`, `stat`) 
+VALUES (NULL, '/assets/default_textbook.jpg', 'Econ: Day 1', 'Notes covering the supply curve', '2017-01-03 18:12:11', '2017-01-03 18:12:11', 1, 10, 'Economics 1301', 1), 
+(NULL, '/assets/default_textbook.jpg', 'Econ: Day 2', 'Notes covering the demand curve', '2017-01-07 20:17:10', '2017-01-07 20:17:10', 2, 15, 'Economics 1301', 1), 
+(NULL, '/assets/default_textbook.jpg', 'Econ: Day 3', 'Supply intersecting demand and what that means', '2017-01-13 01:02:03', '2017-01-13 01:02:03', 3, 5, 'Economics 1301', 1),
+(NULL, '/assets/default_textbook.jpg', 'Vagrant', 'Notes on how to install vagrant', '2017-01-16 05:39:25', '2017-01-16 05:39:25', 7, 50, 'Databases', 1),
+(NULL, '/assets/default_textbook.jpg', 'PHPmyAdmin', 'Notes on how to install and use phpmyadmin', '2017-01-19 07:45:46', '2017-01-19 07:45:46', 15, 1, 'Databases', 1),
+(NULL, '/assets/default_textbook.jpg', 'SLIM', 'How to install and use SLIM', '2017-01-20 23:23:23', '2017-01-20 23:23:23', 11, 11, 'Databases', 1),
+(NULL, '/assets/default_textbook.jpg', 'Limits Introduction', 'How and when to take the limit', '2017-01-23 16:17:01', '2017-01-23 16:17:01', 8, 10, 'Calculus 1337', 1),
+(NULL, '/assets/default_textbook.jpg', 'Introduction to sign language', 'What each hand gesture means', '2017-01-24 09:10:10', '2017-01-24 09:10:10', 20, 25, 'American Sign Language', 1),
+(NULL, '/assets/default_textbook.jpg', 'Industrialization of Europe', 'Industrialization cause and effects', '2017-02-05 03:44:55', '2017-02-05 03:44:55', 24, 20, 'Antropology', 1),
+(NULL, '/assets/default_textbook.jpg', 'Converegnt plate boundries', 'Types of boundries notes', '2017-02-09 11:31:19', '2017-02-09 11:31:19', 22, 10, 'Geology 1313', 1),
+(NULL, '/assets/default_textbook.jpg', 'ROI', 'Return on investment and its use', '2017-02-17 20:59:59', '2017-02-17 20:59:59', 13, 15, 'ACCT', 1),
+(NULL, '/assets/default_textbook.jpg', 'REGEX', 'Understanding regular expressions', '2017-02-23 10:08:56', '2017-02-23 10:08:56', 9, 4, 'Programming Languages', 1),
+(NULL, '/assets/default_textbook.jpg', 'Heap', 'Implementing and understanding a heap', '2017-02-27 23:59:59', '2017-02-27 23:59:59', 3, 6, 'Data structures', 1),
+(NULL, '/assets/default_textbook.jpg', 'Python Basics', 'Learning python', '2017-03-03 17:17:17', '2017-03-03 17:17:17', 5, 1, 'Programming Languages', 1),
+(NULL, '/assets/default_textbook.jpg', 'R', 'Downloading, installing, and programming in R', '2017-03-13 04:49:39', '2017-03-13 04:49:39', 16, 12, 'Databases', 1),
+(NULL, '/assets/default_textbook.jpg', 'Exam 3 review', 'Things to review', '2017-03-19 10:17:10', '2017-03-19 10:17:10', 14, 16, 'Anthropology', 1),
+(NULL, '/assets/default_textbook.jpg', 'MOV + LDR', 'Learning assembly language', '2017-03-27 09:05:50', '2017-03-27 09:05:50', 17, 21, 'Assembly Language', 1),
+(NULL, '/assets/default_textbook.jpg', 'ArrayLists', 'Understanding the basics of an ArrayList', '2017-04-03 08:04:02', '2017-04-03 08:04:02', 22, 15, 'Java', 1),
+(NULL, '/assets/default_textbook.jpg', 'Vector', 'Understanding the basics of a Vector', '2017-04-08 07:07:25', '2017-04-08 07:07:25', 20, 10, 'C++', 1),
+(NULL, '/assets/default_textbook.jpg', 'Inheritance', 'When to use inheritance and when to implement', '2017-04-09 15:17:19', '2017-04-09 15:17:19', 21, 5, 'Java', 1),
+(NULL, '/assets/default_textbook.jpg', 'Threads', 'Avoiding race conditions and deadlocks', '2017-04-13 21:14:07', '2017-04-13 21:14:07', 14, 3, 'Programming Languages', 1),
+(NULL, '/assets/default_textbook.jpg', 'Mean, Median, Mode', 'Learning statistics to surivive Prof. Fontenots classes', '2017-04-17 20:17:17', '2017-04-17 20:17:17', 18, 9, 'Databases', 1),
+(NULL, '/assets/default_textbook.jpg', 'Vector Addition', 'How to add vectors in physics', '2017-04-23 17:04:23', '2017-04-23 17:04:23', 17, 6, 'Physics', 1),
+(NULL, '/assets/default_textbook.jpg', 'Eigenspaces, Eigenvectors, and Eigenvalues', 'Chapter 9 notes', '2017-04-24 11:12:13', '2017-04-24 11:12:13', 13, 4, 'Linear Algebra', 1),
+(NULL, '/assets/default_textbook.jpg', 'Covalent Bonds', 'Chemistry notes from day 1', '2017-05-04 08:08:45', '2017-05-04 08:08:45', 4, 3, 'Chemistry', 1);

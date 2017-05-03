@@ -1,32 +1,26 @@
-INSERT INTO `eduexchange`.`users` (`firstname`, `lastname`, `email`, `phone`, `pass`, `avatar`, `rating`, `userID`) 
-VALUES ('User1', 'User', 'user1@smu.edu', '555-555-5550', 'PASSWORD', NULL, NULL, NULL);
-
-INSERT INTO `eduexchange`.`users` (`firstname`, `lastname`, `email`, `phone`, `pass`, `avatar`, `rating`, `userID`) 
-VALUES ('User2', 'User', 'user2@smu.edu', '555-555-5551', 'PASSWORD', NULL, NULL, NULL);
-
-INSERT INTO `eduexchange`.`users` (`firstname`, `lastname`, `email`, `phone`, `pass`, `avatar`, `rating`, `userID`) 
-VALUES ('User3', 'User', 'user3@smu.edu', '555-555-5552', 'PASSWORD', NULL, NULL, NULL);
-
-INSERT INTO `eduexchange`.`users` (`firstname`, `lastname`, `email`, `phone`, `pass`, `avatar`, `rating`, `userID`) 
-VALUES ('User4', 'User', 'user4@smu.edu', '555-555-5553', 'PASSWORD', NULL, NULL, NULL);
-
-INSERT INTO `eduexchange`.`users` (`firstname`, `lastname`, `email`, `phone`, `pass`, `avatar`, `rating`, `userID`) 
-VALUES ('User5', 'User', 'user5@smu.edu', '555-555-5554', 'PASSWORD', NULL, NULL, NULL);
-
-INSERT INTO `eduexchange`.`users` (`firstname`, `lastname`, `email`, `phone`, `pass`, `avatar`, `rating`, `userID`) 
-VALUES ('User6', 'User', 'user6@smu.edu', '555-555-5555', 'PASSWORD', NULL, NULL, NULL);
-
-INSERT INTO `eduexchange`.`users` (`firstname`, `lastname`, `email`, `phone`, `pass`, `avatar`, `rating`, `userID`) 
-VALUES ('User7', 'User', 'user7@smu.edu', '555-555-5556', 'PASSWORD', NULL, NULL, NULL);
-
-INSERT INTO `eduexchange`.`users` (`firstname`, `lastname`, `email`, `phone`, `pass`, `avatar`, `rating`, `userID`) 
-VALUES ('User8', 'User', 'user8@smu.edu', '555-555-5557', 'PASSWORD', NULL, NULL, NULL);
-
-INSERT INTO `eduexchange`.`users` (`firstname`, `lastname`, `email`, `phone`, `pass`, `avatar`, `rating`, `userID`) 
-VALUES ('User9', 'User', 'user9@smu.edu', '555-5555-5558', 'PASSWORD', NULL, NULL, NULL);
-
-INSERT INTO `eduexchange`.`users` (`firstname`, `lastname`, `email`, `phone`, `pass`, `avatar`, `rating`, `userID`) 
-VALUES ('User10', 'User', 'user10@smu.edu', '555-555-5559', 'PASSWORD', NULL, NULL, NULL);
-
-INSERT INTO `eduexchange`.`users` (`firstname`, `lastname`, `email`, `phone`, `pass`, `avatar`, `rating`, `userID`) 
-VALUES ('User11', 'User', 'user11@smu.edu', '555-555-5560', 'PASSWORD', NULL, NULL, NULL);
+INSERT INTO `eduexchange`.`users` (`email`, `phone`, `pass`, `avatar`, `rating`, `userID`, `joined_date`, `username`) 
+VALUES ('rlonghirst0@smu.edu', '3259674273', 'aeLruOe', NULL, 1, NULL, '2017-01-03 18:12:11', 'aparr0'),
+('mporrett1@smu.edu', '1982024408', 'wh5QyNvpJzvj', NULL, 4, NULL, '2017-01-07 20:17:10', 'ckeeler1'),
+('dwoodyatt2@smu.edu', '9236784358', 'y4qw0Tfo', NULL, 4, NULL, '2017-01-13 01:02:03', 'oponting2'),
+('ngawne3@smu.edu', '6528603264', 'QEpY21JQOlC', NULL, 3, NULL, '2017-01-16 05:39:25', 'ekrebs3'),
+('pbrigshaw4@smu.edu', '7434384536', 'm8oZ1CYEreoY', NULL, 4, NULL, '2017-01-19 07:45:46', 'dsondon4'),
+('ibrownlee5@smu.edu', '8417415060', 'B0RaVHa1dBUk', NULL, 2, NULL, '2017-01-20 23:23:23', 'oroll5'),
+('jjime6@smu.edu', '4022029241', 'RILrQVYAo9BA', NULL, 1, NULL, '2017-01-23 16:17:01', 'lmactrustie6'),
+('dkainz7@smu.edu', '4176842373', 'o3UfMwbSB', NULL, 1, NULL, '2017-01-24 09:10:10', 'bbollard7'),
+('eskayman8@smu.edu', '2111816382', 'sUo9yGfVuO', NULL, 5, NULL, '2017-02-05 03:44:55', 'bbarnwall8'),
+('cbrolly9@smu.edu', '4634288548', 'TZYA0UzviIJM', NULL, 2, NULL, '2017-02-09 11:31:19', 'gbyrcher9'),
+('mlangfortha@smu.edu', '1746393815', 'jWjCVwziUj', NULL, 4, NULL, '2017-02-17 20:59:59', 'tbalstona'),
+('mshopcottb@smu.edu', '9178361811', 'T2U2zNVP', NULL, 5, NULL, '2017-02-23 10:08:56', 'hmenearb'),
+('mdrexelc@smu.edu', '5064824448', 'vLwFObCyf', NULL, 4, NULL, '2017-02-27 23:59:59', 'jmenendesc'),
+('mpaddemored@smu.edu', '9046816548', 'YZaX8lDWvD', NULL, 3, NULL, '2017-03-03 17:17:17', 'bbotwrightd'),
+('ssansome@smu.edu', '6198079315', '0NoDZ4kR50xu', NULL, 2, NULL, '2017-03-13 04:49:39', 'rsoldnere'),
+('bbindinf@smu.edu', '7002409861', 'qpVCGvW', NULL, 4, NULL, '2017-03-19 10:17:10', 'ptabbf'),
+('aarkowg@smu.edu', '5585633719', 'GYPgO1c7H', NULL, 1, NULL, '2017-03-27 09:05:50', 'cpaulog'),
+('ablesingh@smu.edu', '9895035520', '2FxFMeHgp', NULL, 4, NULL, '2017-04-03 08:04:02', 'clemonnierh'),
+('dbelvini@smu.edu', '2848993188', '4pCN3k', NULL, 4, NULL, '2017-04-08 07:07:25', 'wphilcocki'),
+('scastiglionej@smu.edu', '9384104559', 'ChUKGoh93i', NULL, 3, NULL, '2017-04-09 15:17:19', 'nrozetj'),
+('dbeatonk@smu.edu', '8886689619', 'xUw7tQCokF', NULL, 1, NULL, '2017-04-13 21:14:07', 'psinkinsk'),
+('tdenisyukl@smu.edu', '8669553664', 'LrcTYZF', NULL, 5, NULL, '2017-04-17 20:17:17', 'mgallagerl'),
+('gkaganm@smu.edu', '9438507875', 'bFKeaQJ', NULL, 4, NULL, '2017-04-23 17:04:23', 'mniccollsm'),
+('ikingen@smu.edu', '1734407625', '7g7ILzEjWDY1', NULL, 2, NULL, '2017-04-24 11:12:13', 'cmcsauln'),
+('nkeywoodo@smu.edu', '2317992469', '4vAVwza', NULL, 3, NULL, '2017-05-04 08:08:45', 'dstortono');
