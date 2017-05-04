@@ -105,6 +105,11 @@ export class NavbarMainComponent {
     this.router.navigate(['main']);
   }
 
+  closeModal(){
+    this.textbook = {};
+    this.modal.close();
+  }
+
 
   //Modal Stuff
   @ViewChild('navModal')

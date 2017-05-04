@@ -105,7 +105,6 @@ export class NavbarComponent {
     this.router.navigate(['main']);
   }
   closeModal(){
-    debugger;
     this.textbook = {};
     this.modal.close();
   }
