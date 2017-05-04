@@ -55,7 +55,7 @@ export class NavbarComponent {
     // debugger;
     this.textbook.uploader_id = this.user.id;
     this.textbook.stat = 1;
-    this.textbookService.addTextbook(this.textbook).then(x => this.user = x);
+    this.textbookService.addTextbook(this.textbook);
     this.textbook = {};
     //Dismiss modal
     this.modal.dismiss();
@@ -66,7 +66,7 @@ export class NavbarComponent {
     // debugger;
     this.textbook.uploader_id = this.user.id;
     this.textbook.stat = 1;
-    this.textbookService.addSupply(this.textbook).then(x => this.user = x);
+    this.textbookService.addSupply(this.textbook);
     this.textbook = {};
     //Dismiss modal
     this.modal.dismiss();
@@ -77,7 +77,7 @@ export class NavbarComponent {
     // debugger;
     this.textbook.uploader_id = this.user.id;
     this.textbook.stat = 1;
-    this.textbookService.addNote(this.textbook).then(x => this.user = x);
+    this.textbookService.addNote(this.textbook);
     this.textbook = {};
     //Dismiss modal
     this.modal.dismiss();

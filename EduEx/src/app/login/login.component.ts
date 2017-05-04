@@ -39,7 +39,7 @@ export class LoginComponent {
           localStorage.setItem('currentUserid', x[0].userID);
           localStorage.setItem('currentUsername', this.user.username);
           localStorage.setItem('currentUseremail', this.user.email);
-          localStorage.setItem('currentUseravatar', '/assets/default_user.png');
+          localStorage.setItem('currentUseravatar', x[0].avatar);
         }
       }
       if (this.user) {
