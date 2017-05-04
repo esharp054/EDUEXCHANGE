@@ -87,12 +87,13 @@ export class NavbarComponent {
     this.userService.logout().then(x => this.user = x);
     localStorage.removeItem('currentUserid');
     localStorage.removeItem('currentUsername');
+    localStorage.removeItem('currentUseravatar');
+    localStorage.removeItem('currentUseremail');
     this.router.navigate(['']);
   }
 
   search() {
     // Add get method and send search term or send search term with navigate
-    debugger;
     if (this._searchTerm !== undefined)
       this.router.navigate(['search', this._searchTerm]);
     else
@@ -102,6 +103,11 @@ export class NavbarComponent {
   homePage() {
     // Return to main search page
     this.router.navigate(['main']);
+  }
+  closeModal(){
+    debugger;
+    this.textbook = {};
+    this.modal.close();
   }
 
 

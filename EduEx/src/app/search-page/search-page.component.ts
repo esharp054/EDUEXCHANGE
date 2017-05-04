@@ -76,11 +76,15 @@ export class SearchPageComponent {
     this.filterInput = 'supplies';
   }
 
+  sendEmail(item: Textbook) {
+    this.userService.sendEmail(JSON.stringify({ username: this.uploader.username, email: this.uploader.email, title: item.title }));
+    this.modal.dismiss();
+  }
+
   getUploader(item: Textbook) {
     this.uploader = {};
     this.userService.getById(item.uploader_id).then(x => {
       this.uploader = x[0]; 
-      debugger;
     });
     this.modal.open();
   }

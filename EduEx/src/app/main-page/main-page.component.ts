@@ -24,7 +24,7 @@ import { ModalComponent } from 'ng2-bs3-modal/ng2-bs3-modal';
 export class MainPageComponent{
 
   items: any;
-  listings: any[];
+  listings: any[] = [];
   uploader: any = {};
   curListing: any = {};
   curUser: any = {};
@@ -62,6 +62,11 @@ export class MainPageComponent{
         this.modal.open();
       }
     });
+  }
+
+  sendEmail(item: Textbook) {
+    this.userService.sendEmail(JSON.stringify({ username: this.uploader.username, email: this.uploader.email, title: item.title }));
+    this.modal.dismiss();
   }
 
   //Modal Stuff

@@ -10,7 +10,7 @@ export class SortPricePipe implements PipeTransform {
     if (array == null) {
       return null;
     }
-    if (args = 'upload_date') {
+    if (args === 'upload_date') {
       array.sort((a: any, b: any) => {
         if ((a[args]) < (b[args])) {
           return 1;
@@ -24,9 +24,9 @@ export class SortPricePipe implements PipeTransform {
     else {
       array.sort((a: any, b: any) => {
         if (Number(a[args]) < Number(b[args])) {
-          return 1;
-        } else if (Number(a[args]) > Number(b[args])) {
           return -1;
+        } else if (Number(a[args]) > Number(b[args])) {
+          return 1;
         } else {
           return 0;
         }

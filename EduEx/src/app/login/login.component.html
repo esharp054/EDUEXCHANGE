@@ -9,7 +9,7 @@
 				<div class="form-group">
 					<label for="user_username" class="label"> Username </label>
 					<input id="user_username" name="user_username" class="form-control" placeholder="username" [(ngModel)]="_userEntry.username"
-					 #user_username="ngModel" required [ngClass]="{'error-class': user_username.errors}"/>
+					 #user_username="ngModel" required [ngClass]="{'error-class': user_username.errors}" />
 					<div *ngIf="user_username.errors && user_username.touched" class="alert alert-danger" role="alert">
 						<ul>
 							<li [hidden]="!user_username.errors.required">
@@ -38,9 +38,6 @@
 					<input type="submit" class="button" value="Sign In" [disabled]="loginForm.invalid">
 				</div>
 				<div class="hr"></div>
-				<div class="foot-lnk">
-					<a href="#forgot">Forgot Password?</a>
-				</div>
 			</form>
 
 			<!--<div class="sign-up-htm">-->
@@ -60,8 +57,8 @@
 				<div class="form-group">
 					<label for="new_user_email" class="label">Email Address</label>
 					<input id="new_user_email" name="new_user_email" class="form-control" placeholder="example@smu.edu" [(ngModel)]="_userEntry.email"
-					 #new_user_email="ngModel" required pattern="^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$" 
-					 [ngClass]="{'error-class': new_user_email.errors}" />
+					 #new_user_email="ngModel" required pattern="^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.(edu)$" [ngClass]="{'error-class': new_user_email.errors}"
+					/>
 					<div *ngIf="new_user_email.errors && new_user_email.touched" class="alert alert-danger" role="alert">
 						<ul>
 							<div [hidden]="!new_user_email.errors.required">
@@ -75,8 +72,8 @@
 				</div>
 				<div class="form-group">
 					<label for="new_phone" class="label">Phone</label>
-					<input id="new_phone" name="new_phone" class="form-control" [(ngModel)]="_userEntry.phone" #new_phone="ngModel" required
-					 pattern="^([0-9]{10})$" [ngClass]="{'error-class': new_phone.errors}">
+					<input id="new_phone" name="new_phone" class="form-control" placeholder="1234567890" [(ngModel)]="_userEntry.phone" #new_phone="ngModel"
+					 required pattern="^([0-9]{10})$" [ngClass]="{'error-class': new_phone.errors}">
 					<div *ngIf="new_phone.errors && new_phone.touched" class="alert alert-danger" role="alert">
 						<ul>
 							<li [hidden]="!new_phone.errors.required">
@@ -88,6 +85,10 @@
 						</ul>
 					</div>
 				</div>
+				<!--<div class="form-group">
+					<label for="new_avatar" class="label">Avatar URL</label>
+					<input id="new_avatar" name="new_avatar" class="form-control" placeholder="http://placehold.it/150x150" [(ngModel)]="_userEntry.avatar" #new_avatar="ngModel">
+				</div>-->
 				<div class="form-group">
 					<label for="new_user_password" class="label">Password</label>
 					<input id="new_user_password" name="new_user_password" type="password" class="form-control" data-type="password" [(ngModel)]="_userEntry.password"
@@ -103,7 +104,8 @@
 				<div class="form-group">
 					<label for="repeat_user_password" class="label"> Confirm Password</label>
 					<input id="repeat_user_password" name="repeat_user_password" type="password" class="form-control" data-type="password" [(ngModel)]="_userEntry.newPassword"
-					 #repeat_user_password="ngModel" required [ngClass]="{'error-class': repeat_user_password.value !== new_user_password.value}" [ngClass]="{'error-class': repeat_user_password.errors}">
+					 #repeat_user_password="ngModel" required [ngClass]="{'error-class': repeat_user_password.value !== new_user_password.value}"
+					 [ngClass]="{'error-class': repeat_user_password.errors}">
 					<!--<div *ngIf="repeat_user_password.errors && repeat_user_password.touched" class="alert alert-danger" role="alert">
 						<ul>
 							<li [hidden]="!repeat_user_password.errors.required">

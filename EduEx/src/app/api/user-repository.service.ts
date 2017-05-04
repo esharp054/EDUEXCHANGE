@@ -66,7 +66,6 @@ export class UserRepository {
 
   public signUp(user: any) {
     var Urls = `http://54.91.225.139/eduexchange/public/index.php/signup`;
-    debugger;
     return this.http
       .post(Urls, user)
       .toPromise()
@@ -74,7 +73,15 @@ export class UserRepository {
       .catch(x => x.message);
   }
 
-
+  public sendEmail(user: any) {
+    var Urls = `http://54.91.225.139/eduexchange/public/index.php/sendemail`;
+    alert('Email has been sent!');
+    return this.http
+      .post(Urls, user, { withCredentials: true })
+      .toPromise()
+      .then(this.getData)
+      .catch(x => x.message);
+  }
 
   public add(user: User): Promise<User> {
     return this.http

@@ -93,8 +93,13 @@
                 <label for="listingPrice">
                 Price:
                 </label>
-                <input type="text" id="listingPrice" name="listingPrice" class="form-control" [(ngModel)]="textbook.price" #listingPrice="ngModel"
-                  placeholder="20" required pattern="\d+" />
+                <div class="input-group">
+                  <span class="input-group-addon" id="basic-addon1">$</span>
+                  <input type="text" id="listingPrice" name="listingPrice" class="form-control" [(ngModel)]="textbook.price" #listingPrice="ngModel"
+                    placeholder="20" required pattern="\d+" />
+                </div>
+                <!--<input type="text" id="listingPrice" name="listingPrice" class="form-control" [(ngModel)]="textbook.price" #listingPrice="ngModel"
+                  placeholder="20" required pattern="\d+" />-->
                 <div *ngIf="listingPrice.errors && listingPrice.touched" class="alert alert-danger" role="alert">
                   <ul>
                     <li [hidden]="!listingPrice.errors.required">
@@ -140,8 +145,8 @@
               </div>
               <hr>
               <div class="row">
-                <button id="textSubmit" type="submit" class="btn btn-primary pull-right">Submit</button>
-                <button id="textClose" type="button" class="btn btn-default pull-right" data-dismiss="modal" (click)="modal.dismiss()">Cancel</button>
+                <button id="textSubmit" type="submit" class="btn btn-primary pull-right" [disabled]="textbookForm.invalid">Submit</button>
+                <button id="textClose" type="button" class="btn btn-default pull-right" data-dismiss="modal" (click)="textbookForm.reset(); closeModal()">Cancel</button>
               </div>
             </form>
 
@@ -166,8 +171,13 @@
                 <label for="listingPrice">
                 Price:
                 </label>
-                <input type="text" id="listingPrice" name="listingPrice" class="form-control" [(ngModel)]="textbook.price" #listingPrice="ngModel"
-                  placeholder="20" required pattern="\d+" />
+                <div class="input-group">
+                  <span class="input-group-addon" id="basic-addon1">$</span>
+                  <input type="text" id="listingPrice" name="listingPrice" class="form-control" [(ngModel)]="textbook.price" #listingPrice="ngModel"
+                    placeholder="20" required pattern="\d+" />
+                </div>
+                <!--<input type="text" id="listingPrice" name="listingPrice" class="form-control" [(ngModel)]="textbook.price" #listingPrice="ngModel"
+                  placeholder="20" required pattern="\d+" />-->
                 <div *ngIf="listingPrice.errors && listingPrice.touched" class="alert alert-danger" role="alert">
                   <ul>
                     <li [hidden]="!listingPrice.errors.required">
@@ -213,8 +223,8 @@
               </div>
               <hr>
               <div class="row">
-                <button id="textSubmit" type="submit" class="btn btn-primary pull-right">Submit</button>
-                <button id="textClose" type="button" class="btn btn-default pull-right" data-dismiss="modal" (click)="modal.dismiss()">Cancel</button>
+                <button id="textSubmit" type="submit" class="btn btn-primary pull-right" [disabled]="supplyForm.invalid">Submit</button>
+                <button id="textClose" type="button" class="btn btn-default pull-right" data-dismiss="modal" (click)="closeModal(); supplyForm.reset()">Cancel</button>
               </div>
             </form>
 
@@ -238,8 +248,13 @@
                 <label for="listingPrice">
                 Price:
                 </label>
-                <input type="text" id="listingPrice" name="listingPrice" class="form-control" [(ngModel)]="textbook.price" #listingPrice="ngModel"
-                  placeholder="20" required pattern="\d+" />
+                <div class="input-group">
+                  <span class="input-group-addon" id="basic-addon1">$</span>
+                  <input type="text" id="listingPrice" name="listingPrice" class="form-control" [(ngModel)]="textbook.price" #listingPrice="ngModel"
+                    placeholder="20" required pattern="\d+" />
+                </div>
+                <!--<input type="text" id="listingPrice" name="listingPrice" class="form-control" [(ngModel)]="textbook.price" #listingPrice="ngModel"
+                  placeholder="20" required pattern="\d+" />-->
                 <div *ngIf="listingPrice.errors && listingPrice.touched" class="alert alert-danger" role="alert">
                   <ul>
                     <li [hidden]="!listingPrice.errors.required">
@@ -285,8 +300,8 @@
               </div>
               <hr>
               <div class="row">
-                <button id="textSubmit" type="submit" class="btn btn-primary pull-right">Submit</button>
-                <button id="textClose" type="button" class="btn btn-default pull-right" data-dismiss="modal" (click)="modal.dismiss()">Cancel</button>
+                <button id="textSubmit" type="submit" class="btn btn-primary pull-right" [disabled]="noteForm.invalid">Submit</button>
+                <button id="textClose" type="button" class="btn btn-default pull-right" data-dismiss="modal" (click)="closeModal(); noteForm.reset()">Cancel</button>
               </div>
             </form>
           </modal-body>

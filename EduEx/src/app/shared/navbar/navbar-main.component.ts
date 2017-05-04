@@ -87,6 +87,8 @@ export class NavbarMainComponent {
     this.userService.logout().then(x => this.user = x);
     localStorage.removeItem('currentUserid');
     localStorage.removeItem('currentUsername');
+    localStorage.removeItem('currentUseravatar');
+    localStorage.removeItem('currentUseremail');
     this.router.navigate(['']);
   }
 
