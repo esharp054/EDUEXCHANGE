@@ -224,7 +224,7 @@
               <hr>
               <div class="row">
                 <button id="textSubmit" type="submit" class="btn btn-primary pull-right" [disabled]="supplyForm.invalid">Submit</button>
-                <button id="textClose" type="button" class="btn btn-default pull-right" data-dismiss="modal" (click)="closeModal(); supplyForm.reset()">Cancel</button>
+                <button id="textClose" type="button" class="btn btn-default pull-right" data-dismiss="modal" (click)="supplyForm.reset(); closeModal()">Cancel</button>
               </div>
             </form>
 
@@ -301,7 +301,7 @@
               <hr>
               <div class="row">
                 <button id="textSubmit" type="submit" class="btn btn-primary pull-right" [disabled]="noteForm.invalid">Submit</button>
-                <button id="textClose" type="button" class="btn btn-default pull-right" data-dismiss="modal" (click)="closeModal(); noteForm.reset()">Cancel</button>
+                <button id="textClose" type="button" class="btn btn-default pull-right" data-dismiss="modal" (click)="noteForm.reset(); closeModal()">Cancel</button>
               </div>
             </form>
           </modal-body>
