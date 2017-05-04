@@ -17,10 +17,11 @@ CREATE TABLE users (
 );
 
 CREATE TABLE textbooks (
-    id INTEGER NOT NULL UNIQUE AUTO_INCREMENT,
-    ibsn INTEGER, 
+    id INTEGER NOT NULL UNIQUE AUTO_INCREMENT, 
+    type VARCHAR(20) NOT NULL DEFAULT 'textbook',
     cover TEXT NOT NULL, 
-    title VARCHAR(40) NOT NULL, 
+    title VARCHAR(40) NOT NULL,
+    ibsn INTEGER,
     description VARCHAR(200), 
     upload_date DATETIME NOT NULL,
     viewDate DATETIME NOT NULL,
@@ -36,7 +37,7 @@ CREATE TABLE textbooks (
 CREATE TABLE notes ( 
     id INTEGER NOT NULL UNIQUE AUTO_INCREMENT,
     type VARCHAR(20) NOT NULL DEFAULT 'notes',
-    cover TEXT NULL, 
+    cover TEXT NOT NULL,
     title VARCHAR(40) NOT NULL, 
     description VARCHAR(200) NOT NULL, 
     upload_date DATETIME NOT NULL,

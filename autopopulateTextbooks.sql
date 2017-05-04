@@ -1,6 +1,6 @@
 INSERT INTO `eduexchange`.`textbooks` (`id`, `cover`, `title`, `ibsn`, `description`, `upload_date`, `viewDate`, `uploader_id`, `price`, `class`, `stat`) 
 VALUES (NULL, '/assets/book1.jpg', 'Applied Statistics and Probability for Engineers', '1118539710', 'Textbook for engineering statistics', '2017-01-03 18:12:11', '2017-01-03 18:12:11', 3, 75, 'Math', 1), 
-(NULL, '/assets/book2.jpg', 'Linear Algebra and Its Applications', '0321385179', '4th Edition in okay condition', '2017-01-07 20:17:10', '2017-01-07 20:17:10', 1, 20 'Math', 1), 
+(NULL, '/assets/book2.jpg', 'Linear Algebra and Its Applications', '0321385179', '4th Edition in okay condition', '2017-01-07 20:17:10', '2017-01-07 20:17:10', 1, 20, 'Math', 1), 
 (NULL, '/assets/book3.jpg', 'Principles of Macroeconomics', '0133023672', '11th Edition very used and marked up', '2017-01-13 01:02:03', '2017-01-13 01:02:03', 3, 15, 'Economics', 1),
 (NULL, '/assets/book4.jpg', 'Business Statistics', '013302184X', '9th Edition, practically new', '2017-01-16 05:39:25', '2017-01-16 05:39:25', 7, 50, 'Math', 1),
 (NULL, '/assets/book5.jpg', 'Engineering Mechanics: Statics', '0133009548', 'Includes MasteringEngineering with Pearson eText Access Card Package, 13th Edition', '2017-01-19 07:45:46', '2017-01-19 07:45:46', 15, 30, 'Statics', 1),
