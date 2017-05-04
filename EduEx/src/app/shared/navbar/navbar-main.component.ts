@@ -29,6 +29,7 @@ export class NavbarMainComponent {
     this.textbook = {};
     this.user.username = localStorage.getItem('currentUsername');
     this.user.id = localStorage.getItem('currentUserid');
+    this.user.avatar = localStorage.getItem('currentUseravatar');
     //this.userRepository.getByEmail(JSON.stringify({ username: this._userEntry.username, password: this._userEntry.password })).then(x => { this.user = x; });
   }
 
@@ -36,6 +37,7 @@ export class NavbarMainComponent {
     var onLoad = (data) => {
       this.user.username = localStorage.getItem('currentUsername');
       this.user.id = localStorage.getItem('currentUserid');
+      this.user.avatar = localStorage.getItem('currentUseravatar');
       // this.user.imagePath = localStorage.getItem('currentImagePath');
     };
   }
@@ -90,12 +92,15 @@ export class NavbarMainComponent {
 
   search() {
     // Add get method and send search term or send search term with navigate
-    this.router.navigate(['search']);
+    debugger;
+    if(this._searchTerm !== undefined)
+      this.router.navigate(['search',this._searchTerm]);
+    this.router.navigate(['search', ' ']);
   }
 
   homePage() {
     // Return to main search page
-    this.router.navigate(['']);
+    this.router.navigate(['main']);
   }
 
 

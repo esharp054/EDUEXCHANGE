@@ -74,7 +74,6 @@ export class SearchPageComponent {
 
   public setSuppliesFilter() {
     this.filterInput = 'supplies';
-    debugger;
   }
 
   getUploader(item: Textbook) {

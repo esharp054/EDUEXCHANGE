@@ -61,7 +61,7 @@
             <div class="row">
               <div class="col-xs-6 col-md-3" *ngFor="let item of listings; let i=index">
                 <div class="thumbnail" id="thumbnail" *ngIf="i<4">
-                  <img id="thumbImg" class="img-responsive" [src]="item.imagePath" alt="...">
+                  <img id="thumbImg" class="img-responsive" src="{{ item.cover || 'http://placehold.it/125x150' }}" alt="...">
                   <div class="caption" id="caption">
                     <h3 id="thumbTitle">{{item.title}}</h3>
                     <strong id="priceTag">Price:  </strong>
@@ -81,7 +81,7 @@
                       <modal-body>
                         <div class="media">
                           <span class="media-left" id="imageMedia">
-                            <img class="d-flex mr-3" id="listingImage" src="{{ curListing.cover}}" alt="{{ item.title }}" />
+                            <img class="d-flex mr-3" id="listingImage" src="{{ curListing.cover || 'http://placehold.it/125x150' }}" alt="{{ item.title }}" />
                           </span>
                           <div class="media-body" id="mediaHeader">
                             <strong> Price: </strong> ${{ curListing.price }}

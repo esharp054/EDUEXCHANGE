@@ -44,7 +44,12 @@ export class MainPageComponent{
     if (storageAvailable('localStorage')) {
       localStorage.setItem('searchterm', this._searchTerm);
     }
-    this.router.navigate(['search', this._searchTerm]);
+    debugger;
+    if (this._searchTerm !== undefined)
+      this.router.navigate(['search', this._searchTerm]);
+    else
+      this.router.navigate(['search', ' ']);
+    // this.router.navigate(['search', this._searchTerm]);
   }
 
   moreInfo(item: any) {

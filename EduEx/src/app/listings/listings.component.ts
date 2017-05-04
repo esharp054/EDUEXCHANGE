@@ -14,8 +14,8 @@ import { ModalComponent } from 'ng2-bs3-modal/ng2-bs3-modal';
   encapsulation: ViewEncapsulation.None
 })
 export class ListingsComponent {
-  openListings: any[] = [];
-  closedListings: any[] = [];
+  openListings: any[];
+  closedListings: any[];
   curListing: any = {};
   singleTextbook: any;
   orderInput: string;
@@ -24,6 +24,8 @@ export class ListingsComponent {
 
   constructor(private textbookService: TextbookService) {
     this.userId = localStorage.getItem('currentUserid');
+    this.openListings = [];
+    this.closedListings = [];
     this.textbookService.openListings(this.userId).then(x => this.openListings = x);
     this.textbookService.closedListings(this.userId).then(x => this.closedListings = x);
   }
@@ -74,7 +76,9 @@ export class ListingsComponent {
       this.textbookService.updateSupplies(item).then(x => this.singleTextbook = x);
     }
     this.textbookService.openListings(this.userId).then(x => this.openListings = x);
+    console.log(this.openListings);
     this.textbookService.closedListings(this.userId).then(x => this.closedListings = x);
+    console.log(this.closedListings);
   }
 
   //Modal Stuff

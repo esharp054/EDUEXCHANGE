@@ -1,17 +1,30 @@
 body {
 	/* This image will be displayed fullscreen */
-	background:url('/assets/login_bg.jpeg') no-repeat center center;
+	background:url('/assets/backgrd.jpg') no-repeat center center;
 	min-height:100%;
 	background-size:cover;
-  
+	overflow:auto;
+}
+
+input.form-control.error-class.ng-touched{
+	border:1px solid #a70707;
+	color:#fff;
+	background-color: rgba(206, 137, 137, 0.5);
+}
+
+.alert.alert-danger {
+	background : transparent;
+	border: none;
+	margin-left: -21px;
+	margin-bottom: -10px;
 }
 
 .login-wrap{
-  background-color: rgba(250,250,250, 0.3);
-	width:100%;
-	margin:auto;
-	width:525px;
-	height:625px;
+  background-color: rgba(250,250,250, 0.5);
+  width:100%;
+  margin:auto;
+  width:525px;
+  min-height:625px;
   position: fixed;
   top: 50%;
   left: 50%;
@@ -92,7 +105,7 @@ ul {
 .login-form .form-group .form-control,
 .login-form .form-group .button{
 	width:100%;
-	color:#fff;
+	color:#000;
 	display:block;
 }
 .login-form .form-group .form-control,
@@ -100,7 +113,7 @@ ul {
 	border:none;
 	padding:10px 20px;
 	border-radius:20px;
-	background:rgba(255,255,255,.3);
+	background:rgba(255,255,255,.4);
 }
 
 .login-form .form-group .label{
@@ -110,14 +123,16 @@ ul {
 }
 .login-form .form-group .button{
 	background:#3F3F3F;
+	color: #fff;
 }
+
 .login-form .form-group label .icon{
 	width:15px;
 	height:15px;
 	border-radius:2px;
 	position:relative;
 	display:inline-block;
-	background:rgba(255,255,255,.3);
+	background:rgba(255,255,255,.4);
 }
 .login-form .form-group label .icon:before,
 .login-form .form-group label .icon:after{

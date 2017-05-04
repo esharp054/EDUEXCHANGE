@@ -36,7 +36,7 @@
             <li id="userMenu" class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                 <span>
-                  <img id="user" src="/assets/default_user.png" class="img-responsive">
+                  <img id="user" src="{{ user.avatar || '/assets/default_user.png'}}" class="img-responsive">
                 </span>
                 <span>
                   {{user.username || 'username' }}
@@ -49,8 +49,8 @@
                 <li class="divider"></li>
                 <li><a href="javascript:void(0)" (click)="manageListing()"> Manage Listings <span class="glyphicon glyphicon-pencil pull-right"></span></a></li>
                 <li class="divider"></li>
-                <li><a href="javascript:void(0)">Account Settings <span class="glyphicon glyphicon-cog pull-right"></span></a></li>
-                <li class="divider"></li>
+                <!--<li><a href="javascript:void(0)">Account Settings <span class="glyphicon glyphicon-cog pull-right"></span></a></li>
+                <li class="divider"></li>-->
                 <li><a href="javascript:void(0)" (click)="logout()">Sign Out <span class="glyphicon glyphicon-log-out pull-right"></span></a></li>
               </ul>
             </li>

@@ -20,7 +20,7 @@
         <div class="tab-pane fade in active" id="openListings">
           <div class="media" *ngFor="let textbook of (openListings | sortBy : 'upload_date')" id="mediaWrap">
             <span class="media-left" id="imageMedia">
-              <img class="d-flex mr-3" id="listingImage" src="{{ textbook.cover || '/assets/default_textbook.jpg'}}" alt="{{ textbook.title }}" />
+              <img class="d-flex mr-3" id="listingImage" src="{{ textbook.cover || 'http://placehold.it/125x150'}}" alt="{{ textbook.title }}" />
             </span>
             <div class="media-body" id="mediaHeader">
               <h4 class="media-heading ">
@@ -89,7 +89,7 @@
         <div class="tab-pane fade" id="closedListings">
           <div class="media" *ngFor="let textbook of (closedListings | sortBy : 'upload_date')" id="mediaWrap">
             <span class="media-left" id="imageMedia">
-              <img class="d-flex mr-3" id="listingImage" src="{{ textbook.cover || '/assets/default_textbook.jpg'}}" alt="{{ textbook.title }}" />
+              <img class="d-flex mr-3" id="listingImage" src="{{ textbook.cover || 'http://placehold.it/125x150'}}" alt="{{ textbook.title }}" />
             </span>
             <div class="media-body" id="mediaHeader">
               <h4 class="media-heading ">

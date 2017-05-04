@@ -42,13 +42,13 @@
         <div class="media" *ngFor="let textbook of (textbooks | filterType : ['type', filterInput] | sortBy : orderInput); let i = index"
           id="mediaWrap">
           <span class="media-left" id="imageMedia">
-            <img class="d-flex mr-3" id="listingImage" src="{{ textbook.cover || '/assets/default_textbook.jpg'}}" alt="{{ textbook.title }}" />
+            <img class="d-flex mr-3" id="listingImage" src="{{ textbook.cover || 'http://placehold.it/125x150'}}" alt="{{ textbook.title }}" />
           </span>
           <div class="media-body" id="mediaHeader">
             <h4 class="media-heading ">
               Title: {{ textbook.title }} </h4>
             Price: ${{ textbook.price }} <br> Class: {{ textbook.class }} <br> Upload Date: {{ textbook.upload_date | date}}
-            <a href="#{{ 'textbook_' + i }}" data-toggle="collapse" id="userInfo" aria-expanded="false">
+            <a href="#{{ 'textbook_' + i }}" data-toggle="collapse" id="userInfoSearch" aria-expanded="false">
               <p> View More Information
                 <span id="chevDown" class="glyphicon glyphicon-chevron-down"></span><span id="chevUp" class="glyphicon glyphicon-chevron-up"></span>
               </p>
@@ -67,7 +67,7 @@
                 <modal-body>
                   <div class="media" *ngIf="uploader">
                     <span class="media-left" id="imageMedia">
-                      <img class="d-flex mr-3" id="listingImage" src="{{ uploader.cover || '/assets/default_user.png'}}" alt="{{ uploader.username }}" />
+                      <img class="d-flex mr-3" id="listingImage" src="{{ uploader.avatar || '/assets/default_user.png'}}" alt="{{ uploader.username }}" />
                     </span>
                     <div class="media-body" id="mediaHeader">
                       <!--<h4 class="media-heading ">-->

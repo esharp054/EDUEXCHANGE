@@ -24,12 +24,13 @@ export class NavbarComponent {
   _searchTerm: string;
 
   constructor(private router: Router,
-              private textbookService: TextbookService,
-              private userService: UserRepository) {
+    private textbookService: TextbookService,
+    private userService: UserRepository) {
     this.user = {};
     this.textbook = {};
     this.user.username = localStorage.getItem('currentUsername');
     this.user.id = localStorage.getItem('currentUserid');
+    this.user.avatar = localStorage.getItem('currentUseravatar');
     //this.userRepository.getByEmail(JSON.stringify({ username: this._userEntry.username, password: this._userEntry.password })).then(x => { this.user = x; });
   }
 
@@ -37,7 +38,7 @@ export class NavbarComponent {
     var onLoad = (data) => {
       this.user.username = localStorage.getItem('currentUsername');
       this.user.id = localStorage.getItem('currentUserid');
-      // this.user.imagePath = localStorage.getItem('currentImagePath');
+      this.user.avatar = localStorage.getItem('currentImageavatar');
     };
   }
 
@@ -49,7 +50,7 @@ export class NavbarComponent {
     this.router.navigate(['listings']);
   }
 
-  submitNewTextbook(){
+  submitNewTextbook() {
     // Add post method for new listing
     // debugger;
     this.textbook.uploader_id = this.user.id;
@@ -91,16 +92,20 @@ export class NavbarComponent {
 
   search() {
     // Add get method and send search term or send search term with navigate
-    this.router.navigate(['search', this._searchTerm]);
+    debugger;
+    if (this._searchTerm !== undefined)
+      this.router.navigate(['search', this._searchTerm]);
+    else
+      this.router.navigate(['search', ' ']);
   }
 
   homePage() {
     // Return to main search page
-    this.router.navigate(['']);
+    this.router.navigate(['main']);
   }
 
 
-//Modal Stuff
+  //Modal Stuff
   @ViewChild('navModal')
   modal: ModalComponent;
   items: string[] = ['item1', 'item2', 'item3'];
