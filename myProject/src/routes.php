@@ -11,6 +11,23 @@ $app->get('/logout',function($request,$response){
         }
         
         });
+$app->post('/sendemail',function($request,$response){
+	session_start();
+	if(isset($_SESSION['login']) && $_SESSION['login']=== true){
+	$input = $request->getBody();
+	$input = json_decode($input, true);
+	$to = $input["email"];
+	$subject = "Eduexchange: Someone will contact you soon";
+	$txt = "Hi, ".$input["username"];
+	$txt = $txt.": \n There is someone viewing your posted item: ".$input["title"]." and wish to contact with you. \n\nBest, \nEduexchange team.";
+	$headers = "From:Eduexchange";
+	mail($to,$subject,$txt,$headers,"-feduexchange@smu.edu");
+	return $this->response->withStatus(200); 
+					
+	}else{
+		return $this->response->withStatus(400);
+	}	
+});
 $app->post('/signin',function($request,$response){
 
 		$input = $request->getBody();
@@ -41,13 +58,14 @@ $app->post('/signup',function($request,$response){
 			$input = $request->getBody();
 						//$input = $request->getParsedBody();
 			$input = json_decode($input, true); 
-		    $stmt = $this->db->prepare("INSERT into users(username,pass,email,phone) VALUES (:username, :password,:email,:phone)");
+		    $stmt = $this->db->prepare("INSERT into users(username,pass,email,phone, avatar) VALUES (:username, :password,:email,:phone, :avatar)");
 			$pass = $input["password"];
 			$pass = md5($pass);
 			$stmt->bindValue(':username', $input["username"],PDO::PARAM_STR);
 			$stmt->bindValue(':password', $pass, PDO::PARAM_STR);
 			$stmt->bindValue(':email', $input["email"], PDO::PARAM_STR);
-			$stmt->bindValue(':phone', $input["phone"], PDO::PARAM_INT);
+			$stmt->bindValue(':phone', $input["phone"], PDO::PARAM_STR);
+			$stmt->bindValue(':avatar',$input["avatar"],PDO::PARAM_STR);
 			try{
 				$stmt->execute();
 			}
@@ -55,8 +73,8 @@ $app->post('/signup',function($request,$response){
 					return $this->response->withStatus(400);
 			}
 			$to = $input["email"];
-			$subject = "My subject";
-			$txt = "Hello world!";
+			$subject = "Welcome to Eduexchange";
+			$txt = "Hello ".$input["username"]."!";
 			$headers = "From:Eduexchange";
 			mail($to,$subject,$txt,$headers,"-feduexchange@smu.edu");    
 			return $this->response->withStatus(200);      
@@ -76,6 +94,36 @@ $app->get('/listings/[{id}]',function($request,$response,$arg){
     $listing = $stmt->fetchAll();
     return $this->response->withJson($listing);    
     });
+    
+    
+ $app->get('/openlisting/[{id}]',function($request,$response,$arg){
+	$id= $arg["id"];
+	$stmt= $this->db->prepare( "SELECT * FROM (SELECT id, description, title, uploader_id, price, class, stat, type, cover, upload_date FROM textbooks WHERE uploader_id = :id UNION ALL SELECT id, description, title, uploader_id, price, class, stat, type ,cover, upload_date FROM supplies WHERE uploader_id = :id UNION ALL SELECT id, description, title, uploader_id, price, class, stat, type, cover, upload_date FROM notes WHERE uploader_id = :id) AS searched WHERE stat = 1 ORDER BY price");
+	$stmt->bindValue(':id',$id,PDO::PARAM_STR);
+	 try{
+        	$stmt->execute();
+        }
+        catch(PDOException $e){
+        		return $this->response->withStatus(400);
+        }
+    $listing = $stmt->fetchAll();
+    return $this->response->withJson($listing);    
+    }); 
+      
+ $app->get('/closelisting/[{id}]',function($request,$response,$arg){
+	$id= $arg["id"];
+	$stmt= $this->db->prepare( "SELECT * FROM (SELECT id, description, title, uploader_id, price, class, stat, type, cover, upload_date FROM textbooks WHERE uploader_id = :id UNION ALL SELECT id, description, title, uploader_id, price, class, stat, type ,cover, upload_date FROM supplies WHERE uploader_id = :id UNION ALL SELECT id, description, title, uploader_id, price, class, stat, type, cover, upload_date FROM notes WHERE uploader_id = :id) AS searched WHERE stat = 0 ORDER BY price");
+	$stmt->bindValue(':id',$id,PDO::PARAM_STR);
+	 try{
+        	$stmt->execute();
+        }
+        catch(PDOException $e){
+        		return $this->response->withStatus(400);
+        }
+    $listing = $stmt->fetchAll();
+    return $this->response->withJson($listing);    
+    }); 
+         
 $app->get('/saledtextbooks/[{id}]',function($request,$response,$arg){
 	$id = $arg["id"];
 	$stmt=$this->db->prepare("SELECT * FROM textbooks WHERE uploader_id = :id");
@@ -227,7 +275,8 @@ $app->post('/textbooks/[{id}]',function($request,$response,$arg){
         price = COALESCE(:price, price),
         class = COALESCE(:class,class),
         uploader_id = COALESCE(:uploader_id,uploader_id),
-        cover = COALESCE(:cover,cover)
+        cover = COALESCE(:cover,cover),
+        stat = COALESCE(:stat, stat)
 		WHERE id=:id");
 		$stmt->bindValue(':title', $input["title"],PDO::PARAM_STR);
 		$stmt->bindValue(':description', $input["description"],PDO::PARAM_STR);	
@@ -236,6 +285,7 @@ $app->post('/textbooks/[{id}]',function($request,$response,$arg){
 		$stmt->bindValue(':uploader_id', $input["uploader_id"],PDO::PARAM_STR);
 		$stmt->bindValue(':cover',$input["cover"],PDO::PARAM_STR);
 		$stmt->bindValue(':id',$id,PDO::PARAM_STR);
+		$stmt->bindValue(':stat',$input["stat"],PDO::PARAM_STR);
 		try{
         		$stmt->execute();
         	}
@@ -303,7 +353,7 @@ $app->post('/notes',function($request,$response){
     if(isset($_SESSION['login']) && $_SESSION['login']===true){
     	$input = $request->getBody();
 		$input = json_decode($input,true);
-		$stmt = $this->db->prepare("INSERT into supplies(title, description,price,class,uploader_id,stat,cover) VALUES (:title,:description,:price,:class,:uploader_id,:stat,:cover)");
+		$stmt = $this->db->prepare("INSERT into notes(title, description,price,class,uploader_id,stat,cover) VALUES (:title,:description,:price,:class,:uploader_id,:stat,:cover)");
 		$stmt->bindValue(':title', $input["title"],PDO::PARAM_STR);
 		$stmt->bindValue(':description', $input["description"],PDO::PARAM_STR);	
 		$stmt->bindValue(':price', $input["price"],PDO::PARAM_STR);
@@ -337,7 +387,8 @@ $app->post('/notes/[{id}]',function($request,$response,$arg){
         price = COALESCE(:price, price),
         class = COALESCE(:class,class),
         uploader_id = COALESCE(:uploader_id,uploader_id),
-        cover = COALESCE(:cover,cover)
+        cover = COALESCE(:cover,cover),
+        stat = COALESCE(:stat,stat)
 		WHERE id=:id");
 		$stmt->bindValue(':title', $input["title"],PDO::PARAM_STR);
 		$stmt->bindValue(':description', $input["description"],PDO::PARAM_STR);	
@@ -346,6 +397,7 @@ $app->post('/notes/[{id}]',function($request,$response,$arg){
 		$stmt->bindValue(':uploader_id', $input["uploader_id"],PDO::PARAM_STR);
 		$stmt->bindValue(':cover',$input["cover"],PDO::PARAM_STR);
 		$stmt->bindValue(':id',$id,PDO::PARAM_STR);
+		$stmt->bindValue(':stat',$input["stat"],PDO::PARAM_STR);
 		try{
         	$stmt->execute();
         }
@@ -461,7 +513,8 @@ $app->post('/supplies/[{id}]',function($request,$response,$arg){
         price = COALESCE(:price, price),
         class = COALESCE(:class,class),
         uploader_id = COALESCE(:uploader_id,uploader_id),
-        cover = COALESCE(:cover,cover)
+        cover = COALESCE(:cover,cover),
+        stat = COALESCE(:stat,stat)
 		WHERE id=:id");
 		$stmt->bindValue(':title', $input["title"],PDO::PARAM_STR);
 		$stmt->bindValue(':description', $input["description"],PDO::PARAM_STR);	
@@ -470,7 +523,8 @@ $app->post('/supplies/[{id}]',function($request,$response,$arg){
 		$stmt->bindValue(':uploader_id', $input["uploader_id"],PDO::PARAM_STR);
 		$stmt->bindValue(':cover',$input["cover"],PDO::PARAM_STR);
 		$stmt->bindValue(':id',$id,PDO::PARAM_STR);
-		try{
+		$stmt->bindValue(':stat',$input["stat"],PDO::PARAM_STR);
+			try{
         	$stmt->execute();
         }
         catch(PDOException $e){
@@ -508,7 +562,7 @@ $app->delete('/supplies/[{id}]',function($request,$response,$arg){
 
 $app->get('/recent',function($request,$response){
 	
-	$stmt = $this->db->prepare("SELECT * FROM ( SELECT * FROM (SELECT id, description, title, uploader_id, price, class, stat, type, cover, upload_date FROM textbooks ORDER BY upload_date LIMIT 10) AS selected1 UNION ALL SELECT * FROM (SELECT id, description, title, uploader_id, price, class, stat, type, cover, upload_date FROM notes ORDER BY upload_date LIMIT 10) AS selected2 UNION ALL SELECT * FROM (SELECT id, description, title, uploader_id, price, class, stat, type, cover, upload_date FROM supplies ORDER BY upload_date LIMIT 10) AS selected3) AS selected4 ORDER BY upload_date DESC LIMIT 10 ");
+	$stmt = $this->db->prepare("SELECT * FROM ( SELECT * FROM (SELECT id, description, title, uploader_id, price, class, stat, type, cover, upload_date FROM textbooks ORDER BY upload_date DESC LIMIT 10) AS selected1 UNION ALL SELECT * FROM (SELECT id, description, title, uploader_id, price, class, stat, type, cover, upload_date FROM notes ORDER BY upload_date DESC LIMIT 10) AS selected2 UNION ALL SELECT * FROM (SELECT id, description, title, uploader_id, price, class, stat, type, cover, upload_date FROM supplies ORDER BY upload_date DESC LIMIT 10) AS selected3) AS selected4 WHERE stat = 1 ORDER BY upload_date DESC LIMIT 10 ");
 	try{
         	$stmt->execute();
         }
@@ -522,7 +576,7 @@ $app->get('/recent',function($request,$response){
 
 $app->get('/search/[{query}]',function($request,$response,$arg){
 	$query = $arg["query"];
-	$stmt = $this->db->prepare(" SELECT * FROM (SELECT id, description, title, uploader_id, price, class, stat, type, cover,upload_date FROM textbooks WHERE title LIKE :query OR description LIKE :query OR class LIKE :query UNION ALL SELECT id, description, title, uploader_id, price, class, stat, type ,cover, upload_date FROM supplies WHERE title like :query OR description LIKE :query or class like :query UNION ALL SELECT id, description, title, uploader_id, price, class, stat, type, cover, upload_date FROM notes WHERE title like :query OR description LIKE :query or class like :query) AS searched ORDER BY price");
+	$stmt = $this->db->prepare(" SELECT * FROM (SELECT id, description, title, uploader_id, price, class, stat, type, cover,upload_date FROM textbooks WHERE title LIKE :query OR description LIKE :query OR class LIKE :query UNION ALL SELECT id, description, title, uploader_id, price, class, stat, type ,cover, upload_date FROM supplies WHERE title like :query OR description LIKE :query or class like :query UNION ALL SELECT id, description, title, uploader_id, price, class, stat, type, cover, upload_date FROM notes WHERE title like :query OR description LIKE :query or class like :query) AS searched WHERE stat = 1 ORDER BY price");
 	$stmt->bindValue(':query',"%".$query."%",PDO::PARAM_STR);
 	try{
         	$stmt->execute();
