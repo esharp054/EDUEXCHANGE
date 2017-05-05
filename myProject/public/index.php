@@ -1,5 +1,10 @@
 <?php
-header('Access-Control-Allow-Origin: http://ec2-34-210-100-37.us-west-2.compute.amazonaws.com');
+$http_origin = $_SERVER['HTTP_ORIGIN'];
+
+if ($http_origin == "http://ec2-34-210-100-37.us-west-2.compute.amazonaws.com" || $http_origin == "http://localhost:4200")
+{  
+    header("Access-Control-Allow-Origin: $http_origin");
+}
 header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS');
 header('Access-Control-Allow-Headers: Origin, Content-Type, X-Auth-Token');
 header('Access-Control-Allow-Credentials: true');
